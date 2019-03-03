@@ -4,7 +4,7 @@ import java.util.Locale;
 
 import org.springframework.context.ApplicationEvent;
 
-import com.starfire.familytree.entity.User;
+import com.starfire.familytree.usercenter.entity.User;
 
 public class OnRegistrationCompleteEvent extends ApplicationEvent {
     /**

@@ -9,9 +9,9 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
-import com.starfire.familytree.entity.User;
 import com.starfire.familytree.service.IVerificationTokenService;
 import com.starfire.familytree.service.OnRegistrationCompleteEvent;
+import com.starfire.familytree.usercenter.entity.User;
 
 @Component
 public class RegistrationListener implements

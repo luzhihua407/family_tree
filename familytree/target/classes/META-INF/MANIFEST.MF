@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: familytree
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: luzh
+Implementation-Vendor-Id: com.starfire
+Build-Jdk: 1.8.0_162
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/familytree
+Created-By: Maven Integration for Eclipse
+

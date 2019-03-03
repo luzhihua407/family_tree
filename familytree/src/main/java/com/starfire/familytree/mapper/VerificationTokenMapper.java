@@ -1,8 +1,8 @@
 package com.starfire.familytree.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.starfire.familytree.entity.User;
 import com.starfire.familytree.entity.VerificationToken;
+import com.starfire.familytree.usercenter.entity.User;
 
 /**
  * <p>

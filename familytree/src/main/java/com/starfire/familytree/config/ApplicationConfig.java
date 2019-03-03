@@ -10,7 +10,7 @@ import org.springframework.core.task.SimpleAsyncTaskExecutor;
 
 @SpringBootConfiguration
 @EnableAutoConfiguration
-@MapperScan("com.starfire.familytree.mapper")
+@MapperScan({"com.starfire.familytree.*.mapper","com.starfire.familytree.mapper"})
 public class ApplicationConfig {
 
 	  @Bean(name = "applicationEventMulticaster")

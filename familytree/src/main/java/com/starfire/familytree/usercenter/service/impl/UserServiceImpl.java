@@ -1,25 +1,33 @@
-package com.starfire.familytree.service.impl;
+package com.starfire.familytree.usercenter.service.impl;
+
+import com.starfire.familytree.usercenter.entity.User;
+import com.starfire.familytree.usercenter.mapper.UserMapper;
+import com.starfire.familytree.usercenter.service.IUserService;
+import com.starfire.familytree.validation.EmailExistsException;
+import com.starfire.familytree.vo.UserVO;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.starfire.familytree.entity.User;
-import com.starfire.familytree.mapper.UserMapper;
-import com.starfire.familytree.service.IUserService;
-import com.starfire.familytree.validation.EmailExistsException;
-
+/**
+ * <p>
+ *  服务实现类
+ * </p>
+ *
+ * @author luzh
+ * @since 2019-03-03
+ */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
-
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
@@ -49,11 +57,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+	public UserVO loadUserByUsername(String userName) throws UsernameNotFoundException {
 		User user=baseMapper.getUserByUserName(userName);
-		 List<GrantedAuthority> authorities=new ArrayList<GrantedAuthority>();
-		org.springframework.security.core.userdetails.User u=new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(),authorities);
-		return u;
+		List<GrantedAuthority> authorities=new ArrayList<GrantedAuthority>();
+		UserVO userVO= new UserVO(user.getUsername(), user.getPassword(), authorities);
+		BeanUtils.copyProperties(user, userVO);
+		return userVO;
 	}
-
 }
