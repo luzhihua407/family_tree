@@ -12,6 +12,7 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers("/usercenter/user/registration");
+		web.ignoring().antMatchers("/**");
 	}
 
 }

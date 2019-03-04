@@ -72,7 +72,8 @@ public class UserController {
 			String jsonString = Jackson2ObjectMapperBuilder.json().build().writeValueAsString(fieldErrors);
 			return Response.failure(100, jsonString);
 		}
-		return Response.success("注册成功");
+		Response<Boolean> response = new Response<Boolean>();
+		return response.success(null);
 	}
 
 	private User createUserAccount(User user, BindingResult result) {

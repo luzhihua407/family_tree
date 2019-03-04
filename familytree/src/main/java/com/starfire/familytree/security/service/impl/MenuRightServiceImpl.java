@@ -1,10 +1,16 @@
 package com.starfire.familytree.security.service.impl;
 
+import java.util.Map;
+
+import org.springframework.stereotype.Service;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.starfire.familytree.security.entity.MenuRight;
 import com.starfire.familytree.security.mapper.MenuRightMapper;
 import com.starfire.familytree.security.service.IMenuRightService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.stereotype.Service;
+import com.starfire.familytree.vo.PageInfo;
 
 /**
  * <p>
@@ -16,5 +22,12 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class MenuRightServiceImpl extends ServiceImpl<MenuRightMapper, MenuRight> implements IMenuRightService {
-
+	@Override
+	public PageInfo<Map<String, Object>, MenuRight> page(PageInfo<Map<String, Object>, MenuRight> pageInfo) {
+		QueryWrapper<MenuRight> qw=new QueryWrapper<MenuRight>();
+		Page<MenuRight> page=pageInfo.toMybatisPlusPage();
+		Page<MenuRight> selectPage = (Page<MenuRight>) baseMapper.selectPage(page, qw);
+		pageInfo.from(selectPage);
+		return pageInfo;
+	}
 }
