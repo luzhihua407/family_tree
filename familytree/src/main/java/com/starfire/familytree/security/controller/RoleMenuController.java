@@ -1,9 +1,18 @@
 package com.starfire.familytree.security.controller;
 
 
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import com.starfire.familytree.response.Response;
+import com.starfire.familytree.security.entity.RoleMenu;
+import com.starfire.familytree.security.service.IRoleMenuService;
 
 /**
  * <p>
@@ -15,6 +24,55 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/security/role-menu")
-public class RoleMenuController {
+public class RoleRoleMenuController {
+	@Autowired
+	private IRoleMenuService roleMenuService;
 
+	/**
+	 * 新增或修改
+	 *
+	 * @param roleMenu
+	 * @return
+	 * @author luzh
+	 */
+	@RequestMapping("/addOrUpdate")
+	public Response<RoleMenu> addOrUpdateRoleMenu(@RequestBody RoleMenu roleMenu) {
+		roleMenuService.save(roleMenu);
+		Response<RoleMenu> response = new Response<RoleMenu>();
+		return response.success(roleMenu);
+
+	}
+
+	/**
+	 * 删除
+	 *
+	 * @param id
+	 * @return
+	 * @author luzh
+	 */
+	@GetMapping("/delete")
+	public Response<String> deleteRoleMenu(Long id) {
+		boolean flag = roleMenuService.removeById(id);
+		Response<String> response = new Response<String>();
+		if (!flag) {
+			return response.failure();
+		}
+		return response.success();
+
+	}
+
+	/**
+	 * 分页
+	 *
+	 * @param page
+	 * @return
+	 * @author luzh
+	 */
+	@RequestMapping("/page")
+	public Response<PageInfo<Map<String, Object>, RoleMenu>> page(@RequestBody PageInfo<Map<String, Object>, RoleMenu> page) {
+		PageInfo<Map<String, Object>, RoleMenu> pageInfo = roleMenuService.page(page);
+		Response<PageInfo<Map<String, Object>, RoleMenu>> response = new Response<PageInfo<Map<String, Object>, RoleMenu>>();
+		return response.success(pageInfo);
+
+	}
 }

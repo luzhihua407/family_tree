@@ -1,6 +1,10 @@
 package com.starfire.familytree.security.service;
 
 import com.starfire.familytree.security.entity.UserRole;
+import com.starfire.familytree.security.entity.UserRole;
+
+import java.util.Map;
+
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -12,5 +16,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2019-03-03
  */
 public interface IUserRoleService extends IService<UserRole> {
-
+	public PageInfo<Map<String, Object>, UserRole> page(PageInfo<Map<String, Object>, UserRole> pageInfo);
 }
