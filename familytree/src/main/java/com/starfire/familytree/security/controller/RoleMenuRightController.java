@@ -7,12 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RestController;
 
 import com.starfire.familytree.response.Response;
 import com.starfire.familytree.security.entity.RoleMenuRight;
 import com.starfire.familytree.security.service.IRoleMenuRightService;
+import com.starfire.familytree.vo.PageInfo;
 
 /**
  * <p>
@@ -24,7 +24,7 @@ import com.starfire.familytree.security.service.IRoleMenuRightService;
  */
 @RestController
 @RequestMapping("/security/role-menu-right")
-public class RoleRoleMenuRightRightController {
+public class RoleMenuRightController {
 	@Autowired
 	private IRoleMenuRightService roleMenuRightRightService;
 
