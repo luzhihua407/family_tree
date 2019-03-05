@@ -1,5 +1,7 @@
 package com.starfire.familytree.mapper;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.starfire.familytree.entity.VerificationToken;
 import com.starfire.familytree.usercenter.entity.User;
@@ -14,7 +16,7 @@ import com.starfire.familytree.usercenter.entity.User;
  */
 public interface VerificationTokenMapper extends BaseMapper<VerificationToken> {
 
-	   VerificationToken findByToken(String token);
+	   VerificationToken findByToken(@Param("token")String token);
 	   
 	    VerificationToken findByUser(User user);
 }

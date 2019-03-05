@@ -65,4 +65,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 		BeanUtils.copyProperties(user, userVO);
 		return userVO;
 	}
+
+	@Override
+	public Boolean activeUser(Long userId) {
+		User user = baseMapper.selectById(userId);
+		user.setValid(true);
+		int flag = baseMapper.updateById(user);
+		return flag>0?true:false;
+	}
 }

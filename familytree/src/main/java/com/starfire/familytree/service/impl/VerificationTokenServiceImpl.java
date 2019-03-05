@@ -29,7 +29,7 @@ public class VerificationTokenServiceImpl extends ServiceImpl<VerificationTokenM
 	}
 
 	@Override
-	public VerificationToken getVerificationToken(String VerificationToken) {
-		return tokenRepository.findByToken(VerificationToken);
+	public VerificationToken getVerificationToken(String token) {
+		return tokenRepository.findByToken(token);
 	}
 }

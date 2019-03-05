@@ -16,4 +16,6 @@ public interface IUserService  extends UserDetailsService {
 	public User findUserByEmail(String email);
 
 	public User registerNewUserAccount(User user);
+	
+	public Boolean activeUser(Long userId);
 }

@@ -21,8 +21,6 @@ public class RegistrationListener implements
     @Autowired
     private IVerificationTokenService service;
   
-    @Autowired
-    private MessageSource messages;
   
     @Autowired
     private JavaMailSender mailSender;
@@ -45,14 +43,14 @@ public class RegistrationListener implements
         String recipientAddress = user.getEmail();
         String subject = "注册确认";
         String confirmationUrl 
-          = event.getAppUrl() + "/regitrationConfirm.html?token=" + token;
+          = event.getAppUrl() + "/usercenter/user/regitrationConfirm?token=" + token+" ";
         String message ="test";
          
         SimpleMailMessage email = new SimpleMailMessage();
         email.setFrom(systemEmail);
         email.setTo(recipientAddress);
         email.setSubject(subject);
-        email.setText(String.format(template, message," rn" + "http://localhost:8080"+confirmationUrl));
+        email.setText(String.format(template, message,confirmationUrl));
         mailSender.send(email);
     }
 }

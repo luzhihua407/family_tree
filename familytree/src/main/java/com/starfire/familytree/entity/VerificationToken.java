@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -20,6 +22,7 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
+@TableName("verification_token")
 public class VerificationToken implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,6 +46,10 @@ public class VerificationToken implements Serializable {
 		super();
 		this.token = token;
 		this.userId = userId;
+	}
+
+	public VerificationToken() {
+		super();
 	}
 
 }
