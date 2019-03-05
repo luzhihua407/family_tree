@@ -44,6 +44,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 			throw new EmailExistsException("已存在该用户:" + user.getUsername());
 		}
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		user.setValid(false);//default set false,need user to active
 		super.save(user);
 		return user;
 	}

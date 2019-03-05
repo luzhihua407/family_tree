@@ -1,12 +1,15 @@
 package com.starfire.familytree.usercenter.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDateTime;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.starfire.familytree.security.entity.AbstractEntity;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -23,47 +26,38 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("sys_user")
-public class User implements Serializable {
+public class User extends AbstractEntity {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private Long id;
-    
-    private LocalDateTime createTime;
+	@NotEmpty(message = "邮箱不能为空")
+	@Email
+	private String email;
 
-    private String creater;
+	private Boolean firstLogin = false;
 
-    private LocalDateTime updateTime;
+	private LocalDateTime lastLoginTime;
 
-    private String updater;
+	private String mobile;
 
-    private Boolean valid;
+	@NotEmpty(message = "用户名不能为空")
+	@Size(min = 2, max = 32, message = "用户名长度为2-32个字符") 
+	private String username;
 
-    private String email;
+	@NotEmpty(message = "密码不能为空")
+	@Size(min = 6, max = 32, message = "密码长度为6-32个字符") 
+	private String password;
 
-    private Boolean firstLogin=false;
+	private String realName;
 
-    private LocalDateTime lastLoginTime;
+	private LocalDateTime registerTime=LocalDateTime.now() ;
 
-    private String mobile;
+	private Integer type;
+
+	private Integer age;
 
 	@NotNull
-	@NotEmpty
-    private String username;
-
-    private String password;
-
-    private String realName;
-
-    private LocalDateTime registerTime;
-
-    private Integer type;
-
-    private Integer age;
-
-    private Integer gender;
-
-    private Boolean enabled;
+	private Integer gender;
 
 
 }

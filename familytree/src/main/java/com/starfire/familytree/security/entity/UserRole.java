@@ -1,7 +1,7 @@
 package com.starfire.familytree.security.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -18,10 +18,11 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("security_user_role")
-public class UserRole implements Serializable {
+public class UserRole extends AbstractEntity{
 
     private static final long serialVersionUID = 1L;
 
+    
     private Long user;
 
     private Long role;

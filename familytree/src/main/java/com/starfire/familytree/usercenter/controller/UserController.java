@@ -1,6 +1,5 @@
 package com.starfire.familytree.usercenter.controller;
 
-
 import java.security.Principal;
 import java.util.List;
 
@@ -24,11 +23,13 @@ import com.starfire.familytree.response.Response;
 import com.starfire.familytree.service.OnRegistrationCompleteEvent;
 import com.starfire.familytree.usercenter.entity.User;
 import com.starfire.familytree.usercenter.service.IUserService;
+import com.starfire.familytree.utils.FieldErrorUtils;
+import com.starfire.familytree.utils.JacksonUtils;
 import com.starfire.familytree.vo.UserVO;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author luzh
@@ -42,16 +43,19 @@ public class UserController {
 
 	@Autowired
 	ApplicationEventPublisher eventPublisher;
-	
-	@RequestMapping({"/current" })
+
+	@RequestMapping("/current")
 	public UserVO user(Principal principal) {
-		OAuth2Authentication auth=(OAuth2Authentication)principal;
-		UserVO userVO =(UserVO) auth.getPrincipal();
+		OAuth2Authentication auth = (OAuth2Authentication) principal;
+		UserVO userVO = (UserVO) auth.getPrincipal();
 		return userVO;
 	}
 
-	
-
+	@RequestMapping("/regitrationConfirm")
+	public Response<String> regitrationConfirm(String token) {
+		Response<String> response = new Response<String>();
+		return response.success(null);
+	}
 
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
 	public Response registerUserAccount(@ModelAttribute("user") @Valid User user, BindingResult result,
@@ -61,16 +65,15 @@ public class UserController {
 			registered = createUserAccount(user, result);
 			if (registered == null) {
 				result.rejectValue("email", "message.regError");
-			}else {
-				
+			} else {
+
 			}
 			String appUrl = request.getContextPath();
-			eventPublisher.publishEvent(new OnRegistrationCompleteEvent
-					(registered, request.getLocale(), appUrl));
-		}else {
+			eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, request.getLocale(), appUrl));
+		} else {
 			List<FieldError> fieldErrors = result.getFieldErrors();
-			String jsonString = Jackson2ObjectMapperBuilder.json().build().writeValueAsString(fieldErrors);
-			return Response.failure(100, jsonString);
+			String error = FieldErrorUtils.toString(fieldErrors);
+			return Response.failure(100, error);
 		}
 		Response<Boolean> response = new Response<Boolean>();
 		return response.success(null);
@@ -82,4 +85,3 @@ public class UserController {
 		return registered;
 	}
 }
-

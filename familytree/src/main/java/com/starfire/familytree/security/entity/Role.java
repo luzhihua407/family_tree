@@ -1,8 +1,7 @@
 package com.starfire.familytree.security.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.time.LocalDateTime;
-import java.io.Serializable;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -19,21 +18,10 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("security_role")
-public class Role implements Serializable {
+public class Role extends AbstractEntity{
 
     private static final long serialVersionUID = 1L;
 
-    private Long id;
-    
-    private LocalDateTime createTime;
-
-    private String creater;
-
-    private LocalDateTime updateTime;
-
-    private String updater;
-
-    private Boolean valid;
 
     private Boolean admin;
 

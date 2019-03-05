@@ -3,6 +3,7 @@ package com.starfire.familytree.service.impl;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.MessageSource;
 import org.springframework.mail.SimpleMailMessage;
@@ -26,6 +27,12 @@ public class RegistrationListener implements
     @Autowired
     private JavaMailSender mailSender;
  
+    @Value("${email.confirm.template}")
+    private String template;
+    
+    @Value("${email.system}")
+    private String systemEmail;
+    
     @Override
     public void onApplicationEvent(OnRegistrationCompleteEvent event) {
         this.confirmRegistration(event);
@@ -36,16 +43,16 @@ public class RegistrationListener implements
         String token = UUID.randomUUID().toString();
         service.createVerificationToken(user.getId(), token);
         String recipientAddress = user.getEmail();
-        String subject = "Registration Confirmation";
+        String subject = "注册确认";
         String confirmationUrl 
           = event.getAppUrl() + "/regitrationConfirm.html?token=" + token;
         String message ="test";
          
         SimpleMailMessage email = new SimpleMailMessage();
-        email.setFrom("670177230@qq.com");
+        email.setFrom(systemEmail);
         email.setTo(recipientAddress);
         email.setSubject(subject);
-        email.setText(message + " rn" + "http://localhost:8080" + confirmationUrl);
+        email.setText(String.format(template, message," rn" + "http://localhost:8080"+confirmationUrl));
         mailSender.send(email);
     }
 }

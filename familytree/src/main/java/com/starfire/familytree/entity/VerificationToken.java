@@ -1,10 +1,9 @@
 package com.starfire.familytree.entity;
 
-import java.time.LocalDateTime;
-import java.util.Calendar;
-import java.util.Date;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
