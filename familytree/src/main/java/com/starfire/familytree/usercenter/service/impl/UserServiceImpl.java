@@ -1,14 +1,8 @@
 package com.starfire.familytree.usercenter.service.impl;
 
-import com.starfire.familytree.usercenter.entity.User;
-import com.starfire.familytree.usercenter.mapper.UserMapper;
-import com.starfire.familytree.usercenter.service.IUserService;
-import com.starfire.familytree.validation.EmailExistsException;
-import com.starfire.familytree.vo.UserVO;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +12,19 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.starfire.familytree.usercenter.entity.User;
+import com.starfire.familytree.usercenter.mapper.UserMapper;
+import com.starfire.familytree.usercenter.service.IUserService;
+import com.starfire.familytree.validation.EmailExistsException;
+import com.starfire.familytree.vo.PageInfo;
+import com.starfire.familytree.vo.UserVO;
+
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author luzh
@@ -30,7 +34,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+
 	@Override
 	public User findUserByEmail(String email) {
 		return null;
@@ -44,13 +48,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 			throw new EmailExistsException("已存在该用户:" + user.getUsername());
 		}
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		user.setValid(false);//default set false,need user to active
+		user.setValid(false);// default set false,need user to active
 		super.save(user);
 		return user;
 	}
 
 	private boolean existsUsername(String username) {
-		User user=baseMapper.getUserByUserName(username);
+		User user = baseMapper.getUserByUserName(username);
 		if (user != null) {
 			return true;
 		}
@@ -59,9 +63,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
 	@Override
 	public UserVO loadUserByUsername(String userName) throws UsernameNotFoundException {
-		User user=baseMapper.getUserByUserName(userName);
-		List<GrantedAuthority> authorities=new ArrayList<GrantedAuthority>();
-		UserVO userVO= new UserVO(user.getUsername(), user.getPassword(), authorities);
+		User user = baseMapper.getUserByUserName(userName);
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		UserVO userVO = new UserVO(user.getUsername(), user.getPassword(), authorities);
 		BeanUtils.copyProperties(user, userVO);
 		return userVO;
 	}
@@ -71,6 +75,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 		User user = baseMapper.selectById(userId);
 		user.setValid(true);
 		int flag = baseMapper.updateById(user);
-		return flag>0?true:false;
+		return flag > 0 ? true : false;
+	}
+
+	@Override
+	public PageInfo<Map<String, Object>, User> page(PageInfo<Map<String, Object>, User> pageInfo) {
+		QueryWrapper<User> qw = new QueryWrapper<User>();
+		Page<User> page = pageInfo.toMybatisPlusPage();
+		Page<User> selectPage = (Page<User>) baseMapper.selectPage(page, qw);
+		pageInfo.from(selectPage);
+		return pageInfo;
 	}
 }

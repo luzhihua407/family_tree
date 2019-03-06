@@ -38,7 +38,7 @@ public class MenuRightController {
 	 */
 	@RequestMapping("/addOrUpdate")
 	public Response<MenuRight> addOrUpdateMenuRight(@RequestBody MenuRight menuRight) {
-		menuRightService.save(menuRight);
+		menuRightService.saveOrUpdate(menuRight);
 		Response<MenuRight> response = new Response<MenuRight>();
 		return response.success(menuRight);
 

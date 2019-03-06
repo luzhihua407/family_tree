@@ -15,5 +15,7 @@ import com.starfire.familytree.vo.PageInfo;
  * @since 2019-03-03
  */
 public interface IRoleMenuRightService extends IService<RoleMenuRight> {
+	
 	public PageInfo<Map<String, Object>, RoleMenuRight> page(PageInfo<Map<String, Object>, RoleMenuRight> pageInfo);
+	
 }
