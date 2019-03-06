@@ -37,7 +37,7 @@ public class RoleMenuController {
 	 */
 	@RequestMapping("/addOrUpdate")
 	public Response<RoleMenu> addOrUpdateRoleMenu(@RequestBody RoleMenu roleMenu) {
-		roleMenuService.save(roleMenu);
+		roleMenuService.saveOrUpdate(roleMenu);
 		Response<RoleMenu> response = new Response<RoleMenu>();
 		return response.success(roleMenu);
 

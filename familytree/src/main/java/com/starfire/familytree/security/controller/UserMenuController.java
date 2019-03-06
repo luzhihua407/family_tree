@@ -37,7 +37,7 @@ public class UserMenuController {
 	 */
 	@RequestMapping("/addOrUpdate")
 	public Response<UserMenu> addOrUpdateUserMenu(@RequestBody UserMenu userMenu) {
-		userMenuService.save(userMenu);
+		userMenuService.saveOrUpdate(userMenu);
 		Response<UserMenu> response = new Response<UserMenu>();
 		return response.success(userMenu);
 

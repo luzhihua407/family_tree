@@ -1,5 +1,7 @@
-package com.starfire.familytree.security.controller;
+package com.starfire.familytree.basic.controller;
 
+
+import java.security.Principal;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,38 +10,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.starfire.familytree.basic.entity.Dict;
+import com.starfire.familytree.basic.service.IDictService;
 import com.starfire.familytree.response.Response;
-import com.starfire.familytree.security.entity.Role;
-import com.starfire.familytree.security.service.IRoleService;
 import com.starfire.familytree.vo.PageInfo;
 
 /**
  * <p>
- * 角色操作控制器
+ *  前端控制器
  * </p>
  *
  * @author luzh
- * @since 2019-03-03
+ * @since 2019-03-06
  */
 @RestController
-@RequestMapping("/security/role")
-public class RoleController {
+@RequestMapping("/basic/dict")
+public class DictController {
 
 	@Autowired
-	private IRoleService roleService;
-
+	private IDictService dictService;
+	
 	/**
 	 * 新增或修改
 	 *
-	 * @param role
+	 * @param dict
 	 * @return
 	 * @author luzh
 	 */
 	@RequestMapping("/addOrUpdate")
-	public Response<Role> addOrUpdateRole(@RequestBody Role role) {
-		roleService.saveOrUpdate(role);
-		Response<Role> response = new Response<Role>();
-		return response.success(role);
+	public Response<Dict> addOrUpdateDict(@RequestBody Dict dict,Principal principal) {
+		dictService.saveOrUpdate(dict);
+		Response<Dict> response = new Response<Dict>();
+		return response.success(dict);
 
 	}
 
@@ -51,8 +53,8 @@ public class RoleController {
 	 * @author luzh
 	 */
 	@GetMapping("/delete")
-	public Response<String> deleteRole(Long id) {
-		boolean flag = roleService.removeById(id);
+	public Response<String> deleteDict(Long id) {
+		boolean flag = dictService.removeById(id);
 		Response<String> response = new Response<String>();
 		if (!flag) {
 			return response.failure();
@@ -69,9 +71,9 @@ public class RoleController {
 	 * @author luzh
 	 */
 	@RequestMapping("/page")
-	public Response<PageInfo<Map<String, Object>, Role>> page(@RequestBody PageInfo<Map<String, Object>, Role> page) {
-		PageInfo<Map<String, Object>, Role> pageInfo = roleService.page(page);
-		Response<PageInfo<Map<String, Object>, Role>> response = new Response<PageInfo<Map<String, Object>, Role>>();
+	public Response<PageInfo<Map<String, Object>, Dict>> page(@RequestBody PageInfo<Map<String, Object>, Dict> page) {
+		PageInfo<Map<String, Object>, Dict> pageInfo = dictService.page(page);
+		Response<PageInfo<Map<String, Object>, Dict>> response = new Response<PageInfo<Map<String, Object>, Dict>>();
 		return response.success(pageInfo);
 
 	}

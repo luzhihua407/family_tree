@@ -37,7 +37,7 @@ public class UserRoleController {
 	 */
 	@RequestMapping("/addOrUpdate")
 	public Response<UserRole> addOrUpdateUserRole(@RequestBody UserRole userRole) {
-		userRoleService.save(userRole);
+		userRoleService.saveOrUpdate(userRole);
 		Response<UserRole> response = new Response<UserRole>();
 		return response.success(userRole);
 
