@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50629
 File Encoding         : 65001
 
-Date: 2019-03-06 15:19:25
+Date: 2019-03-06 18:12:20
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -341,6 +341,44 @@ CREATE TABLE `security_user_role` (
 `role`  bigint(20) NOT NULL ,
 FOREIGN KEY (`role`) REFERENCES `security_role` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
 INDEX `FKbpyc3re68tllbhpfkwv3mp1ss` (`role`) USING BTREE 
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+
+;
+
+-- ----------------------------
+-- Table structure for `spring_session`
+-- ----------------------------
+DROP TABLE IF EXISTS `spring_session`;
+CREATE TABLE `spring_session` (
+`PRIMARY_ID`  char(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+`SESSION_ID`  char(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+`CREATION_TIME`  bigint(20) NOT NULL ,
+`LAST_ACCESS_TIME`  bigint(20) NOT NULL ,
+`MAX_INACTIVE_INTERVAL`  int(11) NOT NULL ,
+`EXPIRY_TIME`  bigint(20) NOT NULL ,
+`PRINCIPAL_NAME`  varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+PRIMARY KEY (`PRIMARY_ID`),
+UNIQUE INDEX `SPRING_SESSION_IX1` (`SESSION_ID`) USING BTREE ,
+INDEX `SPRING_SESSION_IX2` (`EXPIRY_TIME`) USING BTREE ,
+INDEX `SPRING_SESSION_IX3` (`PRINCIPAL_NAME`) USING BTREE 
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+
+;
+
+-- ----------------------------
+-- Table structure for `spring_session_attributes`
+-- ----------------------------
+DROP TABLE IF EXISTS `spring_session_attributes`;
+CREATE TABLE `spring_session_attributes` (
+`SESSION_PRIMARY_ID`  char(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+`ATTRIBUTE_NAME`  varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+`ATTRIBUTE_BYTES`  blob NOT NULL ,
+PRIMARY KEY (`SESSION_PRIMARY_ID`, `ATTRIBUTE_NAME`),
+FOREIGN KEY (`SESSION_PRIMARY_ID`) REFERENCES `spring_session` (`PRIMARY_ID`) ON DELETE CASCADE ON UPDATE RESTRICT
 )
 ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci

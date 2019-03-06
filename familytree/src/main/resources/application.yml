@@ -27,6 +27,11 @@ spring:
       enabled: false
     restart:
       enabled: false  
+  session:
+    timeout: 3600
+    jdbc:
+      schema: schema-mysql.sql
+    store-type: jdbc
 security:
   oauth2: 
     client: 
