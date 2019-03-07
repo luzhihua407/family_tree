@@ -14,7 +14,7 @@ import com.starfire.familytree.vo.PageInfo;
 
 /**
  * <p>
- *  服务实现类
+ *  字典服务实现类
  * </p>
  *
  * @author luzh

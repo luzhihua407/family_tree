@@ -1,6 +1,5 @@
 package com.starfire.familytree.basic.controller;
 
-
 import java.security.Principal;
 import java.util.Map;
 
@@ -8,40 +7,40 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RestController;
 
-import com.starfire.familytree.basic.entity.Dict;
-import com.starfire.familytree.basic.service.IDictService;
+import com.starfire.familytree.basic.entity.Region;
+import com.starfire.familytree.basic.service.IRegionService;
 import com.starfire.familytree.response.Response;
 import com.starfire.familytree.vo.PageInfo;
 
 /**
  * <p>
- *  字典数据控制器
+ * 省市区控制器
  * </p>
  *
  * @author luzh
- * @since 2019-03-06
+ * @since 2019-03-07
  */
 @RestController
-@RequestMapping("/basic/dict")
-public class DictController {
-
+@RequestMapping("/basic/region")
+public class RegionController {
 	@Autowired
-	private IDictService dictService;
-	
+	private IRegionService regionService;
+
 	/**
 	 * 新增或修改
 	 *
-	 * @param dict
+	 * @param region
 	 * @return
 	 * @author luzh
 	 */
 	@RequestMapping("/addOrUpdate")
-	public Response<Dict> addOrUpdateDict(@RequestBody Dict dict,Principal principal) {
-		dictService.saveOrUpdate(dict);
-		Response<Dict> response = new Response<Dict>();
-		return response.success(dict);
+	public Response<Region> addOrUpdateRegion(@RequestBody Region region, Principal principal) {
+		regionService.saveOrUpdate(region);
+		Response<Region> response = new Response<Region>();
+		return response.success(region);
 
 	}
 
@@ -53,8 +52,8 @@ public class DictController {
 	 * @author luzh
 	 */
 	@GetMapping("/delete")
-	public Response<String> deleteDict(Long id) {
-		boolean flag = dictService.removeById(id);
+	public Response<String> deleteRegion(Long id) {
+		boolean flag = regionService.removeById(id);
 		Response<String> response = new Response<String>();
 		if (!flag) {
 			return response.failure();
@@ -71,9 +70,9 @@ public class DictController {
 	 * @author luzh
 	 */
 	@RequestMapping("/page")
-	public Response<PageInfo<Map<String, Object>, Dict>> page(@RequestBody PageInfo<Map<String, Object>, Dict> page) {
-		PageInfo<Map<String, Object>, Dict> pageInfo = dictService.page(page);
-		Response<PageInfo<Map<String, Object>, Dict>> response = new Response<PageInfo<Map<String, Object>, Dict>>();
+	public Response<PageInfo<Map<String, Object>, Region>> page(@RequestBody PageInfo<Map<String, Object>, Region> page) {
+		PageInfo<Map<String, Object>, Region> pageInfo = regionService.page(page);
+		Response<PageInfo<Map<String, Object>, Region>> response = new Response<PageInfo<Map<String, Object>, Region>>();
 		return response.success(pageInfo);
 
 	}

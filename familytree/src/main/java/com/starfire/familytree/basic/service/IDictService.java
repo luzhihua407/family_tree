@@ -8,7 +8,7 @@ import com.starfire.familytree.vo.PageInfo;
 
 /**
  * <p>
- *  服务类
+ *  系统字典数据服务类
  * </p>
  *
  * @author luzh
