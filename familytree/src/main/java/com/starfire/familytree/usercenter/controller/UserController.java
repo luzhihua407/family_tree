@@ -1,6 +1,7 @@
 package com.starfire.familytree.usercenter.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +13,6 @@ import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -99,15 +99,15 @@ public class UserController {
 	/**
 	 * 新增或修改
 	 *
-	 * @param roleUserRight
+	 * @param user
 	 * @return
 	 * @author luzh
 	 */
 	@RequestMapping("/addOrUpdate")
-	public Response<User> addOrUpdateUser(@RequestBody User roleUserRight) {
-		userService.saveOrUpdate(roleUserRight);
+	public Response<User> addOrUpdateUser(@RequestBody User user) {
+		userService.saveOrUpdate(user);
 		Response<User> response = new Response<User>();
-		return response.success(roleUserRight);
+		return response.success(user);
 
 	}
 
@@ -118,9 +118,11 @@ public class UserController {
 	 * @return
 	 * @author luzh
 	 */
-	@GetMapping("/delete")
-	public Response<String> deleteUser(Long id) {
-		boolean flag = userService.removeById(id);
+	@RequestMapping("/delete")
+	public Response<String> deleteUser(@RequestBody Map<String,List<Long>> map) {
+		boolean flag=false;
+		List<Long> ids=map.get("ids");
+			flag=userService.removeByIds(ids);
 		Response<String> response = new Response<String>();
 		if (!flag) {
 			return response.failure();
@@ -138,7 +140,7 @@ public class UserController {
 	 */
 	@RequestMapping("/page")
 	public Response<PageInfo<Map<String, Object>, User>> page(
-			@RequestBody PageInfo<Map<String, Object>, User> page) {
+			@RequestBody() PageInfo<Map<String, Object>, User> page) {
 		PageInfo<Map<String, Object>, User> pageInfo = userService.page(page);
 		Response<PageInfo<Map<String, Object>, User>> response = new Response<PageInfo<Map<String, Object>, User>>();
 		return response.success(pageInfo);

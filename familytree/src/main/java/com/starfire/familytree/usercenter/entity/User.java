@@ -59,5 +59,12 @@ public class User extends AbstractEntity {
 	@NotNull
 	private Integer gender;
 
+	private Integer province;
+	
+	private Integer city;
+	
+	private Integer district;
+
+	private String address;
 
 }

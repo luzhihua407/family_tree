@@ -22,6 +22,7 @@
         <result column="age" property="age" />
         <result column="gender" property="gender" />
         <result column="enabled" property="enabled" />
+        <result column="address" property="address" />
     </resultMap>
 	<select id="getUserByUserName" parameterType="String" resultMap="BaseResultMap">
 		select * from sys_user where username = '${username}' limit 1
