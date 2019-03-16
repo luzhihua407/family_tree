@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.ApplicationEventMulticaster;
 import org.springframework.context.event.SimpleApplicationEventMulticaster;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
+import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
 @SpringBootConfiguration
 @EnableAutoConfiguration
@@ -20,5 +21,16 @@ public class ApplicationConfig {
 	         
 	        eventMulticaster.setTaskExecutor(new SimpleAsyncTaskExecutor());
 	        return eventMulticaster;
+	    }
+	  @Bean
+	    public CommonsRequestLoggingFilter logFilter() {
+	        CommonsRequestLoggingFilter filter
+	          = new CommonsRequestLoggingFilter();
+	        filter.setIncludeQueryString(true);
+	        filter.setIncludePayload(true);
+	        filter.setMaxPayloadLength(10000);
+	        filter.setIncludeHeaders(false);
+	        filter.setAfterMessagePrefix("REQUEST DATA : ");
+	        return filter;
 	    }
 }
