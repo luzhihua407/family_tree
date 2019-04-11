@@ -7,6 +7,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.boot.SpringApplication;
+
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.starfire.familytree.security.entity.AbstractEntity;
 
@@ -67,4 +69,15 @@ public class User extends AbstractEntity {
 
 	private String address;
 
+	public static void main(String[] args) throws Exception {
+		String aa="1111";
+		new User().change(aa);
+		System.err.println(new User().change(aa));
+	}
+	public String change(String text) {
+		text="aaa";
+		return text;
+	}
+
+	
 }

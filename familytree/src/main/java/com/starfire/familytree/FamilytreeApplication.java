@@ -26,7 +26,7 @@ public class FamilytreeApplication {
 		SpringApplication.run(FamilytreeApplication.class, args);
 	}
 
-	@Bean
+/*	@Bean
 	CommandLineRunner demo(MemberRepository personRepository) {
 		return args -> {
 
@@ -50,6 +50,6 @@ public class FamilytreeApplication {
 			team.stream().forEach(person -> log.info(
 					"\t" + personRepository.findByName(person.getName()).toString()));
 		};
-	}
+	}*/
 
 }
