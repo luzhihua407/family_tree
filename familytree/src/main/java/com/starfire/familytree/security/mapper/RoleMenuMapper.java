@@ -1,6 +1,9 @@
 package com.starfire.familytree.security.mapper;
 
 import com.starfire.familytree.security.entity.RoleMenu;
+
+import java.util.List;
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface RoleMenuMapper extends BaseMapper<RoleMenu> {
 
+	public List<Long> getMenuIdsByRoleId(Long roleId);
 }

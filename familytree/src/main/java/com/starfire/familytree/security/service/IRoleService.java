@@ -19,4 +19,5 @@ public interface IRoleService extends IService<Role> {
 
 	public PageInfo<Map<String,Object>, Role> page(PageInfo<Map<String,Object>, Role> page);
 
+	public Role getRoleByCode(String code);
 }

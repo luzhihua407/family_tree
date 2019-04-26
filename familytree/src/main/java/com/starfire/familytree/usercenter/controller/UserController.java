@@ -1,14 +1,17 @@
 package com.starfire.familytree.usercenter.controller;
 
 import java.security.Principal;
-import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
@@ -23,6 +26,11 @@ import org.springframework.web.context.request.ServletWebRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.starfire.familytree.entity.VerificationToken;
 import com.starfire.familytree.response.Response;
+import com.starfire.familytree.security.entity.Menu;
+import com.starfire.familytree.security.entity.Role;
+import com.starfire.familytree.security.service.IMenuService;
+import com.starfire.familytree.security.service.IRoleMenuService;
+import com.starfire.familytree.security.service.IRoleService;
 import com.starfire.familytree.service.IVerificationTokenService;
 import com.starfire.familytree.service.OnRegistrationCompleteEvent;
 import com.starfire.familytree.usercenter.entity.User;
@@ -50,11 +58,35 @@ public class UserController {
 
 	@Autowired
 	ApplicationEventPublisher eventPublisher;
-
+	
+	@Autowired
+	private IMenuService menuService;
+	
+	@Autowired
+	private IRoleMenuService roleMenuService;
+	
+	@Autowired
+	private IRoleService roleService;
+	
 	@RequestMapping("/current")
 	public UserVO user(Principal principal) {
 		OAuth2Authentication auth = (OAuth2Authentication) principal;
-		UserVO userVO = (UserVO) auth.getPrincipal();
+		User user = (User) auth.getPrincipal();
+		UserVO userVO=new UserVO();
+		BeanUtils.copyProperties(user,userVO);
+		Collection<GrantedAuthority> authorities = auth.getAuthorities();
+		for (GrantedAuthority grantedAuthority : authorities) {
+			String roleCode = grantedAuthority.getAuthority();
+			Role role = roleService.getRoleByCode(roleCode);
+			Long roleId=role.getId();
+			List<Long> menuIds = roleMenuService.getMenuIdsByRoleId(roleId);		
+			for (Long menuId : menuIds) {
+				Menu menu = menuService.getById(menuId);
+				Map<String,Object> map=new HashMap<String,Object>();
+				BeanUtils.copyProperties(menu, map);
+				userVO.getMenus().add(map);
+			}
+		}
 		return userVO;
 	}
 
@@ -119,10 +151,10 @@ public class UserController {
 	 * @author luzh
 	 */
 	@RequestMapping("/delete")
-	public Response<String> deleteUser(@RequestBody Map<String,List<Long>> map) {
-		boolean flag=false;
-		List<Long> ids=map.get("ids");
-			flag=userService.removeByIds(ids);
+	public Response<String> deleteUser(@RequestBody Map<String, List<Long>> map) {
+		boolean flag = false;
+		List<Long> ids = map.get("ids");
+		flag = userService.removeByIds(ids);
 		Response<String> response = new Response<String>();
 		if (!flag) {
 			return response.failure();
@@ -139,8 +171,7 @@ public class UserController {
 	 * @author luzh
 	 */
 	@RequestMapping("/page")
-	public Response<PageInfo<Map<String, Object>, User>> page(
-			@RequestBody() PageInfo<Map<String, Object>, User> page) {
+	public Response<PageInfo<Map<String, Object>, User>> page(@RequestBody() PageInfo<Map<String, Object>, User> page) {
 		PageInfo<Map<String, Object>, User> pageInfo = userService.page(page);
 		Response<PageInfo<Map<String, Object>, User>> response = new Response<PageInfo<Map<String, Object>, User>>();
 		return response.success(pageInfo);

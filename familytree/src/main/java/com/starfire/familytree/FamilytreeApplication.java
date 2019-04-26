@@ -1,22 +1,13 @@
 package com.starfire.familytree;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.context.annotation.Bean;
-import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
-
-import com.starfire.familytree.neo4j.member.entity.Member;
-import com.starfire.familytree.neo4j.member.repository.MemberRepository;
 
 @SpringBootApplication
-@EnableNeo4jRepositories(basePackages= {"com.starfire.familytree.neo4j.member.repository"})
+//@EnableNeo4jRepositories(basePackages= {"com.starfire.familytree.neo4j.member.repository"})
 @EntityScan(basePackages= {"com.starfire.familytree.neo4j.member.entity"})
 public class FamilytreeApplication {
 

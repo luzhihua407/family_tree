@@ -15,23 +15,27 @@ import lombok.Data;
  */
 @Data
 public abstract class AbstractEntity implements Serializable {
-
-
     /**
-	 * @author luzh
+	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * @author luzh
+	 */
+
 	@JsonSerialize(using=ToStringSerializer.class)
-	private Long id;
+	private Long id=null;
     
-    private LocalDateTime createTime=LocalDateTime.now();
+	private LocalDateTime createTime=LocalDateTime.now();
 
-    private String creater="system";
+	private String creater="system";
 
-    private LocalDateTime updateTime;
+	private LocalDateTime updateTime=null;
 
-    private String updater;
+	private String updater=null;
 
-    private Boolean valid=true;
+	private Boolean valid=true;
+	
+	
 }

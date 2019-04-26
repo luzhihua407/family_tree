@@ -32,5 +32,10 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 		return pageInfo;
 	}
 
+	@Override
+	public Role getRoleByCode(String code) {
+		return baseMapper.getRoleByCode(code);
+	}
+
 
 }

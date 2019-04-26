@@ -1,5 +1,6 @@
 package com.starfire.familytree.security.service.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
@@ -29,5 +30,15 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRole> i
 		Page<UserRole> selectPage = (Page<UserRole>) baseMapper.selectPage(page, qw);
 		pageInfo.from(selectPage);
 		return pageInfo;
+	}
+
+	@Override
+	public Long getRoleIdByUserId(Long userId) {
+		return baseMapper.getRoleIdByUserId(userId);
+	}
+
+	@Override
+	public List<Long> getRoleIdsByUserId(Long userId) {
+		return baseMapper.getRoleIdsByUserId(userId);
 	}
 }

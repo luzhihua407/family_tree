@@ -1,5 +1,7 @@
 package com.starfire.familytree.security.entity;
 
+import javax.validation.constraints.NotEmpty;
+
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import lombok.Data;
@@ -23,10 +25,12 @@ public class Role extends AbstractEntity{
     private static final long serialVersionUID = 1L;
 
 
-    private Boolean admin;
+    private Boolean admin=false;
 
+    @NotEmpty(message="不能为空")
     private String code;
 
+    @NotEmpty(message="不能为空")
     private String name;
 
     private String remark;

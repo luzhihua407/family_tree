@@ -1,13 +1,19 @@
 package com.starfire.familytree.usercenter.entity;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.springframework.boot.SpringApplication;
+import org.apache.commons.collections.set.UnmodifiableSortedSet;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.starfire.familytree.security.entity.AbstractEntity;
@@ -24,14 +30,16 @@ import lombok.experimental.Accessors;
  * @author luzh
  * @since 2019-03-03
  */
-@Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("sys_user")
-public class User extends AbstractEntity {
+@Data
+public class User extends AbstractEntity implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
-
+	
+	private Set<GrantedAuthority> authorities=new TreeSet<GrantedAuthority>();
+	
 	@NotEmpty(message = "邮箱不能为空")
 	@Email
 	private String email;
@@ -69,14 +77,39 @@ public class User extends AbstractEntity {
 
 	private String address;
 
-	public static void main(String[] args) throws Exception {
-		String aa="1111";
-		new User().change(aa);
-		System.err.println(new User().change(aa));
+	@Override
+	public Collection<GrantedAuthority> getAuthorities() {
+		return authorities;
 	}
-	public String change(String text) {
-		text="aaa";
-		return text;
+
+	@Override
+	public String getPassword() {
+		return password;
+	}
+
+	@Override
+	public String getUsername() {
+		return username;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return getValid();
 	}
 
 	

@@ -1,5 +1,7 @@
 package com.starfire.familytree.security.entity;
 
+import javax.validation.constraints.NotEmpty;
+
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import lombok.Data;
@@ -20,21 +22,24 @@ import lombok.experimental.Accessors;
 @TableName("security_menu")
 public class Menu extends AbstractEntity{
 
+	
     private static final long serialVersionUID = 1L;
 
-
+    @NotEmpty(message="编码不能为空")
     private String code;
 
     private String icon;
 
     private String idPath;
-
+    
+    @NotEmpty(message="名称不能为空")
     private String name;
 
     private String remark;
 
     private Integer type;
-
+    
+    @NotEmpty(message="路径不能为空")
     private String url;
 
     private Long parent;

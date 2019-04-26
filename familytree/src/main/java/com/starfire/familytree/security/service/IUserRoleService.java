@@ -1,5 +1,6 @@
 package com.starfire.familytree.security.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -16,4 +17,8 @@ import com.starfire.familytree.vo.PageInfo;
  */
 public interface IUserRoleService extends IService<UserRole> {
 	public PageInfo<Map<String, Object>, UserRole> page(PageInfo<Map<String, Object>, UserRole> pageInfo);
+	
+	public Long getRoleIdByUserId(Long userId);
+	
+	public List<Long> getRoleIdsByUserId(Long userId);
 }

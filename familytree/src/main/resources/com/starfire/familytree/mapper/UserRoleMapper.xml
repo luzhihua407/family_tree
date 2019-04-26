@@ -4,8 +4,15 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.starfire.familytree.security.entity.UserRole">
-        <result column="user" property="user" />
-        <result column="role" property="role" />
+        <result column="user_id" property="user" />
+        <result column="role_id" property="role" />
     </resultMap>
 
+	<select id="getRoleIdByUserId" resultMap="BaseResultMap" parameterType="Long">
+		select role_id from security_user_role where user_id=#{userId}
+	</select>
+	
+	<select id="getRoleIdsByUserId" resultType="Long" parameterType="Long">
+		select role_id from security_user_role where user_id=#{userId}
+	</select>
 </mapper>

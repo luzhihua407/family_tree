@@ -44,3 +44,8 @@ security:
 
 mybatis-plus:
   mapper-locations: com/starfire/familytree/mapper/*.xml
+ 
+logging:
+  level: 
+    org.springframework.security: DEBUG
+      

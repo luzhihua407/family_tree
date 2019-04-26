@@ -1,13 +1,14 @@
 package com.starfire.familytree.usercenter.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,12 +16,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.starfire.familytree.security.entity.Role;
+import com.starfire.familytree.security.service.IRoleService;
+import com.starfire.familytree.security.service.IUserRoleService;
 import com.starfire.familytree.usercenter.entity.User;
 import com.starfire.familytree.usercenter.mapper.UserMapper;
 import com.starfire.familytree.usercenter.service.IUserService;
 import com.starfire.familytree.validation.EmailExistsException;
 import com.starfire.familytree.vo.PageInfo;
-import com.starfire.familytree.vo.UserVO;
 
 /**
  * <p>
@@ -32,8 +35,17 @@ import com.starfire.familytree.vo.UserVO;
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
+	
+	@Bean
+	private PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	};
+	
 	@Autowired
-	private PasswordEncoder passwordEncoder;
+	private IUserRoleService userRoleService;
+	
+	@Autowired
+	private IRoleService roleService;
 
 	@Override
 	public User findUserByEmail(String email) {
@@ -47,7 +59,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 		if (existsUsername(user.getUsername())) {
 			throw new EmailExistsException("已存在该用户:" + user.getUsername());
 		}
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		user.setPassword(passwordEncoder().encode(user.getPassword()));
 		user.setValid(false);// default set false,need user to active
 		super.save(user);
 		return user;
@@ -62,12 +74,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 	}
 
 	@Override
-	public UserVO loadUserByUsername(String userName) throws UsernameNotFoundException {
+	public User loadUserByUsername(String userName) throws UsernameNotFoundException {
 		User user = baseMapper.getUserByUserName(userName);
-		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-		UserVO userVO = new UserVO(user.getUsername(), user.getPassword(), authorities);
-		BeanUtils.copyProperties(user, userVO);
-		return userVO;
+		Long id = user.getId();
+		List<Long> roleIds = userRoleService.getRoleIdsByUserId(id);
+		for (Long roleId : roleIds) {
+			Role role = roleService.getById(roleId);
+			GrantedAuthority ga=new SimpleGrantedAuthority(role.getCode());
+			user.getAuthorities().add(ga);
+		}
+		
+		return user;
 	}
 
 	@Override

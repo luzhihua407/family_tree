@@ -1,5 +1,6 @@
 package com.starfire.familytree.security.service.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
@@ -29,5 +30,10 @@ public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenu> i
 		Page<RoleMenu> selectPage = (Page<RoleMenu>) baseMapper.selectPage(page, qw);
 		pageInfo.from(selectPage);
 		return pageInfo;
+	}
+
+	@Override
+	public List<Long> getMenuIdsByRoleId(Long roleId) {
+		return baseMapper.getMenuIdsByRoleId(roleId);
 	}
 }

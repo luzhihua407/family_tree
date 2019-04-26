@@ -23,9 +23,9 @@ public class UserRole extends AbstractEntity{
     private static final long serialVersionUID = 1L;
 
     
-    private Long user;
+    private Long userId;
 
-    private Long role;
+    private Long roleId;
 
 
 }

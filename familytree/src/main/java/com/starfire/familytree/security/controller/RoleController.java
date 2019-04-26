@@ -2,11 +2,14 @@ package com.starfire.familytree.security.controller;
 
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.starfire.familytree.response.Response;
 import com.starfire.familytree.security.entity.Role;
@@ -21,13 +24,25 @@ import com.starfire.familytree.vo.PageInfo;
  * @author luzh
  * @since 2019-03-03
  */
-@RestController
+@Controller
 @RequestMapping("/security/role")
 public class RoleController {
 
 	@Autowired
 	private IRoleService roleService;
 
+	@RequestMapping("/add")
+	public String add() {
+		
+		return "/security/role/add";
+	}
+	@RequestMapping("/page")
+	public String page(Model model,PageInfo<Map<String,Object>, Role> page) {
+		PageInfo<Map<String,Object>,Role> pageInfo = roleService.page(page);
+		model.addAttribute("pageInfo", pageInfo);
+		model.addAttribute("roles", pageInfo.getResult());
+		return "/security/role/list";
+	}
 	/**
 	 * 新增或修改
 	 *
@@ -36,10 +51,10 @@ public class RoleController {
 	 * @author luzh
 	 */
 	@RequestMapping("/addOrUpdate")
-	public Response<Role> addOrUpdateRole(@RequestBody Role role) {
+	public String addOrUpdateRole(Model model,@Valid Role role) {
 		roleService.saveOrUpdate(role);
-		Response<Role> response = new Response<Role>();
-		return response.success(role);
+		model.addAttribute("role", role);
+		return "/security/role/add";
 
 	}
 
@@ -68,7 +83,7 @@ public class RoleController {
 	 * @return
 	 * @author luzh
 	 */
-	@RequestMapping("/page")
+//	@RequestMapping("/page")
 	public Response<PageInfo<Map<String, Object>, Role>> page(@RequestBody PageInfo<Map<String, Object>, Role> page) {
 		PageInfo<Map<String, Object>, Role> pageInfo = roleService.page(page);
 		Response<PageInfo<Map<String, Object>, Role>> response = new Response<PageInfo<Map<String, Object>, Role>>();
