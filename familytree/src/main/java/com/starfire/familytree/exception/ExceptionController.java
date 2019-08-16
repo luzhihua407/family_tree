@@ -1,9 +1,8 @@
 package com.starfire.familytree.exception;
 
+import com.starfire.familytree.response.Response;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import com.starfire.familytree.response.Response;
 
 @RestControllerAdvice
 public class ExceptionController {

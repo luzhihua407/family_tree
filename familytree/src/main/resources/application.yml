@@ -6,8 +6,8 @@ spring:
   datasource:
     druid:
       url: jdbc:mysql://localhost:3306/familytree?characterEncoding=utf8&characterSetResults=utf8&autoReconnect=true&failOverReadOnly=false
-      username: root
-      password: root
+      username: family
+      password: family
       driverClassName: com.mysql.jdbc.Driver
       maxActive: 20
       initialSize: 1
@@ -32,6 +32,9 @@ spring:
     jdbc:
       schema: schema-mysql.sql
     store-type: jdbc
+  jpa:
+    hibernate:
+      ddl-auto: none
 security:
   oauth2: 
     client: 
@@ -42,10 +45,9 @@ security:
     resource:
       user-info-uri: http://localhost/user/me
 
-mybatis-plus:
-  mapper-locations: com/starfire/familytree/mapper/*.xml
- 
 logging:
   level: 
     org.springframework.security: DEBUG
-      
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml

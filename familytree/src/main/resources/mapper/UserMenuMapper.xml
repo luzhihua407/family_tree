@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.starfire.familytree.security.mapper.UserMenuMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.starfire.familytree.security.entity.UserMenu">
+    <result column="id" property="id" />
+        <result column="create_time" property="createTime" />
+        <result column="creator" property="creator" />
+        <result column="edit_time" property="editTime" />
+        <result column="editor" property="editor" />
+        <result column="valid" property="valid" />
+        <result column="own" property="own" />
+        <result column="menu_id" property="menuId" />
+        <result column="user_id" property="userId" />
+
+    </resultMap>
+
+</mapper>

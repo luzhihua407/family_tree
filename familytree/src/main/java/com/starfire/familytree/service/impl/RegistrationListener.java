@@ -1,18 +1,16 @@
 package com.starfire.familytree.service.impl;
 
-import java.util.UUID;
-
+import com.starfire.familytree.service.IVerificationTokenService;
+import com.starfire.familytree.service.OnRegistrationCompleteEvent;
+import com.starfire.familytree.usercenter.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
-import org.springframework.context.MessageSource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
-import com.starfire.familytree.service.IVerificationTokenService;
-import com.starfire.familytree.service.OnRegistrationCompleteEvent;
-import com.starfire.familytree.usercenter.entity.User;
+import java.util.UUID;
 
 @Component
 public class RegistrationListener implements

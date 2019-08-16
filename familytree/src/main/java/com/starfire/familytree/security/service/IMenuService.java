@@ -1,11 +1,10 @@
 package com.starfire.familytree.security.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.starfire.familytree.security.entity.Menu;
 import com.starfire.familytree.vo.PageInfo;
 
 import java.util.Map;
-
-import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>

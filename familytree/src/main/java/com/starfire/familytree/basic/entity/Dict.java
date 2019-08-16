@@ -1,13 +1,11 @@
 package com.starfire.familytree.basic.entity;
 
-import java.math.BigDecimal;
-
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.starfire.familytree.security.entity.AbstractEntity;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.math.BigDecimal;
 
 /**
  * <p>
@@ -21,6 +19,8 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @TableName("basic_dict")
+//@Entity
+//@Table(name="basic_dict")
 public class Dict extends AbstractEntity {
 
     private static final long serialVersionUID = 1L;

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.starfire.familytree.folk.mapper.PartnerMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.starfire.familytree.folk.entity.Partner">
+    <result column="id" property="id" />
+        <result column="husband_id" property="husbandId" />
+        <result column="wife_id" property="wifeId" />
+        <result column="creator" property="creator" />
+        <result column="create_time" property="createTime" />
+        <result column="editor" property="editor" />
+        <result column="edit_time" property="editTime" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+</mapper>

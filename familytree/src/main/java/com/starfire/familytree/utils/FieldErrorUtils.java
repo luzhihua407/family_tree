@@ -1,8 +1,8 @@
 package com.starfire.familytree.utils;
 
-import java.util.List;
-
 import org.springframework.validation.FieldError;
+
+import java.util.List;
 
 public class FieldErrorUtils {
 

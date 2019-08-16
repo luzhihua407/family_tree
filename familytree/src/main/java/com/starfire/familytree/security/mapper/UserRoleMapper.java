@@ -1,9 +1,9 @@
 package com.starfire.familytree.security.mapper;
 
-import java.util.List;
-
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.starfire.familytree.security.entity.UserRole;
+
+import java.util.List;
 
 /**
  * <p>

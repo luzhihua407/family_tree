@@ -1,12 +1,11 @@
 package com.starfire.familytree.response;
 
-import java.io.Serializable;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
 import lombok.Data;
 import lombok.NonNull;
+
+import java.io.Serializable;
 
 @Data
 @JsonInclude(Include.NON_NULL)

@@ -1,10 +1,9 @@
 package com.starfire.familytree.service;
 
-import java.util.Locale;
-
+import com.starfire.familytree.usercenter.entity.User;
 import org.springframework.context.ApplicationEvent;
 
-import com.starfire.familytree.usercenter.entity.User;
+import java.util.Locale;
 
 public class OnRegistrationCompleteEvent extends ApplicationEvent {
     /**

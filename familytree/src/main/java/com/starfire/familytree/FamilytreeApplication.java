@@ -1,14 +1,12 @@
 package com.starfire.familytree;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @SpringBootApplication
-//@EnableNeo4jRepositories(basePackages= {"com.starfire.familytree.neo4j.member.repository"})
-@EntityScan(basePackages= {"com.starfire.familytree.neo4j.member.entity"})
 public class FamilytreeApplication {
 
 	private final static Logger log = LoggerFactory.getLogger(FamilytreeApplication.class);

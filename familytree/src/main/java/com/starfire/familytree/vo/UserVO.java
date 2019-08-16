@@ -1,13 +1,12 @@
 package com.starfire.familytree.vo;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-
-import lombok.Data;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Data
 public class UserVO {

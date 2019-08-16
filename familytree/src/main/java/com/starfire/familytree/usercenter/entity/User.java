@@ -1,26 +1,21 @@
 package com.starfire.familytree.usercenter.entity;
 
-import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.starfire.familytree.basic.entity.AbstractEntity;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.apache.commons.collections.set.UnmodifiableSortedSet;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.starfire.familytree.security.entity.AbstractEntity;
-
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * <p>
@@ -37,7 +32,7 @@ import lombok.experimental.Accessors;
 public class User extends AbstractEntity implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private Set<GrantedAuthority> authorities=new TreeSet<GrantedAuthority>();
 	
 	@NotEmpty(message = "邮箱不能为空")
@@ -49,6 +44,8 @@ public class User extends AbstractEntity implements UserDetails {
 	private LocalDateTime lastLoginTime;
 
 	private String mobile;
+
+	private  Boolean enabled;
 
 	@NotEmpty(message = "用户名不能为空")
 	@Size(min = 2, max = 32, message = "用户名长度为2-32个字符") 

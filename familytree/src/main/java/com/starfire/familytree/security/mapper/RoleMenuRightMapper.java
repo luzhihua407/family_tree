@@ -1,7 +1,7 @@
 package com.starfire.familytree.security.mapper;
 
-import com.starfire.familytree.security.entity.RoleMenuRight;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.starfire.familytree.security.entity.RoleMenuRight;
 
 /**
  * <p>

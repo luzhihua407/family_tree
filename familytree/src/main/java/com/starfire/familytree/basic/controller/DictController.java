@@ -1,19 +1,18 @@
 package com.starfire.familytree.basic.controller;
 
 
-import java.security.Principal;
-import java.util.Map;
-
+import com.starfire.familytree.basic.entity.Dict;
+import com.starfire.familytree.basic.service.IDictService;
+import com.starfire.familytree.response.Response;
+import com.starfire.familytree.vo.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.starfire.familytree.basic.entity.Dict;
-import com.starfire.familytree.basic.service.IDictService;
-import com.starfire.familytree.response.Response;
-import com.starfire.familytree.vo.PageInfo;
+import java.security.Principal;
+import java.util.Map;
 
 /**
  * <p>

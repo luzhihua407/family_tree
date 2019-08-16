@@ -1,9 +1,9 @@
 package com.starfire.familytree.security.controller;
 
-import java.util.Map;
-
-import javax.validation.Valid;
-
+import com.starfire.familytree.response.Response;
+import com.starfire.familytree.security.entity.Role;
+import com.starfire.familytree.security.service.IRoleService;
+import com.starfire.familytree.vo.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,10 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.starfire.familytree.response.Response;
-import com.starfire.familytree.security.entity.Role;
-import com.starfire.familytree.security.service.IRoleService;
-import com.starfire.familytree.vo.PageInfo;
+import javax.validation.Valid;
+import java.util.Map;
 
 /**
  * <p>

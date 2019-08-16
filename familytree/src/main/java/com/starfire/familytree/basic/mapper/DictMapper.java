@@ -1,7 +1,7 @@
 package com.starfire.familytree.basic.mapper;
 
-import com.starfire.familytree.basic.entity.Dict;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.starfire.familytree.basic.entity.Dict;
 
 /**
  * <p>

@@ -1,12 +1,12 @@
 package com.starfire.familytree.security.entity;
 
-import javax.validation.constraints.NotEmpty;
-
 import com.baomidou.mybatisplus.annotation.TableName;
-
+import com.starfire.familytree.basic.entity.AbstractEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import javax.validation.constraints.NotEmpty;
 
 /**
  * <p>
@@ -20,7 +20,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("security_menu")
-public class Menu extends AbstractEntity{
+public class Menu extends AbstractEntity {
 
 	
     private static final long serialVersionUID = 1L;

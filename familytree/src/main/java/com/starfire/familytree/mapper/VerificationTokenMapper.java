@@ -1,10 +1,9 @@
 package com.starfire.familytree.mapper;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.starfire.familytree.entity.VerificationToken;
 import com.starfire.familytree.usercenter.entity.User;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
