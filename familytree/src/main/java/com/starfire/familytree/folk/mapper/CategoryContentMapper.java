@@ -1,7 +1,10 @@
 package com.starfire.familytree.folk.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.starfire.familytree.folk.entity.CategoryContent;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.starfire.familytree.folk.entity.CategoryContent;
  */
 public interface CategoryContentMapper extends BaseMapper<CategoryContent> {
 
+    public Page<CategoryContent> getPage(Page<CategoryContent> page, Map<String, Object> param);
 }
