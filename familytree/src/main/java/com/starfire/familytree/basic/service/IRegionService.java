@@ -8,7 +8,7 @@ import java.util.Map;
 
 /**
  * <p>
- *  省市区服务类
+ * 省市区服务类
  * </p>
  *
  * @author luzh
@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public interface IRegionService extends IService<Region> {
 
-	public PageInfo<Map<String,Object>, Region> page(PageInfo<Map<String,Object>, Region> page);
+    public PageInfo<Map<String, Object>, Region> page(PageInfo<Map<String, Object>, Region> page);
 
-	
+
 }

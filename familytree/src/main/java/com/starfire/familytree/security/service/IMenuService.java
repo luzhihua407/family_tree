@@ -16,6 +16,6 @@ import java.util.Map;
  */
 public interface IMenuService extends IService<Menu> {
 
-	public PageInfo<Map<String, Object>, Menu> page(PageInfo<Map<String, Object>, Menu> pageInfo);
+    public PageInfo<Map<String, Object>, Menu> page(PageInfo<Map<String, Object>, Menu> pageInfo);
 
 }

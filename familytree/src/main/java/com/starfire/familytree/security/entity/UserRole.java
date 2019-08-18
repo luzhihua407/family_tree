@@ -8,7 +8,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author luzh
@@ -22,7 +22,7 @@ public class UserRole extends AbstractEntity {
 
     private static final long serialVersionUID = 1L;
 
-    
+
     private Long userId;
 
     private Long roleId;

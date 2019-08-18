@@ -14,7 +14,7 @@ import java.util.Map;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author luzh
@@ -22,22 +22,22 @@ import java.util.Map;
  */
 @Service
 public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRole> implements IUserRoleService {
-	@Override
-	public PageInfo<Map<String, Object>, UserRole> page(PageInfo<Map<String, Object>, UserRole> pageInfo) {
-		QueryWrapper<UserRole> qw=new QueryWrapper<UserRole>();
-		Page<UserRole> page=pageInfo.toMybatisPlusPage();
-		Page<UserRole> selectPage = (Page<UserRole>) baseMapper.selectPage(page, qw);
-		pageInfo.from(selectPage);
-		return pageInfo;
-	}
+    @Override
+    public PageInfo<Map<String, Object>, UserRole> page(PageInfo<Map<String, Object>, UserRole> pageInfo) {
+        QueryWrapper<UserRole> qw = new QueryWrapper<UserRole>();
+        Page<UserRole> page = pageInfo.toMybatisPlusPage();
+        Page<UserRole> selectPage = (Page<UserRole>) baseMapper.selectPage(page, qw);
+        pageInfo.from(selectPage);
+        return pageInfo;
+    }
 
-	@Override
-	public Long getRoleIdByUserId(Long userId) {
-		return baseMapper.getRoleIdByUserId(userId);
-	}
+    @Override
+    public Long getRoleIdByUserId(Long userId) {
+        return baseMapper.getRoleIdByUserId(userId);
+    }
 
-	@Override
-	public List<Long> getRoleIdsByUserId(Long userId) {
-		return baseMapper.getRoleIdsByUserId(userId);
-	}
+    @Override
+    public List<Long> getRoleIdsByUserId(Long userId) {
+        return baseMapper.getRoleIdsByUserId(userId);
+    }
 }

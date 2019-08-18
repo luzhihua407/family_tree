@@ -9,7 +9,7 @@ import java.util.Map;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author luzh
@@ -17,7 +17,7 @@ import java.util.Map;
  */
 public interface IRoleService extends IService<Role> {
 
-	public PageInfo<Map<String,Object>, Role> page(PageInfo<Map<String,Object>, Role> page);
+    public PageInfo<Map<String, Object>, Role> page(PageInfo<Map<String, Object>, Role> page);
 
-	public Role getRoleByCode(String code);
+    public Role getRoleByCode(String code);
 }

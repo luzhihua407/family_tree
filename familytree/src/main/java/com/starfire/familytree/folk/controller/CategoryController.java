@@ -3,12 +3,17 @@ package com.starfire.familytree.folk.controller;
 
 import com.starfire.familytree.folk.entity.Category;
 import com.starfire.familytree.folk.service.ICategoryService;
+import com.starfire.familytree.response.Response;
+import com.starfire.familytree.vo.DeleteVO;
+import com.starfire.familytree.vo.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author luzh
@@ -21,27 +26,46 @@ public class CategoryController {
     @Autowired
     private ICategoryService categoryService;
 
-    @PostMapping("/add")
-    public String addCategory(Category category){
-        categoryService.save(category);
-        return null;
+    /**
+     * 分页
+     *
+     * @param page
+     * @return
+     * @author luzh
+     */
+    @RequestMapping("/page")
+    public PageInfo<Map<String, Object>, Category> page(@RequestBody(required = false) PageInfo<Map<String, Object>, Category> page) {
+        PageInfo<Map<String, Object>, Category> pageInfo = categoryService.page(page);
+        return pageInfo;
+
     }
 
-    @DeleteMapping("/delete")
-    public String deleteCategory(Long id){
-        categoryService.removeById(id);
-        return null;
+    @PostMapping("/add")
+    public Boolean addCategory(@RequestBody Category category) {
+        boolean b = categoryService.save(category);
+        return b;
+    }
+
+    @PostMapping("/delete")
+    public Boolean deleteCategory(@RequestBody DeleteVO deleteVO) {
+        Long[] ids = deleteVO.getIds();
+        for (int i = 0; i < ids.length; i++) {
+            Long id = Long.valueOf(ids[i]);
+            boolean b = categoryService.removeById(id);
+
+        }
+        return true;
     }
 
     @GetMapping("/get")
-    public String getCategory(Long id){
+    public Category getCategory(Long id) {
         Category category = categoryService.getById(id);
-        return null;
+        return category;
     }
 
-    @PutMapping("/get")
-    public String editCategory(Category category){
-        categoryService.updateById(category);
-        return null;
+    @PostMapping("/edit")
+    public Boolean editCategory(@RequestBody Category category) {
+        boolean b = categoryService.updateById(category);
+        return b;
     }
 }

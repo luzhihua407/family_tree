@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author luzh
@@ -14,5 +14,5 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface UserMapper extends BaseMapper<User> {
 
-	public User getUserByUserName(@Param(value="username")String username);
+    public User getUserByUserName(@Param(value = "username") String username);
 }

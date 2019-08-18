@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author luzh
@@ -15,5 +15,5 @@ import java.util.List;
  */
 public interface RoleMenuMapper extends BaseMapper<RoleMenu> {
 
-	public List<Long> getMenuIdsByRoleId(Long roleId);
+    public List<Long> getMenuIdsByRoleId(Long roleId);
 }

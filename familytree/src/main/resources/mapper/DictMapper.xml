@@ -4,19 +4,19 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.starfire.familytree.basic.entity.Dict">
-    <result column="id" property="id" />
-        <result column="create_time" property="createTime" />
-        <result column="creator" property="creator" />
-        <result column="edit_time" property="editTime" />
-        <result column="editor" property="editor" />
-        <result column="valid" property="valid" />
-        <result column="code" property="code" />
-        <result column="dis" property="dis" />
-        <result column="name" property="name" />
-        <result column="num_value" property="numValue" />
-        <result column="remark" property="remark" />
-        <result column="value" property="value" />
-        <result column="parent_id" property="parentId" />
+        <result column="id" property="id"/>
+        <result column="create_time" property="createTime"/>
+        <result column="creator" property="creator"/>
+        <result column="edit_time" property="editTime"/>
+        <result column="editor" property="editor"/>
+        <result column="valid" property="valid"/>
+        <result column="code" property="code"/>
+        <result column="dis" property="dis"/>
+        <result column="name" property="name"/>
+        <result column="num_value" property="numValue"/>
+        <result column="remark" property="remark"/>
+        <result column="value" property="value"/>
+        <result column="parent_id" property="parentId"/>
     </resultMap>
 
 </mapper>

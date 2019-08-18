@@ -34,72 +34,70 @@ import java.util.Map;
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
-	
-	@Bean
-	private PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	};
-	
-	@Autowired
-	private IUserRoleService userRoleService;
-	
-	@Autowired
-	private IRoleService roleService;
 
-	@Override
-	public User findUserByEmail(String email) {
-		return null;
-	}
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-	@Transactional
-	@Override
-	public User registerNewUserAccount(User user) {
+    @Autowired
+    private IUserRoleService userRoleService;
 
-		if (existsUsername(user.getUsername())) {
-			throw new EmailExistsException("已存在该用户:" + user.getUsername());
-		}
-		user.setPassword(passwordEncoder().encode(user.getPassword()));
-		user.setValid(false);// default set false,need user to active
-		super.save(user);
-		return user;
-	}
+    @Autowired
+    private IRoleService roleService;
 
-	private boolean existsUsername(String username) {
-		User user = baseMapper.getUserByUserName(username);
-		if (user != null) {
-			return true;
-		}
-		return false;
-	}
+    @Override
+    public User findUserByEmail(String email) {
+        return null;
+    }
 
-	@Override
-	public User loadUserByUsername(String userName) throws UsernameNotFoundException {
-		User user = baseMapper.getUserByUserName(userName);
-		Long id = user.getId();
-		List<Long> roleIds = userRoleService.getRoleIdsByUserId(id);
-		for (Long roleId : roleIds) {
-			Role role = roleService.getById(roleId);
-			GrantedAuthority ga=new SimpleGrantedAuthority(role.getCode());
-			user.getAuthorities().add(ga);
-		}
-		
-		return user;
-	}
+    @Transactional
+    @Override
+    public User registerNewUserAccount(User user) {
 
-	@Override
-	public Boolean activeUser(Long userId) {
-		User user = baseMapper.selectById(userId);
-		user.setValid(true);
-		int flag = baseMapper.updateById(user);
-		return flag > 0 ? true : false;
-	}
+        if (existsUsername(user.getUsername())) {
+            throw new EmailExistsException("已存在该用户:" + user.getUsername());
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setValid(false);// default set false,need user to active
+        super.save(user);
+        return user;
+    }
 
-	@Override
-	public PageInfo<Map<String, Object>, User> page(PageInfo<Map<String, Object>, User> pageInfo) {
-		QueryWrapper<User> qw = new QueryWrapper<User>();
-		Page<User> page = pageInfo.toMybatisPlusPage();
-		Page<User> selectPage = (Page<User>) baseMapper.selectPage(page, qw);
-		pageInfo.from(selectPage);
-		return pageInfo;
-	}
+    private boolean existsUsername(String username) {
+        User user = baseMapper.getUserByUserName(username);
+        if (user != null) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public User loadUserByUsername(String userName) throws UsernameNotFoundException {
+        User user = baseMapper.getUserByUserName(userName);
+        Long id = user.getId();
+        List<Long> roleIds = userRoleService.getRoleIdsByUserId(id);
+        for (Long roleId : roleIds) {
+            Role role = roleService.getById(roleId);
+            GrantedAuthority ga = new SimpleGrantedAuthority(role.getCode());
+            user.getAuthorities().add(ga);
+        }
+
+        return user;
+    }
+
+    @Override
+    public Boolean activeUser(Long userId) {
+        User user = baseMapper.selectById(userId);
+        user.setValid(true);
+        int flag = baseMapper.updateById(user);
+        return flag > 0 ? true : false;
+    }
+
+    @Override
+    public PageInfo<Map<String, Object>, User> page(PageInfo<Map<String, Object>, User> pageInfo) {
+        QueryWrapper<User> qw = new QueryWrapper<User>();
+        Page<User> page = pageInfo.toMybatisPlusPage();
+        Page<User> selectPage = (Page<User>) baseMapper.selectPage(page, qw);
+        pageInfo.from(selectPage);
+        return pageInfo;
+    }
 }

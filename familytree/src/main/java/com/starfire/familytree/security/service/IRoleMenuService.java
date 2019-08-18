@@ -9,14 +9,14 @@ import java.util.Map;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author luzh
  * @since 2019-03-03
  */
 public interface IRoleMenuService extends IService<RoleMenu> {
-	public PageInfo<Map<String, Object>, RoleMenu> page(PageInfo<Map<String, Object>, RoleMenu> pageInfo);
-	
-	public List<Long> getMenuIdsByRoleId(Long roleId);
+    public PageInfo<Map<String, Object>, RoleMenu> page(PageInfo<Map<String, Object>, RoleMenu> pageInfo);
+
+    public List<Long> getMenuIdsByRoleId(Long roleId);
 }

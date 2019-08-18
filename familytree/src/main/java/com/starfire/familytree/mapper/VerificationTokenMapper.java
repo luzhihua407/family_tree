@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author luzh
@@ -15,7 +15,7 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface VerificationTokenMapper extends BaseMapper<VerificationToken> {
 
-	   VerificationToken findByToken(@Param("token")String token);
-	   
-	    VerificationToken findByUser(User user);
+    VerificationToken findByToken(@Param("token") String token);
+
+    VerificationToken findByUser(User user);
 }

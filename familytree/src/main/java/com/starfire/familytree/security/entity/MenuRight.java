@@ -8,7 +8,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author luzh
@@ -21,7 +21,7 @@ import lombok.experimental.Accessors;
 public class MenuRight extends AbstractEntity {
 
     private static final long serialVersionUID = 1L;
-    
+
 
     private String code;
 

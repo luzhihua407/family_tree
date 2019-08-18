@@ -11,15 +11,15 @@ import java.util.Map;
 @Data
 public class UserVO {
 
-	private Long id;
-	private Integer age;
-	@NotNull
-	@NotEmpty
-	private String email;
-	private Long roleId;
-	private Integer gender;
+    private Long id;
+    private Integer age;
+    @NotNull
+    @NotEmpty
+    private String email;
+    private Long roleId;
+    private Integer gender;
 
-	private List<Map<String,Object>> menus=new ArrayList<Map<String,Object>>();
-	
+    private List<Map<String, Object>> menus = new ArrayList<Map<String, Object>>();
+
 
 }

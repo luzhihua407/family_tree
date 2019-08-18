@@ -22,12 +22,12 @@ import java.util.Map;
 @Service
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IMenuService {
 
-	@Override
-	public PageInfo<Map<String, Object>, Menu> page(PageInfo<Map<String, Object>, Menu> pageInfo) {
-		QueryWrapper<Menu> qw = new QueryWrapper<Menu>();
-		Page<Menu> page = pageInfo.toMybatisPlusPage();
-		Page<Menu> selectPage = (Page<Menu>) baseMapper.selectPage(page, qw);
-		pageInfo.from(selectPage);
-		return pageInfo;
-	}
+    @Override
+    public PageInfo<Map<String, Object>, Menu> page(PageInfo<Map<String, Object>, Menu> pageInfo) {
+        QueryWrapper<Menu> qw = new QueryWrapper<Menu>();
+        Page<Menu> page = pageInfo.toMybatisPlusPage();
+        Page<Menu> selectPage = (Page<Menu>) baseMapper.selectPage(page, qw);
+        pageInfo.from(selectPage);
+        return pageInfo;
+    }
 }

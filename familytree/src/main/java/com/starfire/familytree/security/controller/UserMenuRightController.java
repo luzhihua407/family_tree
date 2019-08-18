@@ -15,7 +15,7 @@ import java.util.Map;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author luzh
@@ -24,54 +24,54 @@ import java.util.Map;
 @RestController
 @RequestMapping("/security/user-menu-right")
 public class UserMenuRightController {
-	@Autowired
-	private IUserMenuRightService userMenuRightService;
+    @Autowired
+    private IUserMenuRightService userMenuRightService;
 
-	/**
-	 * 新增或修改
-	 *
-	 * @param userMenuRight
-	 * @return
-	 * @author luzh
-	 */
-	@RequestMapping("/addOrUpdate")
-	public Response<UserMenuRight> addOrUpdateUserMenuRight(@RequestBody UserMenuRight userMenuRight) {
-		userMenuRightService.saveOrUpdate(userMenuRight);
-		Response<UserMenuRight> response = new Response<UserMenuRight>();
-		return response.success(userMenuRight);
+    /**
+     * 新增或修改
+     *
+     * @param userMenuRight
+     * @return
+     * @author luzh
+     */
+    @RequestMapping("/addOrUpdate")
+    public Response<UserMenuRight> addOrUpdateUserMenuRight(@RequestBody UserMenuRight userMenuRight) {
+        userMenuRightService.saveOrUpdate(userMenuRight);
+        Response<UserMenuRight> response = new Response<UserMenuRight>();
+        return response.success(userMenuRight);
 
-	}
+    }
 
-	/**
-	 * 删除
-	 *
-	 * @param id
-	 * @return
-	 * @author luzh
-	 */
-	@GetMapping("/delete")
-	public Response<String> deleteUserMenuRight(Long id) {
-		boolean flag = userMenuRightService.removeById(id);
-		Response<String> response = new Response<String>();
-		if (!flag) {
-			return response.failure();
-		}
-		return response.success();
+    /**
+     * 删除
+     *
+     * @param id
+     * @return
+     * @author luzh
+     */
+    @GetMapping("/delete")
+    public Response<String> deleteUserMenuRight(Long id) {
+        boolean flag = userMenuRightService.removeById(id);
+        Response<String> response = new Response<String>();
+        if (!flag) {
+            return response.failure();
+        }
+        return response.success();
 
-	}
+    }
 
-	/**
-	 * 分页
-	 *
-	 * @param page
-	 * @return
-	 * @author luzh
-	 */
-	@RequestMapping("/page")
-	public Response<PageInfo<Map<String, Object>, UserMenuRight>> page(@RequestBody PageInfo<Map<String, Object>, UserMenuRight> page) {
-		PageInfo<Map<String, Object>, UserMenuRight> pageInfo = userMenuRightService.page(page);
-		Response<PageInfo<Map<String, Object>, UserMenuRight>> response = new Response<PageInfo<Map<String, Object>, UserMenuRight>>();
-		return response.success(pageInfo);
+    /**
+     * 分页
+     *
+     * @param page
+     * @return
+     * @author luzh
+     */
+    @RequestMapping("/page")
+    public Response<PageInfo<Map<String, Object>, UserMenuRight>> page(@RequestBody PageInfo<Map<String, Object>, UserMenuRight> page) {
+        PageInfo<Map<String, Object>, UserMenuRight> pageInfo = userMenuRightService.page(page);
+        Response<PageInfo<Map<String, Object>, UserMenuRight>> response = new Response<PageInfo<Map<String, Object>, UserMenuRight>>();
+        return response.success(pageInfo);
 
-	}
+    }
 }

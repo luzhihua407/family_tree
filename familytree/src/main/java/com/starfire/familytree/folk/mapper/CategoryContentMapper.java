@@ -5,7 +5,7 @@ import com.starfire.familytree.folk.entity.CategoryContent;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author luzh

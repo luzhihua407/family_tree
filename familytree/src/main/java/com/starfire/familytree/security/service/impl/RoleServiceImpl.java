@@ -13,7 +13,7 @@ import java.util.Map;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author luzh
@@ -22,19 +22,19 @@ import java.util.Map;
 @Service
 public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IRoleService {
 
-	@Override
-	public PageInfo<Map<String, Object>, Role> page(PageInfo<Map<String, Object>, Role> pageInfo) {
-		QueryWrapper<Role> qw=new QueryWrapper<Role>();
-		Page<Role> page=pageInfo.toMybatisPlusPage();
-		Page<Role> selectPage = (Page<Role>) baseMapper.selectPage(page, qw);
-		pageInfo.from(selectPage);
-		return pageInfo;
-	}
+    @Override
+    public PageInfo<Map<String, Object>, Role> page(PageInfo<Map<String, Object>, Role> pageInfo) {
+        QueryWrapper<Role> qw = new QueryWrapper<Role>();
+        Page<Role> page = pageInfo.toMybatisPlusPage();
+        Page<Role> selectPage = (Page<Role>) baseMapper.selectPage(page, qw);
+        pageInfo.from(selectPage);
+        return pageInfo;
+    }
 
-	@Override
-	public Role getRoleByCode(String code) {
-		return baseMapper.getRoleByCode(code);
-	}
+    @Override
+    public Role getRoleByCode(String code) {
+        return baseMapper.getRoleByCode(code);
+    }
 
 
 }

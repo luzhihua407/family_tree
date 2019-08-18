@@ -4,10 +4,20 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.starfire.familytree.folk.entity.Category">
-    <result column="id" property="id" />
-        <result column="name" property="name" />
-        <result column="remark" property="remark" />
-        <result column="parent_id" property="parentId" />
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="remark" property="remark"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="creator" property="creator"/>
+        <result column="edit_time" property="editTime"/>
+        <result column="editor" property="editor"/>
     </resultMap>
+    <select id="getPage" resultMap="BaseResultMap">
+        select * from bs_category where 1=1
+        <if test="param!=null and param.name!=null ">
+            and name like concat('',#{param.name},'%')
+        </if>
+    </select>
 
 </mapper>

@@ -5,7 +5,7 @@ import com.starfire.familytree.folk.entity.Partner;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author luzh

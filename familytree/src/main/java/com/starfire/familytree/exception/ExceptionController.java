@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ExceptionController {
 
-	@ExceptionHandler
-	public Response<String> handlerException(Exception e) {
-		Response<String> response = Response.failure(100, e.getMessage());
-		return response;
-	}
+    @ExceptionHandler
+    public Response<String> handlerException(Exception e) {
+        Response<String> response = Response.failure(100, e.getMessage());
+        return response;
+    }
 
 }

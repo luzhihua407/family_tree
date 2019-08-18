@@ -13,7 +13,7 @@ import java.util.Map;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author luzh
@@ -21,12 +21,12 @@ import java.util.Map;
  */
 @Service
 public class UserMenuServiceImpl extends ServiceImpl<UserMenuMapper, UserMenu> implements IUserMenuService {
-	@Override
-	public PageInfo<Map<String, Object>, UserMenu> page(PageInfo<Map<String, Object>, UserMenu> pageInfo) {
-		QueryWrapper<UserMenu> qw=new QueryWrapper<UserMenu>();
-		Page<UserMenu> page=pageInfo.toMybatisPlusPage();
-		Page<UserMenu> selectPage = (Page<UserMenu>) baseMapper.selectPage(page, qw);
-		pageInfo.from(selectPage);
-		return pageInfo;
-	}
+    @Override
+    public PageInfo<Map<String, Object>, UserMenu> page(PageInfo<Map<String, Object>, UserMenu> pageInfo) {
+        QueryWrapper<UserMenu> qw = new QueryWrapper<UserMenu>();
+        Page<UserMenu> page = pageInfo.toMybatisPlusPage();
+        Page<UserMenu> selectPage = (Page<UserMenu>) baseMapper.selectPage(page, qw);
+        pageInfo.from(selectPage);
+        return pageInfo;
+    }
 }

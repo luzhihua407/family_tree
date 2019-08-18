@@ -6,13 +6,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.ApplicationEventMulticaster;
 import org.springframework.context.event.SimpleApplicationEventMulticaster;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResourceDetails;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
 @Configuration
-@MapperScan({"com.starfire.familytree.**.mapper"})
 public class ApplicationConfig {
 
     @Bean(name = "applicationEventMulticaster")
@@ -46,7 +47,10 @@ public class ApplicationConfig {
         OAuth2RestTemplate oAuth2RestTemplate = new OAuth2RestTemplate(details);
         return oAuth2RestTemplate;
     }
-
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 //    @Bean
 //    @ConfigurationProperties("spring.datasource.druid")
 //    public DataSource dataSource() {

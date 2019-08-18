@@ -13,7 +13,7 @@ import java.util.Map;
 
 /**
  * <p>
- *  字典服务实现类
+ * 字典服务实现类
  * </p>
  *
  * @author luzh
@@ -21,13 +21,13 @@ import java.util.Map;
  */
 @Service
 public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements IDictService {
-	@Override
-	public PageInfo<Map<String, Object>, Dict> page(PageInfo<Map<String, Object>, Dict> pageInfo) {
-		QueryWrapper<Dict> qw=new QueryWrapper<Dict>();
-		Page<Dict> page=pageInfo.toMybatisPlusPage();
-		Page<Dict> selectPage = (Page<Dict>) baseMapper.selectPage(page, qw);
-		pageInfo.from(selectPage);
-		return pageInfo;
-	}
+    @Override
+    public PageInfo<Map<String, Object>, Dict> page(PageInfo<Map<String, Object>, Dict> pageInfo) {
+        QueryWrapper<Dict> qw = new QueryWrapper<Dict>();
+        Page<Dict> page = pageInfo.toMybatisPlusPage();
+        Page<Dict> selectPage = (Page<Dict>) baseMapper.selectPage(page, qw);
+        pageInfo.from(selectPage);
+        return pageInfo;
+    }
 
 }

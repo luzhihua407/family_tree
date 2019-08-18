@@ -4,12 +4,12 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.starfire.familytree.entity.VerificationToken">
-    <result column="id" property="id" />
-        <result column="token" property="token" />
-        <result column="user_id" property="userId" />
-        <result column="expiry_date" property="expiryDate" />
+        <result column="id" property="id"/>
+        <result column="token" property="token"/>
+        <result column="user_id" property="userId"/>
+        <result column="expiry_date" property="expiryDate"/>
     </resultMap>
-	<select id="findByToken" resultMap="BaseResultMap" parameterType="String">
+    <select id="findByToken" resultMap="BaseResultMap" parameterType="String">
 		select * from verification_token where token='${token}'
 	</select>
 </mapper>

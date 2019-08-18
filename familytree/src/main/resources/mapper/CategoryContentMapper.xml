@@ -4,11 +4,15 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.starfire.familytree.folk.entity.CategoryContent">
-    <result column="id" property="id" />
-        <result column="sub_title" property="subTitle" />
-        <result column="title" property="title" />
-        <result column="content" property="content" />
-        <result column="category_id" property="categoryId" />
+        <result column="id" property="id"/>
+        <result column="sub_title" property="subTitle"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="category_id" property="categoryId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="creator" property="creator"/>
+        <result column="edit_time" property="editTime"/>
+        <result column="editor" property="editor"/>
     </resultMap>
 
 </mapper>

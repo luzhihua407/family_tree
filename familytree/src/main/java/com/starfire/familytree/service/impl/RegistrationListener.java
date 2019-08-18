@@ -14,41 +14,41 @@ import java.util.UUID;
 
 @Component
 public class RegistrationListener implements
-  ApplicationListener<OnRegistrationCompleteEvent> {
-  
+        ApplicationListener<OnRegistrationCompleteEvent> {
+
     @Autowired
     private IVerificationTokenService service;
-  
-  
+
+
     @Autowired
     private JavaMailSender mailSender;
- 
+
     @Value("${email.confirm.template}")
     private String template;
-    
+
     @Value("${email.system}")
     private String systemEmail;
-    
+
     @Override
     public void onApplicationEvent(OnRegistrationCompleteEvent event) {
         this.confirmRegistration(event);
     }
- 
+
     private void confirmRegistration(OnRegistrationCompleteEvent event) {
         User user = event.getUser();
         String token = UUID.randomUUID().toString();
         service.createVerificationToken(user.getId(), token);
         String recipientAddress = user.getEmail();
         String subject = "注册确认";
-        String confirmationUrl 
-          = event.getAppUrl() + "/usercenter/user/regitrationConfirm?token=" + token+" ";
-        String message ="test";
-         
+        String confirmationUrl
+                = event.getAppUrl() + "/usercenter/user/regitrationConfirm?token=" + token + " ";
+        String message = "test";
+
         SimpleMailMessage email = new SimpleMailMessage();
         email.setFrom(systemEmail);
         email.setTo(recipientAddress);
         email.setSubject(subject);
-        email.setText(String.format(template, message,confirmationUrl));
+        email.setText(String.format(template, message, confirmationUrl));
         mailSender.send(email);
     }
 }

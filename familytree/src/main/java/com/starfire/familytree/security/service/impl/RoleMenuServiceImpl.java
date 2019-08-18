@@ -14,7 +14,7 @@ import java.util.Map;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author luzh
@@ -22,17 +22,17 @@ import java.util.Map;
  */
 @Service
 public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenu> implements IRoleMenuService {
-	@Override
-	public PageInfo<Map<String, Object>, RoleMenu> page(PageInfo<Map<String, Object>, RoleMenu> pageInfo) {
-		QueryWrapper<RoleMenu> qw=new QueryWrapper<RoleMenu>();
-		Page<RoleMenu> page=pageInfo.toMybatisPlusPage();
-		Page<RoleMenu> selectPage = (Page<RoleMenu>) baseMapper.selectPage(page, qw);
-		pageInfo.from(selectPage);
-		return pageInfo;
-	}
+    @Override
+    public PageInfo<Map<String, Object>, RoleMenu> page(PageInfo<Map<String, Object>, RoleMenu> pageInfo) {
+        QueryWrapper<RoleMenu> qw = new QueryWrapper<RoleMenu>();
+        Page<RoleMenu> page = pageInfo.toMybatisPlusPage();
+        Page<RoleMenu> selectPage = (Page<RoleMenu>) baseMapper.selectPage(page, qw);
+        pageInfo.from(selectPage);
+        return pageInfo;
+    }
 
-	@Override
-	public List<Long> getMenuIdsByRoleId(Long roleId) {
-		return baseMapper.getMenuIdsByRoleId(roleId);
-	}
+    @Override
+    public List<Long> getMenuIdsByRoleId(Long roleId) {
+        return baseMapper.getMenuIdsByRoleId(roleId);
+    }
 }

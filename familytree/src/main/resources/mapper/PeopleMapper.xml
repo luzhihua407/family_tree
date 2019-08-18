@@ -4,30 +4,30 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.starfire.familytree.folk.entity.People">
-    <result column="id" property="id" />
-        <result column="avatar" property="avatar" />
-        <result column="nickname" property="nickname" />
-        <result column="full_name" property="fullName" />
-        <result column="gender" property="gender" />
-        <result column="age" property="age" />
-        <result column="is_married" property="isMarried" />
-        <result column="has_child" property="hasChild" />
-        <result column="partner_id" property="partnerId" />
-        <result column="generations" property="generations" />
-        <result column="birth" property="birth" />
-        <result column="death" property="death" />
-        <result column="remark" property="remark" />
-        <result column="brief" property="brief" />
-        <result column="education" property="education" />
-        <result column="height" property="height" />
-        <result column="weight" property="weight" />
-        <result column="creator" property="creator" />
-        <result column="create_time" property="createTime" />
-        <result column="editor" property="editor" />
-        <result column="edit_time" property="editTime" />
-        <result column="phone_number" property="phoneNumber" />
-        <result column="company" property="company" />
-        <result column="job" property="job" />
+        <result column="id" property="id"/>
+        <result column="avatar" property="avatar"/>
+        <result column="nickname" property="nickname"/>
+        <result column="full_name" property="fullName"/>
+        <result column="gender" property="gender"/>
+        <result column="age" property="age"/>
+        <result column="is_married" property="isMarried"/>
+        <result column="has_child" property="hasChild"/>
+        <result column="partner_id" property="partnerId"/>
+        <result column="generations" property="generations"/>
+        <result column="birth" property="birth"/>
+        <result column="death" property="death"/>
+        <result column="remark" property="remark"/>
+        <result column="brief" property="brief"/>
+        <result column="education" property="education"/>
+        <result column="height" property="height"/>
+        <result column="weight" property="weight"/>
+        <result column="creator" property="creator"/>
+        <result column="create_time" property="createTime"/>
+        <result column="editor" property="editor"/>
+        <result column="edit_time" property="editTime"/>
+        <result column="phone_number" property="phoneNumber"/>
+        <result column="company" property="company"/>
+        <result column="job" property="job"/>
     </resultMap>
     <select id="getPeoplesByGeneration" resultMap="BaseResultMap">
         select * from bs_people where generations=#{gen}

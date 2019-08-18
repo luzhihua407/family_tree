@@ -8,12 +8,12 @@ import java.util.Map;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author luzh
  * @since 2019-03-03
  */
 public interface IUserMenuService extends IService<UserMenu> {
-	public PageInfo<Map<String, Object>, UserMenu> page(PageInfo<Map<String, Object>, UserMenu> pageInfo);
+    public PageInfo<Map<String, Object>, UserMenu> page(PageInfo<Map<String, Object>, UserMenu> pageInfo);
 }

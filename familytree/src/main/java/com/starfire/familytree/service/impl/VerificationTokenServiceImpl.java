@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author luzh
@@ -18,17 +18,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class VerificationTokenServiceImpl extends ServiceImpl<VerificationTokenMapper, VerificationToken> implements IVerificationTokenService {
 
-	@Autowired
-	private VerificationTokenMapper tokenRepository;
-	
-	@Override
-	public void createVerificationToken(Long userId, String token) {
-		VerificationToken myToken = new VerificationToken(token, userId);
-		tokenRepository.insert(myToken);
-	}
+    @Autowired
+    private VerificationTokenMapper tokenRepository;
 
-	@Override
-	public VerificationToken getVerificationToken(String token) {
-		return tokenRepository.findByToken(token);
-	}
+    @Override
+    public void createVerificationToken(Long userId, String token) {
+        VerificationToken myToken = new VerificationToken(token, userId);
+        tokenRepository.insert(myToken);
+    }
+
+    @Override
+    public VerificationToken getVerificationToken(String token) {
+        return tokenRepository.findByToken(token);
+    }
 }

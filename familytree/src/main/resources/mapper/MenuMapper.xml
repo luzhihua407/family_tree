@@ -4,20 +4,20 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.starfire.familytree.security.entity.Menu">
-    <result column="id" property="id" />
-        <result column="create_time" property="createTime" />
-        <result column="creator" property="creator" />
-        <result column="edit_time" property="editTime" />
-        <result column="editor" property="editor" />
-        <result column="valid" property="valid" />
-        <result column="code" property="code" />
-        <result column="icon" property="icon" />
-        <result column="id_path" property="idPath" />
-        <result column="name" property="name" />
-        <result column="remark" property="remark" />
-        <result column="type" property="type" />
-        <result column="url" property="url" />
-        <result column="parent" property="parent" />
+        <result column="id" property="id"/>
+        <result column="create_time" property="createTime"/>
+        <result column="creator" property="creator"/>
+        <result column="edit_time" property="editTime"/>
+        <result column="editor" property="editor"/>
+        <result column="valid" property="valid"/>
+        <result column="code" property="code"/>
+        <result column="icon" property="icon"/>
+        <result column="id_path" property="idPath"/>
+        <result column="name" property="name"/>
+        <result column="remark" property="remark"/>
+        <result column="type" property="type"/>
+        <result column="url" property="url"/>
+        <result column="parent" property="parent"/>
     </resultMap>
 
 </mapper>

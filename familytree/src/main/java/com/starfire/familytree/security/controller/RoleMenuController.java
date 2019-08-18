@@ -15,7 +15,7 @@ import java.util.Map;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author luzh
@@ -24,54 +24,54 @@ import java.util.Map;
 @RestController
 @RequestMapping("/security/role-menu")
 public class RoleMenuController {
-	@Autowired
-	private IRoleMenuService roleMenuService;
+    @Autowired
+    private IRoleMenuService roleMenuService;
 
-	/**
-	 * 新增或修改
-	 *
-	 * @param roleMenu
-	 * @return
-	 * @author luzh
-	 */
-	@RequestMapping("/addOrUpdate")
-	public Response<RoleMenu> addOrUpdateRoleMenu(@RequestBody RoleMenu roleMenu) {
-		roleMenuService.saveOrUpdate(roleMenu);
-		Response<RoleMenu> response = new Response<RoleMenu>();
-		return response.success(roleMenu);
+    /**
+     * 新增或修改
+     *
+     * @param roleMenu
+     * @return
+     * @author luzh
+     */
+    @RequestMapping("/addOrUpdate")
+    public Response<RoleMenu> addOrUpdateRoleMenu(@RequestBody RoleMenu roleMenu) {
+        roleMenuService.saveOrUpdate(roleMenu);
+        Response<RoleMenu> response = new Response<RoleMenu>();
+        return response.success(roleMenu);
 
-	}
+    }
 
-	/**
-	 * 删除
-	 *
-	 * @param id
-	 * @return
-	 * @author luzh
-	 */
-	@GetMapping("/delete")
-	public Response<String> deleteRoleMenu(Long id) {
-		boolean flag = roleMenuService.removeById(id);
-		Response<String> response = new Response<String>();
-		if (!flag) {
-			return response.failure();
-		}
-		return response.success();
+    /**
+     * 删除
+     *
+     * @param id
+     * @return
+     * @author luzh
+     */
+    @GetMapping("/delete")
+    public Response<String> deleteRoleMenu(Long id) {
+        boolean flag = roleMenuService.removeById(id);
+        Response<String> response = new Response<String>();
+        if (!flag) {
+            return response.failure();
+        }
+        return response.success();
 
-	}
+    }
 
-	/**
-	 * 分页
-	 *
-	 * @param page
-	 * @return
-	 * @author luzh
-	 */
-	@RequestMapping("/page")
-	public Response<PageInfo<Map<String, Object>, RoleMenu>> page(@RequestBody PageInfo<Map<String, Object>, RoleMenu> page) {
-		PageInfo<Map<String, Object>, RoleMenu> pageInfo = roleMenuService.page(page);
-		Response<PageInfo<Map<String, Object>, RoleMenu>> response = new Response<PageInfo<Map<String, Object>, RoleMenu>>();
-		return response.success(pageInfo);
+    /**
+     * 分页
+     *
+     * @param page
+     * @return
+     * @author luzh
+     */
+    @RequestMapping("/page")
+    public Response<PageInfo<Map<String, Object>, RoleMenu>> page(@RequestBody PageInfo<Map<String, Object>, RoleMenu> page) {
+        PageInfo<Map<String, Object>, RoleMenu> pageInfo = roleMenuService.page(page);
+        Response<PageInfo<Map<String, Object>, RoleMenu>> response = new Response<PageInfo<Map<String, Object>, RoleMenu>>();
+        return response.success(pageInfo);
 
-	}
+    }
 }

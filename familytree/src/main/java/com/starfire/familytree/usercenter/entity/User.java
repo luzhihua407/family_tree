@@ -19,7 +19,7 @@ import java.util.TreeSet;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author luzh
@@ -31,83 +31,84 @@ import java.util.TreeSet;
 @Data
 public class User extends AbstractEntity implements UserDetails {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private Set<GrantedAuthority> authorities=new TreeSet<GrantedAuthority>();
-	
-	@NotEmpty(message = "邮箱不能为空")
-	@Email
-	private String email;
+//    @Transient
+    private Set<GrantedAuthority> authorities = new TreeSet<GrantedAuthority>();
 
-	private Boolean firstLogin = false;
+    @NotEmpty(message = "邮箱不能为空")
+    @Email
+    private String email;
 
-	private LocalDateTime lastLoginTime;
+    private Boolean firstLogin = false;
 
-	private String mobile;
+    private LocalDateTime lastLoginTime;
 
-	private  Boolean enabled;
+    private String mobile;
 
-	@NotEmpty(message = "用户名不能为空")
-	@Size(min = 2, max = 32, message = "用户名长度为2-32个字符") 
-	private String username;
+    private Boolean enabled;
 
-	@NotEmpty(message = "密码不能为空")
-	@Size(min = 6, max = 32, message = "密码长度为6-32个字符") 
-	private String password;
+    @NotEmpty(message = "用户名不能为空")
+    @Size(min = 2, max = 32, message = "用户名长度为2-32个字符")
+    private String username;
 
-	private String realName;
+    @NotEmpty(message = "密码不能为空")
+    @Size(min = 6, max = 32, message = "密码长度为6-32个字符")
+    private String password;
 
-	private LocalDateTime registerTime=LocalDateTime.now() ;
+    private String realName;
 
-	private Integer type;
+    private LocalDateTime registerTime = LocalDateTime.now();
 
-	private Integer age;
+    private Integer type;
 
-	@NotNull
-	private Integer gender;
+    private Integer age;
 
-	private Integer province;
-	
-	private Integer city;
-	
-	private Integer district;
+    @NotNull
+    private Integer gender;
 
-	private String address;
+    private Integer province;
 
-	@Override
-	public Collection<GrantedAuthority> getAuthorities() {
-		return authorities;
-	}
+    private Integer city;
 
-	@Override
-	public String getPassword() {
-		return password;
-	}
+    private Integer district;
 
-	@Override
-	public String getUsername() {
-		return username;
-	}
+    private String address;
 
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
+    @Override
+    public Collection<GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
 
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
+    @Override
+    public String getPassword() {
+        return password;
+    }
 
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
+    @Override
+    public String getUsername() {
+        return username;
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return getValid();
-	}
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
 
-	
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return getValid();
+    }
+
+
 }

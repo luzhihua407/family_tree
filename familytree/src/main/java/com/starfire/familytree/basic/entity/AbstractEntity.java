@@ -9,46 +9,46 @@ import java.time.LocalDateTime;
 
 /**
  * 实体基类
- * @author luzh
  *
+ * @author luzh
  */
 @Data
 //@MappedSuperclass
 public abstract class AbstractEntity implements Serializable {
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * @author luzh
-	 */
+    /**
+     * @author luzh
+     */
 
-	@JsonSerialize(using=ToStringSerializer.class)
+    @JsonSerialize(using = ToStringSerializer.class)
 //	@Id
-	private Long id=null;
+    private Long id = null;
 
-	/**
-	 * 创建人
-	 */
-	private String creator;
+    /**
+     * 创建人
+     */
+    private String creator="system";
 
-	/**
-	 * 创建时间
-	 */
-	private LocalDateTime createTime=LocalDateTime.now();
+    /**
+     * 创建时间
+     */
+    private LocalDateTime createTime = LocalDateTime.now();
 
-	/**
-	 * 编辑人
-	 */
-	private String editor;
+    /**
+     * 编辑人
+     */
+    private String editor;
 
-	/**
-	 * 编辑时间
-	 */
-	private LocalDateTime editTime;
+    /**
+     * 编辑时间
+     */
+    private LocalDateTime editTime;
 
-	private Boolean valid=true;
-	
-	
+    private Boolean valid = true;
+
+
 }

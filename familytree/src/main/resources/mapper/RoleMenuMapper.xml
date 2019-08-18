@@ -4,15 +4,15 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.starfire.familytree.security.entity.RoleMenu">
-    <result column="id" property="id" />
-        <result column="create_time" property="createTime" />
-        <result column="creator" property="creator" />
-        <result column="edit_time" property="editTime" />
-        <result column="editor" property="editor" />
-        <result column="valid" property="valid" />
-        <result column="own" property="own" />
-        <result column="menu_id" property="menuId" />
-        <result column="role_id" property="roleId" />
+        <result column="id" property="id"/>
+        <result column="create_time" property="createTime"/>
+        <result column="creator" property="creator"/>
+        <result column="edit_time" property="editTime"/>
+        <result column="editor" property="editor"/>
+        <result column="valid" property="valid"/>
+        <result column="own" property="own"/>
+        <result column="menu_id" property="menuId"/>
+        <result column="role_id" property="roleId"/>
     </resultMap>
 
 </mapper>

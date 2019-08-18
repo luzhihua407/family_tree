@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author luzh
@@ -27,14 +27,14 @@ public class PeopleServiceImpl extends ServiceImpl<PeopleMapper, People> impleme
     public People addWife(People wife) {
 
         peopleMapper.insert(wife);
-        return  wife;
+        return wife;
     }
 
     @Override
     public People addChildren(People chillden) {
 
         peopleMapper.insert(chillden);
-        return  chillden;
+        return chillden;
 
     }
 

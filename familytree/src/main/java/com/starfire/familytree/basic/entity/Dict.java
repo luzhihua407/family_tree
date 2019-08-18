@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author luzh
@@ -19,8 +19,6 @@ import java.math.BigDecimal;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @TableName("basic_dict")
-//@Entity
-//@Table(name="basic_dict")
 public class Dict extends AbstractEntity {
 
     private static final long serialVersionUID = 1L;

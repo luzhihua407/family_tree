@@ -12,7 +12,7 @@ import java.util.Date;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author luzh
@@ -27,13 +27,13 @@ public class VerificationToken implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
-    
+
     private String token;
-   
+
     private Long userId;
-     
+
     private Date expiryDate;
-    
+
     public Date calculateExpiryDate(int expiryTimeInMinutes) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Timestamp(cal.getTime().getTime()));
@@ -41,14 +41,14 @@ public class VerificationToken implements Serializable {
         return new Date(cal.getTime().getTime());
     }
 
-	public VerificationToken(String token, Long userId) {
-		super();
-		this.token = token;
-		this.userId = userId;
-	}
+    public VerificationToken(String token, Long userId) {
+        super();
+        this.token = token;
+        this.userId = userId;
+    }
 
-	public VerificationToken() {
-		super();
-	}
+    public VerificationToken() {
+        super();
+    }
 
 }

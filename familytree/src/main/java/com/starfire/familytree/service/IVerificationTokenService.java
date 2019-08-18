@@ -5,7 +5,7 @@ import com.starfire.familytree.entity.VerificationToken;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author luzh
@@ -13,8 +13,8 @@ import com.starfire.familytree.entity.VerificationToken;
  */
 public interface IVerificationTokenService extends IService<VerificationToken> {
 
-	 void createVerificationToken(Long userId, String token);
-	 
-	 VerificationToken getVerificationToken(String VerificationToken);
+    void createVerificationToken(Long userId, String token);
+
+    VerificationToken getVerificationToken(String VerificationToken);
 
 }

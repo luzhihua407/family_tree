@@ -2,10 +2,13 @@ package com.starfire.familytree.folk.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.starfire.familytree.folk.entity.Category;
+import com.starfire.familytree.vo.PageInfo;
+
+import java.util.Map;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author luzh
@@ -13,4 +16,5 @@ import com.starfire.familytree.folk.entity.Category;
  */
 public interface ICategoryService extends IService<Category> {
 
+   public PageInfo<Map<String, Object>, Category> page(PageInfo<Map<String, Object>, Category> page);
 }

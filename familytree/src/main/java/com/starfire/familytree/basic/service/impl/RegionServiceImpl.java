@@ -13,7 +13,7 @@ import java.util.Map;
 
 /**
  * <p>
- *  省市区服务实现类
+ * 省市区服务实现类
  * </p>
  *
  * @author luzh
@@ -22,13 +22,13 @@ import java.util.Map;
 @Service
 public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> implements IRegionService {
 
-	@Override
-	public PageInfo<Map<String, Object>, Region> page(PageInfo<Map<String, Object>, Region> pageInfo) {
-		QueryWrapper<Region> qw=new QueryWrapper<Region>();
-		Page<Region> page=pageInfo.toMybatisPlusPage();
-		Page<Region> selectPage = (Page<Region>) baseMapper.selectPage(page, qw);
-		pageInfo.from(selectPage);
-		return pageInfo;
-	}
+    @Override
+    public PageInfo<Map<String, Object>, Region> page(PageInfo<Map<String, Object>, Region> pageInfo) {
+        QueryWrapper<Region> qw = new QueryWrapper<Region>();
+        Page<Region> page = pageInfo.toMybatisPlusPage();
+        Page<Region> selectPage = (Page<Region>) baseMapper.selectPage(page, qw);
+        pageInfo.from(selectPage);
+        return pageInfo;
+    }
 
 }

@@ -1,7 +1,8 @@
 server:
-  port: 80
+  port: 8080
   servlet:
     context-path: /
+
 spring:
   datasource:
     druid:
@@ -24,9 +25,10 @@ spring:
 
   devtools:
     livereload:
-      enabled: false
+      enabled: true
     restart:
-      enabled: false  
+      enabled: true
+
   session:
     timeout: 3600
     jdbc:
@@ -36,8 +38,8 @@ spring:
     hibernate:
       ddl-auto: none
 security:
-  oauth2: 
-    client: 
+  oauth2:
+    client:
       client-id: family_tree
       client-secret: family_tree
       access-token-uri: http://localhost/oauth/token
@@ -45,9 +47,11 @@ security:
     resource:
       user-info-uri: http://localhost/user/me
 
+
 logging:
-  level: 
-    org.springframework.security: DEBUG
+  level: DEBUG
 
 mybatis-plus:
   mapper-locations: classpath:/mapper/*Mapper.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

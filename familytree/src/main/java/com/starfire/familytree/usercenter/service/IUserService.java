@@ -9,20 +9,20 @@ import java.util.Map;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author luzh
  * @since 2019-03-03
  */
-public interface IUserService  extends UserDetailsService , IService<User>  {
-	public User findUserByEmail(String email);
+public interface IUserService extends UserDetailsService, IService<User> {
+    public User findUserByEmail(String email);
 
-	public User registerNewUserAccount(User user);
-	
-	public Boolean activeUser(Long userId);
-	
-	
-	public PageInfo<Map<String, Object>, User> page(PageInfo<Map<String, Object>, User> pageInfo);
-	
+    public User registerNewUserAccount(User user);
+
+    public Boolean activeUser(Long userId);
+
+
+    public PageInfo<Map<String, Object>, User> page(PageInfo<Map<String, Object>, User> pageInfo);
+
 }

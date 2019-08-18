@@ -5,7 +5,7 @@ import com.starfire.familytree.security.entity.Role;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author luzh
@@ -13,6 +13,6 @@ import com.starfire.familytree.security.entity.Role;
  */
 public interface RoleMapper extends BaseMapper<Role> {
 
-	public Role getRoleByCode(String code);
+    public Role getRoleByCode(String code);
 
 }

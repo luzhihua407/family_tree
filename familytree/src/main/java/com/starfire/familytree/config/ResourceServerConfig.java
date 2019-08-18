@@ -4,8 +4,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 //@EnableResourceServer
-public class ResourceServerConfig{
+public class ResourceServerConfig {
 
 
-	
 }
