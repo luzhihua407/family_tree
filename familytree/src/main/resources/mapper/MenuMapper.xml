@@ -4,20 +4,57 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.starfire.familytree.security.entity.Menu">
-        <result column="id" property="id"/>
+        <result column="id" property="id" />
         <result column="create_time" property="createTime"/>
         <result column="creator" property="creator"/>
         <result column="edit_time" property="editTime"/>
         <result column="editor" property="editor"/>
-        <result column="valid" property="valid"/>
-        <result column="code" property="code"/>
-        <result column="icon" property="icon"/>
-        <result column="id_path" property="idPath"/>
-        <result column="name" property="name"/>
-        <result column="remark" property="remark"/>
-        <result column="type" property="type"/>
-        <result column="url" property="url"/>
-        <result column="parent" property="parent"/>
+        <result column="valid" property="valid" />
+        <result column="code" property="code" />
+        <result column="icon" property="icon" />
+        <result column="id_path" property="idPath" />
+        <result column="name" property="name" />
+        <result column="remark" property="remark" />
+        <result column="type" property="type" />
+        <result column="url" property="url" />
+        <result column="parent" property="parent" />
+        <result column="parentMenuName" property="parentMenuName" />
     </resultMap>
+    <select id="getChildMenu" resultMap="BaseResultMap" parameterType="Long">
+	   select * from security_menu where type=1 and valid=1 and parent=#{parentMenuId}
+	</select>
+    <select id="getParentMenu" resultMap="BaseResultMap" parameterType="Long">
+	   select * from security_menu where type=0 and valid=1 and id=#{menuId}
+	</select>
+    <select id="getParentMenus" resultMap="BaseResultMap">
+	   select * from security_menu where type=0 and valid=1
+	</select>
+    <select id="queryPage" resultMap="BaseResultMap" parameterType="Map">
+        select b.name as parentMenuName,a.* from security_menu a LEFT JOIN security_menu b ON a.parent=b.id WHERE a.valid=1
+        <if test="queryCon.code != null">
+            and a.code like CONCAT(#{queryCon.code},'%')
+        </if>
+        <if test="queryCon.name != null">
+            and a.name like CONCAT(#{queryCon.name},'%')
+        </if>
+    </select>
+    <select id="getByIds" resultMap="BaseResultMap" parameterType="List">
+        select * from security_menu where valid=1
+        and id in
+        <foreach collection="menuIds" item="item" open="(" separator="," close=")" index="idx">
+            #{item}
+        </foreach>
+        order by id,parent asc
+    </select>
 
+    <select id="getParentMenusByRoleId" resultMap="BaseResultMap" parameterType="Long">
+		select b.* from security_role_menu a,security_menu b where a.menu_id=b.id and role_id=#{roleId} and a.valid=1 and b.type=0
+	</select>
+    <select id="getParentMenuIds" resultType="Long" parameterType="List">
+        select distinct parent from security_menu where valid=1
+        and id in
+        <foreach collection="childMenuIds" item="item" open="(" separator="," close=")" index="idx">
+            #{item}
+        </foreach>
+    </select>
 </mapper>

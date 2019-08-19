@@ -47,7 +47,7 @@ public class CategoryContentController {
     }
 
     @PostMapping("/delete")
-    public Boolean deleteCategoryContent(@RequestBody DeleteVO deleteVO) {
+    public Boolean deleteCategoryContent(@RequestBody DeleteVO<Long[]> deleteVO) {
         Long[] ids = deleteVO.getIds();
         for (int i = 0; i < ids.length; i++) {
             Long id = Long.valueOf(ids[i]);
