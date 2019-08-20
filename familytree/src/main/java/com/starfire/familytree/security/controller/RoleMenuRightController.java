@@ -70,7 +70,10 @@ public class RoleMenuRightController {
      * @author luzh
      */
     @RequestMapping("/page")
-    public Response<PageInfo<Map<String, Object>, RoleMenuRight>> page(@RequestBody PageInfo<Map<String, Object>, RoleMenuRight> page) {
+    public Response<PageInfo<Map<String, Object>, RoleMenuRight>> page(@RequestBody(required = false) PageInfo<Map<String, Object>, RoleMenuRight> page) {
+        if(page==null){
+            page=new PageInfo<>();
+        }
         PageInfo<Map<String, Object>, RoleMenuRight> pageInfo = roleMenuRightRightService.page(page);
         Response<PageInfo<Map<String, Object>, RoleMenuRight>> response = new Response<PageInfo<Map<String, Object>, RoleMenuRight>>();
         return response.success(pageInfo);

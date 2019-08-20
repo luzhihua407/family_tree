@@ -70,7 +70,10 @@ public class UserMenuController {
      * @author luzh
      */
     @RequestMapping("/page")
-    public Response<PageInfo<Map<String, Object>, UserMenu>> page(@RequestBody PageInfo<Map<String, Object>, UserMenu> page) {
+    public Response<PageInfo<Map<String, Object>, UserMenu>> page(@RequestBody(required = false) PageInfo<Map<String, Object>, UserMenu> page) {
+        if(page==null){
+            page=new PageInfo<>();
+        }
         PageInfo<Map<String, Object>, UserMenu> pageInfo = userMenuService.page(page);
         Response<PageInfo<Map<String, Object>, UserMenu>> response = new Response<PageInfo<Map<String, Object>, UserMenu>>();
         return response.success(pageInfo);

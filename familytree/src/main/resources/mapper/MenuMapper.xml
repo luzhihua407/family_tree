@@ -29,12 +29,12 @@
     <select id="getParentMenus" resultMap="BaseResultMap">
 	   select * from security_menu where type=0 and valid=1
 	</select>
-    <select id="queryPage" resultMap="BaseResultMap" parameterType="Map">
+    <select id="queryPage" resultMap="BaseResultMap">
         select b.name as parentMenuName,a.* from security_menu a LEFT JOIN security_menu b ON a.parent=b.id WHERE a.valid=1
-        <if test="queryCon.code != null">
+        <if test="queryCon!=null and queryCon.code != null">
             and a.code like CONCAT(#{queryCon.code},'%')
         </if>
-        <if test="queryCon.name != null">
+        <if test="queryCon!=null and queryCon.name != null">
             and a.name like CONCAT(#{queryCon.name},'%')
         </if>
     </select>

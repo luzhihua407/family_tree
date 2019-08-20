@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.starfire.familytree.folk.entity.CategoryContent;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -27,8 +28,8 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 
     @Override
     public PageInfo<Map<String, Object>, Menu> page(PageInfo<Map<String, Object>, Menu> pageInfo) {
-        Page<Menu> page = pageInfo.toMybatisPlusPage();
         Map<String, Object> param = pageInfo.getParam();
+        Page<Menu> page = pageInfo.toMybatisPlusPage();
         Page<Menu> selectPage = (Page<Menu>) baseMapper.queryPage(page, param);
         pageInfo.from(selectPage);
         return pageInfo;

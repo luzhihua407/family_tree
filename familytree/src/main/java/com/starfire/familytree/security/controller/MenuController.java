@@ -104,7 +104,10 @@ public class MenuController {
      * @author luzh
      */
     @PostMapping("/page")
-    public Response<PageInfo<Map<String, Object>, Menu>> page(@RequestBody PageInfo<Map<String, Object>, Menu> page) {
+    public Response<PageInfo<Map<String, Object>, Menu>> page(@RequestBody(required = false) PageInfo<Map<String, Object>, Menu> page) {
+        if(page==null){
+            page=new PageInfo<>();
+        }
         PageInfo<Map<String, Object>, Menu> pageInfo = menuService.page(page);
         Response<PageInfo<Map<String, Object>, Menu>> response = new Response<PageInfo<Map<String, Object>, Menu>>();
         return response.success(pageInfo);

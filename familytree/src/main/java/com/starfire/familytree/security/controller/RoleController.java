@@ -34,6 +34,9 @@ public class RoleController {
 
     @RequestMapping("/page")
     public PageInfo<Map<String, Object>, Role> page(@RequestBody(required = false) PageInfo<Map<String, Object>, Role> page) {
+        if(page==null){
+            page=new PageInfo<>();
+        }
         PageInfo<Map<String, Object>, Role> pageInfo = roleService.page(page);
         return pageInfo;
     }

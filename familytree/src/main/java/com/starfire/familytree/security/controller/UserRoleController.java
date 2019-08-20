@@ -70,7 +70,10 @@ public class UserRoleController {
      * @author luzh
      */
     @RequestMapping("/page")
-    public Response<PageInfo<Map<String, Object>, UserRole>> page(@RequestBody PageInfo<Map<String, Object>, UserRole> page) {
+    public Response<PageInfo<Map<String, Object>, UserRole>> page(@RequestBody(required = false) PageInfo<Map<String, Object>, UserRole> page) {
+        if(page==null){
+            page=new PageInfo<>();
+        }
         PageInfo<Map<String, Object>, UserRole> pageInfo = userRoleService.page(page);
         Response<PageInfo<Map<String, Object>, UserRole>> response = new Response<PageInfo<Map<String, Object>, UserRole>>();
         return response.success(pageInfo);
