@@ -5,6 +5,7 @@ import com.starfire.familytree.response.Response;
 import com.starfire.familytree.security.entity.UserMenu;
 import com.starfire.familytree.security.service.IUserMenuService;
 import com.starfire.familytree.vo.PageInfo;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +23,8 @@ import java.util.Map;
  * @since 2019-03-03
  */
 @RestController
-@RequestMapping("/security/user-menu")
+@RequestMapping("/security/user_menu")
+@Api("用户菜单模块")
 public class UserMenuController {
     @Autowired
     private IUserMenuService userMenuService;

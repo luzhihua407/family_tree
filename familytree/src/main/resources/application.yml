@@ -6,7 +6,7 @@ server:
 spring:
   datasource:
     druid:
-      url: jdbc:mysql://localhost:3306/familytree?characterEncoding=utf8&characterSetResults=utf8&autoReconnect=true&failOverReadOnly=false
+      url: jdbc:mysql://localhost:3306/familytree?characterEncoding=utf8&characterSetResults=utf8&autoReconnect=true&failOverReadOnly=false&useSSL=false
       username: family
       password: family
       driverClassName: com.mysql.jdbc.Driver
@@ -22,13 +22,16 @@ spring:
       testWhileIdle: true
       testOnBorrow: false
       testOnReturn: false
-
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
   devtools:
     livereload:
       enabled: true
     restart:
       enabled: true
-
   session:
     timeout: 3600
     jdbc:
@@ -37,6 +40,13 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+  resources:
+    add-mappings: true
+  security:
+    user:
+      name: admin
+      password: admin
+
 security:
   oauth2:
     client:

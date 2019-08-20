@@ -2,7 +2,6 @@ package com.starfire.familytree.folk.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.starfire.familytree.folk.entity.Category;
 import com.starfire.familytree.folk.entity.CategoryContent;
 import com.starfire.familytree.folk.mapper.CategoryContentMapper;
 import com.starfire.familytree.folk.service.ICategoryContentService;

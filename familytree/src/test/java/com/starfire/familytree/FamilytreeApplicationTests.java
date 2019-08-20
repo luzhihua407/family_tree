@@ -2,8 +2,13 @@ package com.starfire.familytree;
 
 import com.starfire.familytree.folk.entity.*;
 import com.starfire.familytree.folk.service.*;
+import com.starfire.familytree.security.entity.Role;
+import com.starfire.familytree.security.entity.UserRole;
+import com.starfire.familytree.security.service.IMenuService;
+import com.starfire.familytree.security.service.IRoleService;
+import com.starfire.familytree.security.service.IUserRoleService;
 import com.starfire.familytree.usercenter.entity.User;
-import com.starfire.familytree.usercenter.service.impl.UserServiceImpl;
+import com.starfire.familytree.usercenter.service.IUserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +37,16 @@ public class FamilytreeApplicationTests {
     private ICategoryContentService categoryContentService;
 
     @Autowired
-    private UserServiceImpl userService;
+    private IUserService userService;
 
+    @Autowired
+    private IRoleService roleService;
+
+    @Autowired
+    private IUserRoleService userRoleService;
+
+    @Autowired
+    private IMenuService menuService;
     @Test
     public void contextLoads() {
         People people = new People();
@@ -86,8 +99,8 @@ public class FamilytreeApplicationTests {
     @Test
     public void categoryContent() {
         CategoryContent categoryContent = new CategoryContent();
-        categoryContent.setTitle("人物事迹-张三");
-        categoryContent.setContent("<font>张三是好人</font>");
+        categoryContent.setTitle("人物事迹-张三1");
+        categoryContent.setContent("<font>张三是好人1</font>");
         categoryContent.setCategoryId(1161093219849654274l);
         categoryContentService.save(categoryContent);
 
@@ -97,8 +110,41 @@ public class FamilytreeApplicationTests {
     @Test
     public void user() {
         User user = new User();
-        user.setRealName("aaa");
+        user.setRealName("管理员");
+        user.setUsername("admin");
+        user.setValid(true);
+        user.setPassword("admin");
+        user.setEmail("user@126.com");
         userService.registerNewUserAccount(user);
+
+
+    }
+    @Test
+    public void role() {
+        Role role=new Role();
+        role.setCode("USER");
+        role.setName("USER");
+        roleService.save(role);
+
+
+    }
+    @Test
+    public void userRole() {
+        User user = userService.getUserByEmail("user@126.com");
+
+        Role role = roleService.getRoleByCode("USER");
+        UserRole userRole=new UserRole();
+        userRole.setRoleId(role.getId());
+        userRole.setUserId(user.getId());
+        userRoleService.save(userRole);
+
+
+    }
+    @Test
+    public void addUserRole() {
+        user();
+        role();
+        userRole();
 
 
     }

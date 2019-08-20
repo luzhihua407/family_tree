@@ -27,4 +27,9 @@
     <select id="getUserByUserName" resultMap="BaseResultMap">
 		select * from sys_user where username = #{username} limit 1
 	</select>
+    
+    <select id="getUserByEmail" resultMap="BaseResultMap">
+        select * from sys_user where email = #{email} limit 1
+
+    </select>
 </mapper>

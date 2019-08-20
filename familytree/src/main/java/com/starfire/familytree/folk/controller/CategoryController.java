@@ -3,9 +3,9 @@ package com.starfire.familytree.folk.controller;
 
 import com.starfire.familytree.folk.entity.Category;
 import com.starfire.familytree.folk.service.ICategoryService;
-import com.starfire.familytree.response.Response;
 import com.starfire.familytree.vo.DeleteVO;
 import com.starfire.familytree.vo.PageInfo;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +21,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/folk/category")
+@Api("分类模块")
 public class CategoryController {
 
     @Autowired

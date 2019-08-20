@@ -5,6 +5,7 @@ import com.starfire.familytree.response.Response;
 import com.starfire.familytree.security.entity.RoleMenu;
 import com.starfire.familytree.security.service.IRoleMenuService;
 import com.starfire.familytree.vo.PageInfo;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +23,8 @@ import java.util.Map;
  * @since 2019-03-03
  */
 @RestController
-@RequestMapping("/security/role-menu")
+@RequestMapping("/security/role_menu")
+@Api("角色菜单模块")
 public class RoleMenuController {
     @Autowired
     private IRoleMenuService roleMenuService;

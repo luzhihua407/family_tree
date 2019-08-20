@@ -3,6 +3,7 @@ package com.starfire.familytree.usercenter.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.starfire.familytree.usercenter.entity.User;
 import com.starfire.familytree.vo.PageInfo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.Map;
@@ -16,7 +17,10 @@ import java.util.Map;
  * @since 2019-03-03
  */
 public interface IUserService extends UserDetailsService, IService<User> {
-    public User findUserByEmail(String email);
+
+    public User getUserByUserName(String username);
+
+    public User getUserByEmail(String email);
 
     public User registerNewUserAccount(User user);
 

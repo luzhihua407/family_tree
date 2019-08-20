@@ -1,6 +1,8 @@
 package com.starfire.familytree.vo;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.util.List;
 
@@ -23,6 +25,7 @@ public class PageInfo<P, T> implements java.io.Serializable {
     /**
      * 请求参数对象
      */
+//    @JsonIgnore
     private P param;
     /**
      * 结果集合
@@ -32,7 +35,7 @@ public class PageInfo<P, T> implements java.io.Serializable {
     /**
      * 总条数
      */
-    private Long total = 0l;
+    private Long total = 0L;
 
     /**
      * 总页数

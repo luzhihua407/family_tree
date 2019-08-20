@@ -50,7 +50,6 @@ public class MenuController {
     /**
      * 删除
      *
-     * @param id
      * @return
      * @author luzh
      */
@@ -71,7 +70,7 @@ public class MenuController {
      * @param id
      * @return
      */
-    @RequestMapping("/get")
+    @GetMapping("/get")
     public Response<Menu> getUser(Long id) {
         Menu menu = menuService.getById(id);
         Response<Menu> response = new Response<Menu>();
@@ -79,10 +78,9 @@ public class MenuController {
     }
     /**
      * 获取所有父级菜单
-     * @param id
      * @return
      */
-    @RequestMapping("/getParentMenus")
+    @GetMapping("/getParentMenus")
     public Response<List<Menu>> getParentMenus() {
         List<Menu> menus = menuService.getParentMenus();
         Response<List<Menu>> response = new Response<List<Menu>>();
@@ -92,7 +90,7 @@ public class MenuController {
      * 获取菜单Tree
      * @return
      */
-    @RequestMapping("/getMenuTree")
+    @GetMapping("/getMenuTree")
     public Response<List<MenuTree>> getMenus() {
         List<MenuTree> menus = menuService.getMenusTree();
         Response<List<MenuTree>> response = new Response<List<MenuTree>>();
@@ -105,14 +103,9 @@ public class MenuController {
      * @return
      * @author luzh
      */
-    @RequestMapping("/page")
-    public Response<PageInfo<Map<String, Object>, Menu>> page(PageInfo<Map<String, Object>, Menu> page,String code,String name) {
-        Map<String, Object> map =new HashMap<String, Object>();
-        map.put("code", code);
-        map.put("name", name);
-        page.setParam(map);
+    @PostMapping("/page")
+    public Response<PageInfo<Map<String, Object>, Menu>> page(@RequestBody PageInfo<Map<String, Object>, Menu> page) {
         PageInfo<Map<String, Object>, Menu> pageInfo = menuService.page(page);
-
         Response<PageInfo<Map<String, Object>, Menu>> response = new Response<PageInfo<Map<String, Object>, Menu>>();
         return response.success(pageInfo);
 

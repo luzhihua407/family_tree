@@ -5,6 +5,7 @@ import com.starfire.familytree.folk.entity.CategoryContent;
 import com.starfire.familytree.folk.service.ICategoryContentService;
 import com.starfire.familytree.vo.DeleteVO;
 import com.starfire.familytree.vo.PageInfo;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/folk/category_content")
+@Api("分类内容模块")
 public class CategoryContentController {
 
     @Autowired

@@ -1,7 +1,9 @@
 package com.starfire.familytree.usercenter.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.starfire.familytree.basic.entity.AbstractEntity;
+import com.starfire.familytree.enums.GenderEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -13,9 +15,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * <p>
@@ -33,8 +33,8 @@ public class User extends AbstractEntity implements UserDetails {
 
     private static final long serialVersionUID = 1L;
 
-//    @Transient
-    private Set<GrantedAuthority> authorities = new TreeSet<GrantedAuthority>();
+    @TableField(exist = false)
+    private List<GrantedAuthority> authorities = new ArrayList<>();
 
     @NotEmpty(message = "邮箱不能为空")
     @Email
@@ -46,7 +46,6 @@ public class User extends AbstractEntity implements UserDetails {
 
     private String mobile;
 
-    private Boolean enabled;
 
     @NotEmpty(message = "用户名不能为空")
     @Size(min = 2, max = 32, message = "用户名长度为2-32个字符")
@@ -65,7 +64,7 @@ public class User extends AbstractEntity implements UserDetails {
     private Integer age;
 
     @NotNull
-    private Integer gender;
+    private Integer gender= GenderEnum.不清楚.value;
 
     private Integer province;
 
