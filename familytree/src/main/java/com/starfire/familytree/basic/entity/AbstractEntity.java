@@ -2,6 +2,7 @@ package com.starfire.familytree.basic.entity;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.starfire.familytree.enums.ValidEnum;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -48,7 +49,7 @@ public abstract class AbstractEntity implements Serializable {
      */
     private LocalDateTime editTime;
 
-    private Boolean valid = true;
+    private ValidEnum valid = ValidEnum.有效;
 
 
 }

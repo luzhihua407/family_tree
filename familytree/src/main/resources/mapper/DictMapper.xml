@@ -9,7 +9,7 @@
         <result column="creator" property="creator"/>
         <result column="edit_time" property="editTime"/>
         <result column="editor" property="editor"/>
-        <result column="valid" property="valid"/>
+        <result column="valid" property="valid" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
         <result column="code" property="code"/>
         <result column="dis" property="dis"/>
         <result column="name" property="name"/>

@@ -163,7 +163,7 @@ public class UserController {
      * @return
      * @author luzh
      */
-    @RequestMapping("/page")
+    @PostMapping("/page")
     public Response<PageInfo<Map<String, Object>, User>> page(@RequestBody(required = false)  PageInfo<Map<String, Object>, User> page) {
         PageInfo<Map<String, Object>, User> pageInfo = userService.page(page);
         Response<PageInfo<Map<String, Object>, User>> response = new Response<PageInfo<Map<String, Object>, User>>();

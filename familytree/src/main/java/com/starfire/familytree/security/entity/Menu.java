@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 import com.starfire.familytree.basic.entity.AbstractEntity;
+import com.starfire.familytree.enums.MenuTypeEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -41,7 +42,7 @@ public class Menu extends AbstractEntity {
 
     private String remark;
 
-    private Integer type;
+    private MenuTypeEnum type;
 
     @NotEmpty(message="路径不能为空")
     private String url;

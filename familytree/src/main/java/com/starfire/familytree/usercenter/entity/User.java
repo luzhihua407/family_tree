@@ -64,7 +64,7 @@ public class User extends AbstractEntity implements UserDetails {
     private Integer age;
 
     @NotNull
-    private Integer gender= GenderEnum.不清楚.value;
+    private GenderEnum gender= GenderEnum.不清楚;
 
     private Integer province;
 
@@ -106,7 +106,7 @@ public class User extends AbstractEntity implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return getValid();
+        return getValid().value==1?true:false;
     }
 
 

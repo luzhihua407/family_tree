@@ -1,5 +1,6 @@
 package com.starfire.familytree;
 
+import com.starfire.familytree.enums.ValidEnum;
 import com.starfire.familytree.folk.entity.*;
 import com.starfire.familytree.folk.service.*;
 import com.starfire.familytree.security.entity.Role;
@@ -112,7 +113,7 @@ public class FamilytreeApplicationTests {
         User user = new User();
         user.setRealName("管理员");
         user.setUsername("admin");
-        user.setValid(true);
+        user.setValid(ValidEnum.有效);
         user.setPassword("admin");
         user.setEmail("user@126.com");
         userService.registerNewUserAccount(user);

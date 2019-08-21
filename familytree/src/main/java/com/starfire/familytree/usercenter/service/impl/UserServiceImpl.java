@@ -3,6 +3,7 @@ package com.starfire.familytree.usercenter.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.starfire.familytree.enums.ValidEnum;
 import com.starfire.familytree.security.entity.Role;
 import com.starfire.familytree.security.service.IRoleService;
 import com.starfire.familytree.security.service.IUserRoleService;
@@ -60,7 +61,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             throw new EmailExistsException("已存在该用户:" + user.getUsername());
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setValid(false);// default set false,need user to active
+        user.setValid(ValidEnum.无效);// default set false,need user to active
         super.save(user);
         return user;
     }
@@ -89,16 +90,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public Boolean activeUser(Long userId) {
         User user = baseMapper.selectById(userId);
-        user.setValid(true);
+        user.setValid(ValidEnum.有效);
         int flag = baseMapper.updateById(user);
         return flag > 0 ? true : false;
     }
 
     @Override
     public PageInfo<Map<String, Object>, User> page(PageInfo<Map<String, Object>, User> pageInfo) {
-        QueryWrapper<User> qw = new QueryWrapper<User>();
+        Map<String, Object> param = pageInfo.getParam();
         Page<User> page = pageInfo.toMybatisPlusPage();
-        Page<User> selectPage = (Page<User>) baseMapper.selectPage(page, qw);
+        Page<User> selectPage = (Page<User>) baseMapper.queryPage(page, param);
         pageInfo.from(selectPage);
         return pageInfo;
     }
