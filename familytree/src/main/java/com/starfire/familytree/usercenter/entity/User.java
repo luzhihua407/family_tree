@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.starfire.familytree.basic.entity.AbstractEntity;
 import com.starfire.familytree.enums.GenderEnum;
+import com.starfire.familytree.enums.UserTypeEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -59,7 +60,7 @@ public class User extends AbstractEntity implements UserDetails {
 
     private LocalDateTime registerTime = LocalDateTime.now();
 
-    private Integer type;
+    private UserTypeEnum type= UserTypeEnum.普通用户;
 
     private Integer age;
 
@@ -106,7 +107,7 @@ public class User extends AbstractEntity implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return getValid().value==1?true:false;
+        return getValid().getValue()==1?true:false;
     }
 
 

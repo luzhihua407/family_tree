@@ -65,3 +65,5 @@ mybatis-plus:
   mapper-locations: classpath:/mapper/*Mapper.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
+  type-enums-package: com.starfire.familytree.enums

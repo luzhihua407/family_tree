@@ -18,7 +18,7 @@
         <result column="password" property="password"/>
         <result column="real_name" property="realName"/>
         <result column="register_time" property="registerTime"/>
-        <result column="type" property="type"/>
+        <result column="type" property="type" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
         <result column="age" property="age"/>
         <result column="gender" property="gender" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
         <result column="enabled" property="enabled"/>
