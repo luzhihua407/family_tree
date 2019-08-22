@@ -155,6 +155,19 @@ public class UserController {
         return response.success();
 
     }
+    /**
+     * 获取单个用户
+     *
+     * @return
+     * @author luzh
+     */
+    @GetMapping("/get")
+    public Response<User> getUser(Long id) {
+        User user = userService.getById(id);
+        Response<User> response = new Response<>();
+        return response.success(user);
+
+    }
 
     /**
      * 分页
