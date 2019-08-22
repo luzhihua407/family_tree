@@ -3,8 +3,10 @@ package com.starfire.familytree.security.controller;
 
 import com.starfire.familytree.response.Response;
 import com.starfire.familytree.security.entity.RoleMenu;
+import com.starfire.familytree.security.service.IMenuService;
 import com.starfire.familytree.security.service.IRoleMenuService;
 import com.starfire.familytree.vo.PageInfo;
+import com.starfire.familytree.vo.RoleMenuVo;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,19 +34,49 @@ public class RoleMenuController {
     @Autowired
     private IRoleMenuService roleMenuService;
 
+    @Autowired
+    private IMenuService menuService;
     /**
-     * 新增或修改
+     * 新增或修改 ,先删除所有菜单
      *
      * @param roleMenu
      * @return
      * @author luzh
      */
     @RequestMapping("/addOrUpdate")
-    public Response<RoleMenu> addOrUpdateRoleMenu(@RequestBody RoleMenu roleMenu) {
-        roleMenuService.saveOrUpdate(roleMenu);
-        Response<RoleMenu> response = new Response<RoleMenu>();
-        return response.success(roleMenu);
+    public Response<String> addOrUpdateRoleMenu(RoleMenuVo roleMenuVo) {
+        String roleId = roleMenuVo.getRoleId();
+        List<Long> menuIds = mergeParentAndChildMenusIds(roleMenuVo.getMenuIds());
+        List<Boolean> rs=new ArrayList<Boolean>();
+        Map<String, Object> columnMap=new HashMap<String,Object>();
+        columnMap.put("role_id",roleId);
+        roleMenuService.removeByMap(columnMap);
+        for (Long menuId : menuIds) {
+            RoleMenu roleMenu=new RoleMenu();
+            roleMenu.setMenuId(menuId);
+            roleMenu.setRoleId(Long.valueOf(roleId));
+            roleMenu.setOwn(roleMenuVo.getOwn());
+            boolean flag = roleMenuService.saveOrUpdate(roleMenu);
+            rs.add(flag);
+        }
+        Response<String> response = new Response<String>();
+        return response.success(rs.contains(false)?"保存失败":"保存成功");
 
+    }
+
+    /**
+     * 提取父和子menuId
+     * @param menuIds
+     * @return
+     */
+    private List<Long> mergeParentAndChildMenusIds(List<String> menuIds){
+        List<Long> list=new ArrayList<Long>();
+        for (String menuId : menuIds) {
+            list.add(Long.valueOf(menuId));
+        }
+        List<Long> mergeList =menuService.getParentMenuIds(list);
+        list.addAll(mergeList);
+        return list;
     }
 
     /**
@@ -79,4 +114,13 @@ public class RoleMenuController {
         return response.success(pageInfo);
 
     }
+
+    @RequestMapping("/getRoleMenuByRoleId")
+    public Response<RoleMenuVo> getRoleMenuByRoleId(Long roleId) {
+        RoleMenuVo rmvo= roleMenuService.getRoleMenuByRoleId(roleId);
+        Response<RoleMenuVo> response = new Response<RoleMenuVo>();
+        return response.success(rmvo);
+
+    }
+
 }

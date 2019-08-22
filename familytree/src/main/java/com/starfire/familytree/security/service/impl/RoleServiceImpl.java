@@ -9,6 +9,7 @@ import com.starfire.familytree.security.service.IRoleService;
 import com.starfire.familytree.vo.PageInfo;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,5 +37,9 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
         return baseMapper.getRoleByCode(code);
     }
 
+    @Override
+    public List<Role> getRoles() {
+        return baseMapper.getRoles();
+    }
 
 }

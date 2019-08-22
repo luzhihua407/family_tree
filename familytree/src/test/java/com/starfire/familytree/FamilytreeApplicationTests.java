@@ -113,7 +113,7 @@ public class FamilytreeApplicationTests {
         User user = new User();
         user.setRealName("管理员");
         user.setUsername("admin");
-        user.setValid(ValidEnum.有效);
+        user.setValid(ValidEnum.是);
         user.setPassword("admin");
         user.setEmail("user@126.com");
         userService.registerNewUserAccount(user);

@@ -49,7 +49,7 @@ public abstract class AbstractEntity implements Serializable {
      */
     private LocalDateTime editTime;
 
-    private ValidEnum valid = ValidEnum.有效;
+    private ValidEnum valid = ValidEnum.是;
 
 
 }

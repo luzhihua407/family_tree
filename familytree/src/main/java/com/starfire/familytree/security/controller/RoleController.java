@@ -3,17 +3,17 @@ package com.starfire.familytree.security.controller;
 import com.starfire.familytree.response.Response;
 import com.starfire.familytree.security.entity.Role;
 import com.starfire.familytree.security.service.IRoleService;
+import com.starfire.familytree.vo.DeleteVO;
 import com.starfire.familytree.vo.PageInfo;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -59,13 +59,13 @@ public class RoleController {
     /**
      * 删除
      *
-     * @param id
      * @return
      * @author luzh
      */
-    @GetMapping("/delete")
-    public Response<String> deleteRole(Long id) {
-        boolean flag = roleService.removeById(id);
+    @PostMapping("/delete")
+    public Response<String> deleteRole(@RequestBody  DeleteVO<Long[]> deleteVO) {
+        Long[] ids = deleteVO.getIds();
+        boolean flag = roleService.removeByIds(Arrays.asList(ids));
         Response<String> response = new Response<String>();
         if (!flag) {
             return response.failure();
@@ -73,5 +73,22 @@ public class RoleController {
         return response.success();
 
     }
+    @GetMapping("/get")
+    public Response<Role> getRole(Long id) {
+        Role role = roleService.getById(id);
+        Response<Role> response = new Response<Role>();
+        return response.success(role);
 
+    }
+
+    /**
+     * 获取所有角色
+     * @return
+     */
+    @RequestMapping("/getRoles")
+    public Response<List<Role>> getRoles() {
+        List<Role> roles = roleService.getRoles();
+        Response<List<Role>> response = new Response<List<Role>>();
+        return response.success(roles);
+    }
 }

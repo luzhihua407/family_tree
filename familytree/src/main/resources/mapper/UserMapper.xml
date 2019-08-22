@@ -9,7 +9,7 @@
         <result column="creator" property="creator"/>
         <result column="edit_time" property="editTime"/>
         <result column="editor" property="editor"/>
-        <result column="valid" property="valid" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+        <result column="valid" property="valid"/>
         <result column="email" property="email"/>
         <result column="first_login" property="firstLogin"/>
         <result column="last_login_time" property="lastLoginTime"/>
@@ -18,9 +18,9 @@
         <result column="password" property="password"/>
         <result column="real_name" property="realName"/>
         <result column="register_time" property="registerTime"/>
-        <result column="type" property="type" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+        <result column="type" property="type"/>
         <result column="age" property="age"/>
-        <result column="gender" property="gender" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+        <result column="gender" property="gender"/>
         <result column="enabled" property="enabled"/>
         <result column="address" property="address"/>
     </resultMap>

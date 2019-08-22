@@ -9,7 +9,7 @@
         <result column="creator" property="creator"/>
         <result column="edit_time" property="editTime"/>
         <result column="editor" property="editor"/>
-        <result column="valid" property="valid" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+        <result column="valid" property="valid"/>
         <result column="admin" property="admin"/>
         <result column="code" property="code"/>
         <result column="name" property="name"/>
@@ -20,4 +20,17 @@
             parameterType="String">
 		select * from security_role where code=#{code}
 	</select>
+    <select id="getRoles" resultMap="BaseResultMap">
+		select * from security_role
+		where valid=1
+	</select>
+    <select id="queryPage" resultMap="BaseResultMap" parameterType="Map">
+        select a.* from security_role a WHERE a.valid=1
+        <if test="queryCon.code != null">
+            and a.code like CONCAT(#{queryCon.code},'%')
+        </if>
+        <if test="queryCon.name != null">
+            and a.name like CONCAT(#{queryCon.name},'%')
+        </if>
+    </select>
 </mapper>

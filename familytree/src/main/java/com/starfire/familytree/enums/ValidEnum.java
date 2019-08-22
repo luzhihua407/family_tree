@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
  * @date: 2019/8/21 9:14
  */
 public enum  ValidEnum {
-    无效(0),有效(1);
+    否(0),是(1);
 
     @EnumValue
     private final int value;

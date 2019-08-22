@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.starfire.familytree.security.entity.Role;
 import com.starfire.familytree.vo.PageInfo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,4 +21,6 @@ public interface IRoleService extends IService<Role> {
     public PageInfo<Map<String, Object>, Role> page(PageInfo<Map<String, Object>, Role> page);
 
     public Role getRoleByCode(String code);
+
+    public List<Role> getRoles();
 }

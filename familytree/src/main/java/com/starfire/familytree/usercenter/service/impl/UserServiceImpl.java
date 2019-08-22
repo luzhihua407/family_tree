@@ -61,7 +61,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             throw new EmailExistsException("已存在该用户:" + user.getUsername());
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setValid(ValidEnum.无效);// default set false,need user to active
+        user.setValid(ValidEnum.否);// default set false,need user to active
         super.save(user);
         return user;
     }
@@ -90,7 +90,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public Boolean activeUser(Long userId) {
         User user = baseMapper.selectById(userId);
-        user.setValid(ValidEnum.有效);
+        user.setValid(ValidEnum.是);
         int flag = baseMapper.updateById(user);
         return flag > 0 ? true : false;
     }
