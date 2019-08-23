@@ -2,10 +2,16 @@ package com.starfire.familytree.folk.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.starfire.familytree.basic.entity.AbstractEntity;
+import com.starfire.familytree.enums.BooleanEnum;
+import com.starfire.familytree.enums.GenderEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 
 /**
@@ -37,12 +43,14 @@ public class People extends AbstractEntity {
     /**
      * 全名
      */
+    @NotNull(message = "全名不能为空")
     private String fullName;
 
     /**
      * 性别
      */
-    private Boolean gender;
+    @NotNull(message = "性别不能为空")
+    private GenderEnum gender;
 
     /**
      * 年龄
@@ -52,12 +60,12 @@ public class People extends AbstractEntity {
     /**
      * 是否已婚
      */
-    private Boolean isMarried;
+    private BooleanEnum isMarried;
 
     /**
      * 是否有后代
      */
-    private Boolean hasChild;
+    private BooleanEnum hasChild;
 
     /**
      * 配偶id
@@ -67,6 +75,7 @@ public class People extends AbstractEntity {
     /**
      * 第几世
      */
+    @Positive(message = "第几世要大于0")
     private Integer generations;
 
     /**
@@ -92,23 +101,23 @@ public class People extends AbstractEntity {
     /**
      * 教育
      */
-    private Boolean education;
+    private String education;
 
     /**
      * 身高
      */
-    private Boolean height;
+    private String height;
 
     /**
      * 体重
      */
-    private Boolean weight;
+    private String weight;
 
 
     /**
      * 手机号码
      */
-    private Integer phoneNumber;
+    private String phoneNumber;
 
     /**
      * 工作单位

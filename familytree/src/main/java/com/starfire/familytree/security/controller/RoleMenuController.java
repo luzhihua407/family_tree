@@ -16,7 +16,7 @@ import java.util.*;
 
 /**
  * <p>
- * 前端控制器
+ * 角色菜单控制器
  * </p>
  *
  * @author luzh

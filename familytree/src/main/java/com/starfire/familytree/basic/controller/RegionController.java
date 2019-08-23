@@ -1,16 +1,18 @@
 package com.starfire.familytree.basic.controller;
 
+import com.starfire.familytree.basic.entity.Dict;
 import com.starfire.familytree.basic.entity.Region;
 import com.starfire.familytree.basic.service.IRegionService;
 import com.starfire.familytree.response.Response;
+import com.starfire.familytree.vo.DeleteVO;
 import com.starfire.familytree.vo.PageInfo;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -23,6 +25,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/basic/region")
+@Api("地区接口")
 public class RegionController {
     @Autowired
     private IRegionService regionService;
@@ -34,8 +37,8 @@ public class RegionController {
      * @return
      * @author luzh
      */
-    @RequestMapping("/addOrUpdate")
-    public Response<Region> addOrUpdateRegion(@RequestBody Region region, Principal principal) {
+    @PostMapping("/addOrUpdate")
+    public Response<Region> addOrUpdateRegion(@RequestBody @Valid Region region) {
         regionService.saveOrUpdate(region);
         Response<Region> response = new Response<Region>();
         return response.success(region);
@@ -45,13 +48,13 @@ public class RegionController {
     /**
      * 删除
      *
-     * @param id
      * @return
      * @author luzh
      */
-    @GetMapping("/delete")
-    public Response<String> deleteRegion(Long id) {
-        boolean flag = regionService.removeById(id);
+    @PostMapping("/delete")
+    public Response<String> deleteRegion(@RequestBody DeleteVO<Long[]> deleteVO) {
+        Long[] ids = deleteVO.getIds();
+        boolean flag = regionService.removeByIds(Arrays.asList(ids));
         Response<String> response = new Response<String>();
         if (!flag) {
             return response.failure();
@@ -67,11 +70,25 @@ public class RegionController {
      * @return
      * @author luzh
      */
-    @RequestMapping("/page")
+    @PostMapping("/page")
     public Response<PageInfo<Map<String, Object>, Region>> page(@RequestBody PageInfo<Map<String, Object>, Region> page) {
         PageInfo<Map<String, Object>, Region> pageInfo = regionService.page(page);
         Response<PageInfo<Map<String, Object>, Region>> response = new Response<PageInfo<Map<String, Object>, Region>>();
         return response.success(pageInfo);
+
+    }
+
+    /**
+     * 获取字典详情
+     * @param id
+     * @return
+     */
+    @GetMapping("/get")
+    public Response<Region> getDict(@RequestParam(required = true) Long id) {
+
+        Region region = regionService.getById(id);
+        Response<Region> response = new Response<>();
+        return response.success(region);
 
     }
 }

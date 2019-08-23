@@ -24,9 +24,9 @@ public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> impleme
 
     @Override
     public PageInfo<Map<String, Object>, Region> page(PageInfo<Map<String, Object>, Region> pageInfo) {
-        QueryWrapper<Region> qw = new QueryWrapper<Region>();
         Page<Region> page = pageInfo.toMybatisPlusPage();
-        Page<Region> selectPage = (Page<Region>) baseMapper.selectPage(page, qw);
+        Map<String, Object> param = pageInfo.getParam();
+        Page<Region> selectPage =baseMapper.page(page, param);
         pageInfo.from(selectPage);
         return pageInfo;
     }

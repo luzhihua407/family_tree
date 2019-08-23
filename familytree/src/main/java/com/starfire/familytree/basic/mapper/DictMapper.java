@@ -1,7 +1,12 @@
 package com.starfire.familytree.basic.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.starfire.familytree.basic.entity.Dict;
+import com.starfire.familytree.basic.entity.Region;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -13,4 +18,5 @@ import com.starfire.familytree.basic.entity.Dict;
  */
 public interface DictMapper extends BaseMapper<Dict> {
 
+    Page<Dict> page(Page<Dict> page, @Param(value = "param") Map<String, Object> param);
 }

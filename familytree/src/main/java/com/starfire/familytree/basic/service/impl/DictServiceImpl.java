@@ -23,9 +23,9 @@ import java.util.Map;
 public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements IDictService {
     @Override
     public PageInfo<Map<String, Object>, Dict> page(PageInfo<Map<String, Object>, Dict> pageInfo) {
-        QueryWrapper<Dict> qw = new QueryWrapper<Dict>();
         Page<Dict> page = pageInfo.toMybatisPlusPage();
-        Page<Dict> selectPage = (Page<Dict>) baseMapper.selectPage(page, qw);
+        Map<String, Object> param = pageInfo.getParam();
+        Page<Dict> selectPage = baseMapper.page(page, param);
         pageInfo.from(selectPage);
         return pageInfo;
     }

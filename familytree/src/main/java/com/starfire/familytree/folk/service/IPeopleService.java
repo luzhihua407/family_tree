@@ -1,9 +1,12 @@
 package com.starfire.familytree.folk.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.starfire.familytree.folk.entity.CategoryContent;
 import com.starfire.familytree.folk.entity.People;
+import com.starfire.familytree.vo.PageInfo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -24,5 +27,7 @@ public interface IPeopleService extends IService<People> {
 
 
     public List<People> getPeoplesByGeneration(int gen);
+
+    public PageInfo<Map<String, Object>, People> page(PageInfo<Map<String, Object>, People> page);
 
 }

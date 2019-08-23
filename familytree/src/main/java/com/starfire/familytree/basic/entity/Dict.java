@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 /**
@@ -23,10 +24,12 @@ public class Dict extends AbstractEntity {
 
     private static final long serialVersionUID = 1L;
 
+    @NotNull(message = "编码不能为空")
     private String code;
 
     private Integer dis;
 
+    @NotNull(message = "名称不能为空")
     private String name;
 
     private BigDecimal numValue;

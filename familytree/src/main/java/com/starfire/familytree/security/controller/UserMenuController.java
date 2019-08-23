@@ -15,7 +15,7 @@ import java.util.Map;
 
 /**
  * <p>
- * 前端控制器
+ * 用户菜单控制器
  * </p>
  *
  * @author luzh

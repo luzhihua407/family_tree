@@ -2,7 +2,7 @@ package com.starfire.familytree.security.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.starfire.familytree.basic.entity.AbstractEntity;
-import com.starfire.familytree.enums.IsAdminEnum;
+import com.starfire.familytree.enums.BooleanEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -26,7 +26,7 @@ public class Role extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
 
-    private IsAdminEnum admin = IsAdminEnum.否;
+    private BooleanEnum admin = BooleanEnum.否;
 
     @NotEmpty(message = "不能为空")
     private String code;

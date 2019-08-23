@@ -2,19 +2,18 @@ package com.starfire.familytree.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 
-public enum SexEnum {
+public enum BooleanEnum {
 
-    男("male"), 女("female");
+    否(0), 是(1);
 
     @EnumValue
-    private final String value;
+    private final int value;
 
-    SexEnum(String value) {
-
+    BooleanEnum(int value) {
         this.value = value;
     }
 
-    public String getValue() {
+    public int getValue() {
         return value;
     }
 }
