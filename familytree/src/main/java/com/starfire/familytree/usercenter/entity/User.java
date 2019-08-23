@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.starfire.familytree.basic.entity.AbstractEntity;
+import com.starfire.familytree.basic.entity.Region;
 import com.starfire.familytree.enums.BooleanEnum;
 import com.starfire.familytree.enums.GenderEnum;
 import com.starfire.familytree.enums.UserTypeEnum;
@@ -72,11 +73,11 @@ public class User extends AbstractEntity implements UserDetails {
     @NotNull
     private GenderEnum gender= GenderEnum.不清楚;
 
-    private Integer province;
+    private Region province;
 
-    private Integer city;
+    private Region city;
 
-    private Integer district;
+    private Region district;
 
     private String address;
 

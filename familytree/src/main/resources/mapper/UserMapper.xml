@@ -23,9 +23,25 @@
         <result column="gender" property="gender"/>
         <result column="enabled" property="enabled"/>
         <result column="address" property="address"/>
-        <result column="province" property="province" />
-        <result column="city" property="city" />
-        <result column="district" property="district" />
+        <association property="province" javaType="com.starfire.familytree.basic.entity.Region">
+            <result column="id" property="id"/>
+            <result column="code" property="code"/>
+            <result column="full_name" property="fullName"/>
+            <result column="name" property="name"/>
+        </association>
+        <association property="city" javaType="com.starfire.familytree.basic.entity.Region">
+            <result column="id" property="id"/>
+            <result column="code" property="code"/>
+            <result column="full_name" property="fullName"/>
+            <result column="name" property="name"/>
+        </association>
+        <association property="district" javaType="com.starfire.familytree.basic.entity.Region">
+            <result column="id" property="id"/>
+            <result column="code" property="code"/>
+            <result column="full_name" property="fullName"/>
+            <result column="name" property="name"/>
+        </association>
+
 <!--        <association property="province" column="order_send_id"   javaType="com.starfire.familytree.basic.entity.Region"  select="getProvince" />-->
     </resultMap>
     <select id="getUserByUserName" resultMap="BaseResultMap">
@@ -37,6 +53,6 @@
 
     </select>
     <select id="queryPage" resultMap="BaseResultMap">
-        select * from sys_user
+        select a.*,b.name as city,c.name as province,d.name district from sys_user a left join basic_region b on a.city=b.id left join basic_region c on a.province=c.id left join basic_region d on a.district=d.id
     </select>
 </mapper>
