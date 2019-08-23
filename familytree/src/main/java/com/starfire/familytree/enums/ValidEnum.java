@@ -13,7 +13,7 @@ public enum  ValidEnum {
     否(0),是(1);
 
     @EnumValue
-    private final int value;
+    private int value;
 
     ValidEnum(int value) {
         this.value=value;

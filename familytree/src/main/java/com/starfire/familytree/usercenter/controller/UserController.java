@@ -130,7 +130,7 @@ public class UserController {
      * @author luzh
      */
     @RequestMapping("/addOrUpdate")
-    public Response<User> addOrUpdateUser(@RequestBody(required = false) User user) {
+    public Response<User> addOrUpdateUser(@RequestBody(required = false) @Valid User user) {
         userService.saveOrUpdate(user);
         Response<User> response = new Response<User>();
         return response.success(user);

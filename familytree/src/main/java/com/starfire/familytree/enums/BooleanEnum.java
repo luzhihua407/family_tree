@@ -7,7 +7,7 @@ public enum BooleanEnum {
     否(0), 是(1);
 
     @EnumValue
-    private final int value;
+    private int value;
 
     BooleanEnum(int value) {
         this.value = value;

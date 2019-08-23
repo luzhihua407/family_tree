@@ -15,16 +15,15 @@ public enum MenuTypeEnum{
     目录(0),菜单(1);
 
     @EnumValue
-    private final int value;
+    private int value;
 
     MenuTypeEnum(int value) {
 
         this.value=value;
     }
 
-    public Integer getValue() {
+
+    public int getValue() {
         return value;
     }
-
-
 }

@@ -8,7 +8,7 @@ public enum UserTypeEnum{
     管理员(1), 普通用户(2);
 
     @EnumValue
-    private final int value;
+    private int value;
 
     UserTypeEnum(int value) {
         this.value = value;

@@ -23,6 +23,10 @@
         <result column="gender" property="gender"/>
         <result column="enabled" property="enabled"/>
         <result column="address" property="address"/>
+        <result column="province" property="province" />
+        <result column="city" property="city" />
+        <result column="district" property="district" />
+<!--        <association property="province" column="order_send_id"   javaType="com.starfire.familytree.basic.entity.Region"  select="getProvince" />-->
     </resultMap>
     <select id="getUserByUserName" resultMap="BaseResultMap">
 		select * from sys_user where username = #{username} limit 1

@@ -2,7 +2,9 @@ package com.starfire.familytree.usercenter.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.starfire.familytree.basic.entity.AbstractEntity;
+import com.starfire.familytree.enums.BooleanEnum;
 import com.starfire.familytree.enums.GenderEnum;
 import com.starfire.familytree.enums.UserTypeEnum;
 import lombok.Data;
@@ -16,7 +18,9 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * <p>
@@ -41,19 +45,20 @@ public class User extends AbstractEntity implements UserDetails {
     @Email
     private String email;
 
-    private Boolean firstLogin = false;
+    private BooleanEnum firstLogin=BooleanEnum.否;
 
     private LocalDateTime lastLoginTime;
 
     private String mobile;
 
 
-    @NotEmpty(message = "用户名不能为空")
+    @NotNull(message = "用户名不能为空")
     @Size(min = 2, max = 32, message = "用户名长度为2-32个字符")
     private String username;
 
     @NotEmpty(message = "密码不能为空")
     @Size(min = 6, max = 32, message = "密码长度为6-32个字符")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)//Jackson
     private String password;
 
     private String realName;
