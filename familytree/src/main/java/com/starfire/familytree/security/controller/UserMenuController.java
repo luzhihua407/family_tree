@@ -4,14 +4,13 @@ package com.starfire.familytree.security.controller;
 import com.starfire.familytree.response.Response;
 import com.starfire.familytree.security.entity.UserMenu;
 import com.starfire.familytree.security.service.IUserMenuService;
+import com.starfire.familytree.vo.DeleteVO;
 import com.starfire.familytree.vo.PageInfo;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -36,7 +35,7 @@ public class UserMenuController {
      * @return
      * @author luzh
      */
-    @RequestMapping("/addOrUpdate")
+    @PostMapping("/addOrUpdate")
     public Response<UserMenu> addOrUpdateUserMenu(@RequestBody UserMenu userMenu) {
         userMenuService.saveOrUpdate(userMenu);
         Response<UserMenu> response = new Response<UserMenu>();
@@ -47,13 +46,13 @@ public class UserMenuController {
     /**
      * 删除
      *
-     * @param id
      * @return
      * @author luzh
      */
-    @GetMapping("/delete")
-    public Response<String> deleteUserMenu(Long id) {
-        boolean flag = userMenuService.removeById(id);
+    @PostMapping("/delete")
+    public Response<String> deleteUserMenu(@RequestBody DeleteVO<String[]> deleteVO) {
+        String[] ids = deleteVO.getIds();
+        boolean flag = userMenuService.removeByIds(Arrays.asList(ids));
         Response<String> response = new Response<String>();
         if (!flag) {
             return response.failure();
@@ -69,7 +68,7 @@ public class UserMenuController {
      * @return
      * @author luzh
      */
-    @RequestMapping("/page")
+    @PostMapping("/page")
     public Response<PageInfo<Map<String, Object>, UserMenu>> page(@RequestBody(required = false) PageInfo<Map<String, Object>, UserMenu> page) {
         if(page==null){
             page=new PageInfo<>();

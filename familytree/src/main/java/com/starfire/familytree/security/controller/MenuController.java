@@ -55,9 +55,8 @@ public class MenuController {
      */
     @PostMapping("/delete")
     public Response<String> deleteMenu(@RequestBody DeleteVO<String[]> deleteVO) {
-        boolean flag = false;
         String[] ids = deleteVO.getIds();
-        flag = menuService.removeByIds(Arrays.asList(ids));
+        boolean flag = menuService.removeByIds(Arrays.asList(ids));
         Response<String> response = new Response<String>();
         if (!flag) {
             return response.failure();

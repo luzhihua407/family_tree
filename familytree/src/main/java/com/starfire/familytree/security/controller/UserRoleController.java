@@ -4,14 +4,13 @@ package com.starfire.familytree.security.controller;
 import com.starfire.familytree.response.Response;
 import com.starfire.familytree.security.entity.UserRole;
 import com.starfire.familytree.security.service.IUserRoleService;
+import com.starfire.familytree.vo.DeleteVO;
 import com.starfire.familytree.vo.PageInfo;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -36,7 +35,7 @@ public class UserRoleController {
      * @return
      * @author luzh
      */
-    @RequestMapping("/addOrUpdate")
+    @PostMapping("/addOrUpdate")
     public Response<UserRole> addOrUpdateUserRole(@RequestBody UserRole userRole) {
         userRoleService.saveOrUpdate(userRole);
         Response<UserRole> response = new Response<UserRole>();
@@ -47,13 +46,13 @@ public class UserRoleController {
     /**
      * 删除
      *
-     * @param id
      * @return
      * @author luzh
      */
-    @GetMapping("/delete")
-    public Response<String> deleteUserRole(Long id) {
-        boolean flag = userRoleService.removeById(id);
+    @PostMapping("/delete")
+    public Response<String> deleteUserRole(@RequestBody DeleteVO<String[]> deleteVO) {
+        String[] ids = deleteVO.getIds();
+        boolean flag = userRoleService.removeByIds(Arrays.asList(ids));
         Response<String> response = new Response<String>();
         if (!flag) {
             return response.failure();
@@ -69,7 +68,7 @@ public class UserRoleController {
      * @return
      * @author luzh
      */
-    @RequestMapping("/page")
+    @PostMapping("/page")
     public Response<PageInfo<Map<String, Object>, UserRole>> page(@RequestBody(required = false) PageInfo<Map<String, Object>, UserRole> page) {
         if(page==null){
             page=new PageInfo<>();

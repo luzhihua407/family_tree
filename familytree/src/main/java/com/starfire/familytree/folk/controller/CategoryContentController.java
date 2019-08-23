@@ -34,7 +34,7 @@ public class CategoryContentController {
      * @return
      * @author luzh
      */
-    @RequestMapping("/page")
+    @PostMapping("/page")
     public PageInfo<Map<String, Object>, CategoryContent> page(@RequestBody(required = false) PageInfo<Map<String, Object>, CategoryContent> page) {
         page=page==null?new PageInfo<Map<String, Object>, CategoryContent>():page;
         PageInfo<Map<String, Object>, CategoryContent> pageInfo = categoryContentService.page(page);

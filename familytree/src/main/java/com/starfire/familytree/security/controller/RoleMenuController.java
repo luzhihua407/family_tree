@@ -5,19 +5,14 @@ import com.starfire.familytree.response.Response;
 import com.starfire.familytree.security.entity.RoleMenu;
 import com.starfire.familytree.security.service.IMenuService;
 import com.starfire.familytree.security.service.IRoleMenuService;
+import com.starfire.familytree.vo.DeleteVO;
 import com.starfire.familytree.vo.PageInfo;
 import com.starfire.familytree.vo.RoleMenuVo;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -39,11 +34,10 @@ public class RoleMenuController {
     /**
      * 新增或修改 ,先删除所有菜单
      *
-     * @param roleMenu
      * @return
      * @author luzh
      */
-    @RequestMapping("/addOrUpdate")
+    @PostMapping("/addOrUpdate")
     public Response<String> addOrUpdateRoleMenu(RoleMenuVo roleMenuVo) {
         String roleId = roleMenuVo.getRoleId();
         List<Long> menuIds = mergeParentAndChildMenusIds(roleMenuVo.getMenuIds());
@@ -82,13 +76,13 @@ public class RoleMenuController {
     /**
      * 删除
      *
-     * @param id
      * @return
      * @author luzh
      */
-    @GetMapping("/delete")
-    public Response<String> deleteRoleMenu(Long id) {
-        boolean flag = roleMenuService.removeById(id);
+    @PostMapping("/delete")
+    public Response<String> deleteRoleMenu(@RequestBody DeleteVO<String[]> deleteVO) {
+        String[] ids = deleteVO.getIds();
+        boolean flag = roleMenuService.removeByIds(Arrays.asList(ids));
         Response<String> response = new Response<String>();
         if (!flag) {
             return response.failure();
@@ -104,7 +98,7 @@ public class RoleMenuController {
      * @return
      * @author luzh
      */
-    @RequestMapping("/page")
+    @PostMapping("/page")
     public Response<PageInfo<Map<String, Object>, RoleMenu>> page(@RequestBody(required = false) PageInfo<Map<String, Object>, RoleMenu> page) {
         if(page==null){
             page=new PageInfo<>();
@@ -115,7 +109,7 @@ public class RoleMenuController {
 
     }
 
-    @RequestMapping("/getRoleMenuByRoleId")
+    @GetMapping("/getRoleMenuByRoleId")
     public Response<RoleMenuVo> getRoleMenuByRoleId(Long roleId) {
         RoleMenuVo rmvo= roleMenuService.getRoleMenuByRoleId(roleId);
         Response<RoleMenuVo> response = new Response<RoleMenuVo>();

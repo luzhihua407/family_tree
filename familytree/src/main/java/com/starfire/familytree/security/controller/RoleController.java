@@ -32,7 +32,7 @@ public class RoleController {
     @Autowired
     private IRoleService roleService;
 
-    @RequestMapping("/page")
+    @PostMapping("/page")
     public PageInfo<Map<String, Object>, Role> page(@RequestBody(required = false) PageInfo<Map<String, Object>, Role> page) {
         if(page==null){
             page=new PageInfo<>();
@@ -48,7 +48,7 @@ public class RoleController {
      * @return
      * @author luzh
      */
-    @RequestMapping("/addOrUpdate")
+    @PostMapping("/addOrUpdate")
     public Response<String> addOrUpdateRole(@RequestBody @Valid Role role) {
         roleService.saveOrUpdate(role);
         Response<String> response = new Response<String>();
@@ -85,7 +85,7 @@ public class RoleController {
      * 获取所有角色
      * @return
      */
-    @RequestMapping("/getRoles")
+    @GetMapping("/getRoles")
     public Response<List<Role>> getRoles() {
         List<Role> roles = roleService.getRoles();
         Response<List<Role>> response = new Response<List<Role>>();
