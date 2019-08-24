@@ -23,26 +23,9 @@
         <result column="gender" property="gender"/>
         <result column="enabled" property="enabled"/>
         <result column="address" property="address"/>
-        <association property="province" javaType="com.starfire.familytree.basic.entity.Region">
-            <result column="id" property="id"/>
-            <result column="code" property="code"/>
-            <result column="full_name" property="fullName"/>
-            <result column="name" property="name"/>
-        </association>
-        <association property="city" javaType="com.starfire.familytree.basic.entity.Region">
-            <result column="id" property="id"/>
-            <result column="code" property="code"/>
-            <result column="full_name" property="fullName"/>
-            <result column="name" property="name"/>
-        </association>
-        <association property="district" javaType="com.starfire.familytree.basic.entity.Region">
-            <result column="id" property="id"/>
-            <result column="code" property="code"/>
-            <result column="full_name" property="fullName"/>
-            <result column="name" property="name"/>
-        </association>
-
-<!--        <association property="province" column="order_send_id"   javaType="com.starfire.familytree.basic.entity.Region"  select="getProvince" />-->
+        <result column="province" property="province"/>
+        <result column="city" property="city"/>
+        <result column="district" property="district"/>
     </resultMap>
     <select id="getUserByUserName" resultMap="BaseResultMap">
 		select * from sys_user where username = #{username} limit 1

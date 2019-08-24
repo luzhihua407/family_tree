@@ -10,16 +10,21 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
  * @date: 2019/8/21 9:14
  */
 public enum  ValidEnum {
-    否(0),是(1);
+    否(0), 是(1);
 
     @EnumValue
     private int value;
 
+
     ValidEnum(int value) {
+
         this.value=value;
+
     }
 
     public int getValue() {
         return value;
     }
+
+
 }

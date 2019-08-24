@@ -13,6 +13,7 @@ import com.starfire.familytree.service.OnRegistrationCompleteEvent;
 import com.starfire.familytree.usercenter.entity.User;
 import com.starfire.familytree.usercenter.service.IUserService;
 import com.starfire.familytree.utils.FieldErrorUtils;
+import com.starfire.familytree.vo.DeleteVO;
 import com.starfire.familytree.vo.PageInfo;
 import com.starfire.familytree.vo.UserVO;
 import org.springframework.beans.BeanUtils;
@@ -28,10 +29,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -129,8 +127,13 @@ public class UserController {
      * @return
      * @author luzh
      */
-    @RequestMapping("/addOrUpdate")
+    @PostMapping("/addOrUpdate")
     public Response<User> addOrUpdateUser(@RequestBody(required = false) @Valid User user) {
+        String username = user.getUsername();
+        User byUserName = userService.getUserByUserName(username);
+        if(byUserName!=null){
+            throw  new  RuntimeException("该用户名已存在，请换一个用户名");
+        }
         userService.saveOrUpdate(user);
         Response<User> response = new Response<User>();
         return response.success(user);
@@ -143,11 +146,11 @@ public class UserController {
      * @return
      * @author luzh
      */
-    @RequestMapping("/delete")
-    public Response<String> deleteUser(@RequestBody Map<String, List<Long>> map) {
+    @PostMapping("/delete")
+    public Response<String> deleteUser(@RequestBody DeleteVO<Long[]> deleteVO) {
         boolean flag = false;
-        List<Long> ids = map.get("ids");
-        flag = userService.removeByIds(ids);
+        Long[] ids = deleteVO.getIds();
+        flag = userService.removeByIds(Arrays.asList(ids));
         Response<String> response = new Response<String>();
         if (!flag) {
             return response.failure();
@@ -178,6 +181,7 @@ public class UserController {
      */
     @PostMapping("/page")
     public Response<PageInfo<Map<String, Object>, User>> page(@RequestBody(required = false)  PageInfo<Map<String, Object>, User> page) {
+        page=page==null?new PageInfo<>():page;
         PageInfo<Map<String, Object>, User> pageInfo = userService.page(page);
         Response<PageInfo<Map<String, Object>, User>> response = new Response<PageInfo<Map<String, Object>, User>>();
         return response.success(pageInfo);

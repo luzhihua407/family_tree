@@ -1,6 +1,5 @@
 package com.starfire.familytree.usercenter.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.starfire.familytree.enums.ValidEnum;

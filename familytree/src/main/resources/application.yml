@@ -66,3 +66,4 @@ mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     default-enum-type-handler: com.baomidou.mybatisplus.extension.handlers.EnumTypeHandler
+  type-enums-package: com.starfire.familytree.enums

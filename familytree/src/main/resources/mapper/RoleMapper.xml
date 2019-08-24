@@ -16,20 +16,19 @@
         <result column="remark" property="remark"/>
     </resultMap>
 
-    <select id="getRoleByCode" resultMap="BaseResultMap"
-            parameterType="String">
+    <select id="getRoleByCode" resultMap="BaseResultMap">
 		select * from security_role where code=#{code}
 	</select>
     <select id="getRoles" resultMap="BaseResultMap">
 		select * from security_role
 		where valid=1
 	</select>
-    <select id="queryPage" resultMap="BaseResultMap" parameterType="Map">
-        select a.* from security_role a WHERE a.valid=1
-        <if test="queryCon.code != null">
+    <select id="queryPage" resultMap="BaseResultMap">
+        select a.* from security_role a WHERE 1=1
+        <if test="queryCon!=null and queryCon.code != null">
             and a.code like CONCAT(#{queryCon.code},'%')
         </if>
-        <if test="queryCon.name != null">
+        <if test="queryCon!=null and queryCon.name != null">
             and a.name like CONCAT(#{queryCon.name},'%')
         </if>
     </select>

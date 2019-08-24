@@ -25,9 +25,9 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 
     @Override
     public PageInfo<Map<String, Object>, Role> page(PageInfo<Map<String, Object>, Role> pageInfo) {
-        QueryWrapper<Role> qw = new QueryWrapper<Role>();
         Page<Role> page = pageInfo.toMybatisPlusPage();
-        Page<Role> selectPage = (Page<Role>) baseMapper.selectPage(page, qw);
+        Map<String, Object> param = pageInfo.getParam();
+        Page<Role> selectPage = (Page<Role>) baseMapper.queryPage(page, param);
         pageInfo.from(selectPage);
         return pageInfo;
     }

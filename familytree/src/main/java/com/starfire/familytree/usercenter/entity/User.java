@@ -73,11 +73,11 @@ public class User extends AbstractEntity implements UserDetails {
     @NotNull
     private GenderEnum gender= GenderEnum.不清楚;
 
-    private Region province;
+    private Integer province;
 
-    private Region city;
+    private Integer city;
 
-    private Region district;
+    private Integer district;
 
     private String address;
 
