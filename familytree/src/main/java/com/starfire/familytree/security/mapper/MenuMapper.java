@@ -33,4 +33,6 @@ public interface MenuMapper extends BaseMapper<Menu> {
     public List<Menu> getParentMenusByRoleId(Long roleId);
 
     public List<Long> getParentMenuIds(@Param("childMenuIds")List<Long> childMenuIds);
+
+    public  Menu getMenuByCode(String code);
 }

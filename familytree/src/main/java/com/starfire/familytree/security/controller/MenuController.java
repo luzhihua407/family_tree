@@ -16,6 +16,7 @@ import com.starfire.familytree.vo.MenuTree;
 import com.starfire.familytree.vo.PageInfo;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 
 /**
  * <p>
@@ -41,6 +42,11 @@ public class MenuController {
      */
     @PostMapping("/addOrUpdate")
     public Response<Menu> addOrUpdateMenu(@RequestBody @Valid Menu menu) {
+        String code = menu.getCode();
+        Menu menuByCode = menuService.getMenuByCode(code);
+        if(menuByCode!=null && menu.getId()==null){
+            throw new  RuntimeException("已存在该编码，请换一个编码");
+        }
         menuService.saveOrUpdate(menu);
         Response<Menu> response = new Response<Menu>();
         return response.success(menu);

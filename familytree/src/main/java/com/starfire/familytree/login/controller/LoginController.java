@@ -2,6 +2,7 @@ package com.starfire.familytree.login.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.starfire.familytree.login.vo.LoginReq;
+import com.starfire.familytree.usercenter.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -32,9 +33,11 @@ public class LoginController {
 	@Autowired
 	private OAuth2RestTemplate ort;
 
+	@Autowired
+	private IUserService userService;
 
-	@RequestMapping("/doLogin")
-	public String doLogin(@Valid @RequestBody LoginReq loginReq){
+	@RequestMapping("/login")
+	public String login(@Valid @RequestBody LoginReq loginReq){
 		UriComponents uc = ServletUriComponentsBuilder.fromCurrentRequest().path("/oauth/token").build();
 		String uriString = uc.toUriString().replace("/doLogin", "");
 		HttpHeaders headers = new HttpHeaders();
@@ -51,4 +54,22 @@ public class LoginController {
 		String access_token = node.findValue("access_token").asText();
 		return access_token;
 	}
+//	@RequestMapping("/doLogin")
+//	public String doLogin(@Valid @RequestBody LoginReq loginReq){
+//		UriComponents uc = ServletUriComponentsBuilder.fromCurrentRequest().path("/oauth/token").build();
+//		String uriString = uc.toUriString().replace("/doLogin", "");
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+//		headers.add("Authorization", "Basic ZmFtaWx5X3RyZWU6ZmFtaWx5X3RyZWU=");
+//		MultiValueMap<String,String> map=new LinkedMultiValueMap<>();
+//		map.add("grant_type", loginReq.getGrant_type());
+//		map.add("password", loginReq.getPassword());
+//		map.add("scope", loginReq.getScope());
+//		map.add("username", loginReq.getUsername());
+//		 HttpEntity<MultiValueMap<String,String>> entity = new HttpEntity<MultiValueMap<String,String>>(map, headers);
+//		ResponseEntity<JsonNode> responseEntity = rt.postForEntity(uriString, entity, JsonNode.class);
+//		JsonNode node = responseEntity.getBody();
+//		String access_token = node.findValue("access_token").asText();
+//		return access_token;
+//	}
 }

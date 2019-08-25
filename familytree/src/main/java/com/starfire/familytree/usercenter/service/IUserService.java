@@ -29,4 +29,5 @@ public interface IUserService extends UserDetailsService, IService<User> {
 
     public PageInfo<Map<String, Object>, User> page(PageInfo<Map<String, Object>, User> pageInfo);
 
+    public User saveOrUpdateUser(User user);
 }

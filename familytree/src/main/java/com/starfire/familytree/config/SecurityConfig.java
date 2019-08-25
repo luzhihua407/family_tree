@@ -1,24 +1,25 @@
 package com.starfire.familytree.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.starfire.familytree.filter.CustomAuthenticationFilter;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.access.expression.SecurityExpressionOperations;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.FilterInvocation;
-import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
-import org.springframework.security.web.access.expression.WebSecurityExpressionRoot;
+import org.springframework.security.web.authentication.ForwardAuthenticationFailureHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private String loginPage = "http://localhost:7000/login";
+    private String successUrl = "http://localhost:7000/user";
+
     @Override
     public void configure(WebSecurity web){
-        web.ignoring().anyRequest();
+//        web.ignoring().anyRequest();
         web.ignoring()
                 .antMatchers(
                         "/v2/api-docs",
@@ -29,15 +30,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().permitAll();
-//        http.authorizeRequests().anyRequest().hasRole("USER").and().formLogin();
-//        http
-//                .csrf().disable()
-//                .authorizeRequests()
-//                .antMatchers("/user/registration").permitAll()
-//                .antMatchers("/folk/*").anonymous()
-//                .anyRequest().authenticated();
+
+        http.cors().and()
+                .antMatcher("/**").authorizeRequests()
+                .antMatchers("/login**","/logout").permitAll()
+                .anyRequest().authenticated()
+                //这里必须要写formLogin()，不然原有的UsernamePasswordAuthenticationFilter不会出现，也就无法配置我们重新的UsernamePasswordAuthenticationFilter
+                .and().formLogin().loginPage(loginPage).and().logout().logoutSuccessUrl(loginPage)
+                .and().csrf().disable();
+        http.addFilterAt(customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
+    @Bean
+    CustomAuthenticationFilter customAuthenticationFilter() throws Exception {
+        CustomAuthenticationFilter filter = new CustomAuthenticationFilter();
 
-
+        filter.setAuthenticationSuccessHandler(new SimpleUrlAuthenticationSuccessHandler(successUrl));
+        filter.setAuthenticationFailureHandler(new ForwardAuthenticationFailureHandler(loginPage));
+//        filter.setFilterProcessesUrl("/login");
+        //这句很关键，重用WebSecurityConfigurerAdapter配置的AuthenticationManager，不然要自己组装AuthenticationManager
+        filter.setAuthenticationManager(authenticationManagerBean());
+        return filter;
+    }
+    @Bean // share AuthenticationManager for web and oauth
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 }

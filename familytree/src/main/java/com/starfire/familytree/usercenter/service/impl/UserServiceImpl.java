@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.starfire.familytree.enums.ValidEnum;
 import com.starfire.familytree.security.entity.Role;
+import com.starfire.familytree.security.entity.UserRole;
 import com.starfire.familytree.security.service.IRoleService;
 import com.starfire.familytree.security.service.IUserRoleService;
 import com.starfire.familytree.usercenter.entity.User;
@@ -76,6 +77,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public User loadUserByUsername(String userName) throws UsernameNotFoundException {
         User user = baseMapper.getUserByUserName(userName);
+        if(user==null){
+            throw new RuntimeException("不存在该用户");
+        }
         Long id = user.getId();
         List<Long> roleIds = userRoleService.getRoleIdsByUserId(id);
         for (Long roleId : roleIds) {
@@ -101,5 +105,22 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         Page<User> selectPage = (Page<User>) baseMapper.queryPage(page, param);
         pageInfo.from(selectPage);
         return pageInfo;
+    }
+
+    @Override
+    @Transactional
+    public User saveOrUpdateUser(User user) {
+        String password = passwordEncoder.encode(user.getPassword());
+        user.setPassword(password);
+        saveOrUpdate(user);
+        String[] roles = user.getRoles();
+        for (int i = 0; i < roles.length; i++) {
+            String roleId = roles[i];
+            UserRole userRole=new UserRole();
+            userRole.setRoleId(Long.valueOf(roleId));
+            userRole.setUserId(user.getId());
+            userRoleService.save(userRole);
+        }
+        return  user;
     }
 }

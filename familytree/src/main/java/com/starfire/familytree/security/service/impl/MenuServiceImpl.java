@@ -86,6 +86,12 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     }
 
     @Override
+    public Menu getMenuByCode(String code) {
+        Menu menu = baseMapper.getMenuByCode(code);
+        return menu;
+    }
+
+    @Override
     public List<Long> getParentMenuIds(List<Long> childMenuIds) {
         return baseMapper.getParentMenuIds(childMenuIds);
     }

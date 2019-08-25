@@ -1,5 +1,6 @@
 package com.starfire.familytree.vo;
 
+import com.starfire.familytree.security.entity.Menu;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
@@ -19,7 +20,7 @@ public class UserVO {
     private Long roleId;
     private Integer gender;
 
-    private List<Map<String, Object>> menus = new ArrayList<Map<String, Object>>();
+    private List<Menu> menus = new ArrayList<>();
 
 
 }

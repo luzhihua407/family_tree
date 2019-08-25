@@ -4,10 +4,10 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.starfire.familytree.basic.entity.AbstractEntity;
-import com.starfire.familytree.basic.entity.Region;
 import com.starfire.familytree.enums.BooleanEnum;
 import com.starfire.familytree.enums.GenderEnum;
 import com.starfire.familytree.enums.UserTypeEnum;
+import com.starfire.familytree.security.entity.Role;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -18,6 +18,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.beans.Transient;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -52,6 +53,8 @@ public class User extends AbstractEntity implements UserDetails {
 
     private String mobile;
 
+    @TableField(exist = false)
+    private String[] roles;
 
     @NotNull(message = "用户名不能为空")
     @Size(min = 2, max = 32, message = "用户名长度为2-32个字符")

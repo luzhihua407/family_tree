@@ -8,6 +8,7 @@ import com.starfire.familytree.security.entity.Role;
 import com.starfire.familytree.security.service.IMenuService;
 import com.starfire.familytree.security.service.IRoleMenuService;
 import com.starfire.familytree.security.service.IRoleService;
+import com.starfire.familytree.security.service.IUserRoleService;
 import com.starfire.familytree.service.IVerificationTokenService;
 import com.starfire.familytree.service.OnRegistrationCompleteEvent;
 import com.starfire.familytree.usercenter.entity.User;
@@ -19,6 +20,7 @@ import com.starfire.familytree.vo.UserVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.validation.BindingResult;
@@ -60,23 +62,23 @@ public class UserController {
     @Autowired
     private IRoleService roleService;
 
+    @Autowired
+    private IUserRoleService userRoleService;
     @RequestMapping("/current")
     public UserVO user(Principal principal) {
-        OAuth2Authentication auth = (OAuth2Authentication) principal;
+        UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) principal;
         User user = (User) auth.getPrincipal();
         UserVO userVO = new UserVO();
         BeanUtils.copyProperties(user, userVO);
         Collection<GrantedAuthority> authorities = auth.getAuthorities();
         for (GrantedAuthority grantedAuthority : authorities) {
             String roleCode = grantedAuthority.getAuthority();
-            Role role = roleService.getRoleByCode(roleCode);
+            Role role = roleService.getRoleByCode("admin");
             Long roleId = role.getId();
             List<Long> menuIds = roleMenuService.getMenuIdsByRoleId(roleId);
             for (Long menuId : menuIds) {
                 Menu menu = menuService.getById(menuId);
-                Map<String, Object> map = new HashMap<String, Object>();
-                BeanUtils.copyProperties(menu, map);
-                userVO.getMenus().add(map);
+                userVO.getMenus().add(menu);
             }
         }
         return userVO;
@@ -131,10 +133,10 @@ public class UserController {
     public Response<User> addOrUpdateUser(@RequestBody(required = false) @Valid User user) {
         String username = user.getUsername();
         User byUserName = userService.getUserByUserName(username);
-        if(byUserName!=null){
+        if(byUserName!=null && user.getId()==null){
             throw  new  RuntimeException("该用户名已存在，请换一个用户名");
         }
-        userService.saveOrUpdate(user);
+        userService.saveOrUpdateUser(user);
         Response<User> response = new Response<User>();
         return response.success(user);
 
@@ -167,6 +169,13 @@ public class UserController {
     @GetMapping("/get")
     public Response<User> getUser(Long id) {
         User user = userService.getById(id);
+        List<Long> userId = userRoleService.getRoleIdsByUserId(user.getId());
+        String[] roles=new String[userId.size()];
+        for (int i = 0; i < userId.size(); i++) {
+            Long aLong =  userId.get(i);
+            roles[i]=String.valueOf(aLong);
+        }
+            user.setRoles(roles);
         Response<User> response = new Response<>();
         return response.success(user);
 

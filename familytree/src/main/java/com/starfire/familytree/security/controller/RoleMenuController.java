@@ -38,7 +38,7 @@ public class RoleMenuController {
      * @author luzh
      */
     @PostMapping("/addOrUpdate")
-    public Response<String> addOrUpdateRoleMenu(RoleMenuVo roleMenuVo) {
+    public Response<String> addOrUpdateRoleMenu(@RequestBody RoleMenuVo roleMenuVo) {
         String roleId = roleMenuVo.getRoleId();
         List<Long> menuIds = mergeParentAndChildMenusIds(roleMenuVo.getMenuIds());
         List<Boolean> rs=new ArrayList<Boolean>();
