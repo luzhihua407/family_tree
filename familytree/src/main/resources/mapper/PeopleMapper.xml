@@ -32,4 +32,10 @@
     <select id="getPeoplesByGeneration" resultMap="BaseResultMap">
         select * from bs_people where generations=#{gen}
     </select>
+    <select id="getPage"  resultMap="BaseResultMap">
+        select * from bs_people where 1=1
+        <if test="param!=null and param.fullName!=null">
+            and full_name like CONCAT(#{param.fullName},'%')
+        </if>
+    </select>
 </mapper>

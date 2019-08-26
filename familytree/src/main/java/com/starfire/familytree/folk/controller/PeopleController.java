@@ -1,9 +1,11 @@
 package com.starfire.familytree.folk.controller;
 
 
+import com.starfire.familytree.folk.entity.Category;
 import com.starfire.familytree.folk.entity.CategoryContent;
 import com.starfire.familytree.folk.entity.People;
 import com.starfire.familytree.folk.service.IPeopleService;
+import com.starfire.familytree.vo.DeleteVO;
 import com.starfire.familytree.vo.PageInfo;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,13 +46,13 @@ public class PeopleController {
 
     }
 
-    @RequestMapping("add_wife")
+    @PostMapping("add_wife")
     public People addWife(@RequestBody @Valid People wife) {
         People people = peopleService.addWife(wife);
         return people;
     }
 
-    @RequestMapping("add_children")
+    @PostMapping("add_children")
     public People addChildren(@RequestBody @Valid People chillden) {
 
         People people = peopleService.addChildren(chillden);
@@ -58,15 +60,38 @@ public class PeopleController {
 
     }
 
-    @RequestMapping("add")
+    @PostMapping("add")
     public People addPeople(@RequestBody @Valid People people) {
         People pl = peopleService.addPeople(people);
         return pl;
     }
 
-    @RequestMapping("get_peoples_by_generation")
+    @GetMapping("get_peoples_by_generation")
     public List<People> getPeoplesByGeneration(@RequestParam(required = true) int gen) {
         List<People> peoples = peopleService.getPeoplesByGeneration(gen);
         return peoples;
+    }
+
+    @GetMapping("/get")
+    public People getPeople(Long id) {
+        People people = peopleService.getById(id);
+        return people;
+    }
+
+    @PostMapping("/delete")
+    public Boolean deletePeople(@RequestBody DeleteVO<Long[]> deleteVO) {
+        Long[] ids = deleteVO.getIds();
+        for (int i = 0; i < ids.length; i++) {
+            Long id = Long.valueOf(ids[i]);
+            boolean b = peopleService.removeById(id);
+
+        }
+        return true;
+    }
+
+    @PostMapping("/edit")
+    public Boolean editPeople(@RequestBody People people) {
+        boolean b = peopleService.updateById(people);
+        return b;
     }
 }

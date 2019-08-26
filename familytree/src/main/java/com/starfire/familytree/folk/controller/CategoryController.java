@@ -36,6 +36,9 @@ public class CategoryController {
      */
     @PostMapping("/page")
     public PageInfo<Map<String, Object>, Category> page(@RequestBody(required = false) PageInfo<Map<String, Object>, Category> page) {
+        if(page==null){
+            page=new PageInfo<>();
+        }
         PageInfo<Map<String, Object>, Category> pageInfo = categoryService.page(page);
         return pageInfo;
 

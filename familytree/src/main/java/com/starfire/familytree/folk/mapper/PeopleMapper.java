@@ -20,5 +20,5 @@ public interface PeopleMapper extends BaseMapper<People> {
 
     public List<People> getPeoplesByGeneration(@Param("gen") int gen);
 
-    Page<People> getPage(Page<People> page, Map<String, Object> param);
+    Page<People> getPage(Page<People> page, @Param("param")Map<String, Object> param);
 }

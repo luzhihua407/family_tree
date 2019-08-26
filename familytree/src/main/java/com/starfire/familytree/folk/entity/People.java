@@ -13,6 +13,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * <p>
@@ -81,12 +82,12 @@ public class People extends AbstractEntity {
     /**
      * 生日
      */
-    private LocalDateTime birth;
+    private Date birth;
 
     /**
      * 逝期
      */
-    private LocalDateTime death;
+    private Date death;
 
     /**
      * 备注
