@@ -17,7 +17,7 @@
     </resultMap>
 
     <select id="getRoleByCode" resultMap="BaseResultMap">
-		select * from security_role where code=#{code}
+		select * from security_role where code=#{code} and valid=1
 	</select>
     <select id="getRoles" resultMap="BaseResultMap">
 		select * from security_role

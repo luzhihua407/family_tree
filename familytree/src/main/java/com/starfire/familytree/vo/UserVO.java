@@ -1,13 +1,12 @@
 package com.starfire.familytree.vo;
 
-import com.starfire.familytree.security.entity.Menu;
-import lombok.Data;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+
+import lombok.Data;
 
 @Data
 public class UserVO {
@@ -20,7 +19,7 @@ public class UserVO {
     private Long roleId;
     private Integer gender;
 
-    private List<Menu> menus = new ArrayList<>();
+    private List<RouteVO> menus=new ArrayList<RouteVO>();
 
 
 }

@@ -16,6 +16,7 @@ import com.starfire.familytree.usercenter.service.IUserService;
 import com.starfire.familytree.utils.FieldErrorUtils;
 import com.starfire.familytree.vo.DeleteVO;
 import com.starfire.familytree.vo.PageInfo;
+import com.starfire.familytree.vo.RouteVO;
 import com.starfire.familytree.vo.UserVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,12 +74,33 @@ public class UserController {
         Collection<GrantedAuthority> authorities = auth.getAuthorities();
         for (GrantedAuthority grantedAuthority : authorities) {
             String roleCode = grantedAuthority.getAuthority();
-            Role role = roleService.getRoleByCode("admin");
-            Long roleId = role.getId();
-            List<Long> menuIds = roleMenuService.getMenuIdsByRoleId(roleId);
-            for (Long menuId : menuIds) {
-                Menu menu = menuService.getById(menuId);
-                userVO.getMenus().add(menu);
+            if(roleCode.startsWith("ROLE_")){
+                roleCode=roleCode.replace("ROLE_","");
+            }
+            Role role = roleService.getRoleByCode(roleCode);
+            Long roleId=role.getId();
+            userVO.setRoleId(roleId);
+            //这里按父-子 父-子 顺序取菜单，不然antd 无法正常显示菜单
+            List<Menu> parentMenus = menuService.getParentMenusByRoleId(roleId);
+            for (Menu parentMenu : parentMenus) {
+                RouteVO route=new RouteVO();
+                route.setIcon(parentMenu.getIcon());
+                route.setId(parentMenu.getId().toString());
+                route.setName(parentMenu.getName());
+                route.setRoute(parentMenu.getUrl());
+                userVO.getMenus().add(route);
+                Long parentId=parentMenu.getId();
+                List<Menu> childMenu = menuService.getChildMenu(parentId);
+                for (Menu menu : childMenu) {
+                    route=new RouteVO();
+                    route.setIcon(menu.getIcon());
+                    route.setId(menu.getId().toString());
+                    route.setName(menu.getName());
+                    route.setRoute(menu.getUrl());
+                    route.setBreadcrumbParentId(menu.getParent()==null?"":menu.getParent().toString());
+                    route.setMenuParentId(menu.getParent()==null?"":menu.getParent().toString());
+                    userVO.getMenus().add(route);
+                }
             }
         }
         return userVO;
