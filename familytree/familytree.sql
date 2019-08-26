@@ -186,7 +186,7 @@ CREATE TABLE `oauth_approvals` (
   `scope` varchar(64) DEFAULT NULL,
   `status` varchar(10) DEFAULT NULL,
   `expiresAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `lastModifiedAt` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+  `lastModifiedAt` timestamp NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
