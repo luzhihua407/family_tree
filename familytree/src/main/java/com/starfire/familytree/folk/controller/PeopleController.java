@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -93,5 +95,25 @@ public class PeopleController {
     public Boolean editPeople(@RequestBody People people) {
         boolean b = peopleService.updateById(people);
         return b;
+    }
+
+    @PostMapping("/tree")
+    public List<Map<String,Object>> tree() {
+        List<Map<String,Object>> list=new ArrayList<>();
+        Map<String,Object> map=new HashMap();
+        map.put("id", 0);
+        map.put("parent",  null);
+        map.put("title",  "张三");
+        map.put("description",  "好人一生平安");
+        map.put("image",  "https://img2.woyaogexing.com/2019/08/29/22df5a5901c64b30806fc7738d97f094!600x600.jpeg");
+        list.add(map);
+         map=new HashMap();
+        map.put("id", 1);
+        map.put("parent",  0);
+        map.put("title",  "张三");
+        map.put("description",  "好人一生平安");
+        map.put("image",  "https://img2.woyaogexing.com/2019/08/29/22df5a5901c64b30806fc7738d97f094!600x600.jpeg");
+        list.add(map);
+        return list;
     }
 }
