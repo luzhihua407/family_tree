@@ -18,6 +18,7 @@ import com.starfire.familytree.vo.DeleteVO;
 import com.starfire.familytree.vo.PageInfo;
 import com.starfire.familytree.vo.RouteVO;
 import com.starfire.familytree.vo.UserVO;
+import io.swagger.annotations.Api;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -36,7 +37,7 @@ import java.util.*;
 
 /**
  * <p>
- * 前端控制器
+ * 用户控制器
  * </p>
  *
  * @author luzh
@@ -44,6 +45,7 @@ import java.util.*;
  */
 @RestController
 @RequestMapping("/usercenter/user")
+@Api(tags = "用户接口")
 public class UserController {
     @Autowired
     private IUserService userService;

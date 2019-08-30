@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/folk/partner")
-@Api("配偶模块")
+@Api(tags = "配偶模块")
 public class PartnerController {
 
 }

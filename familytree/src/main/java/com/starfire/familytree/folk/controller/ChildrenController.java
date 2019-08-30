@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/folk/children")
-@Api("晚辈模块")
+@Api(tags = "晚辈模块")
 public class ChildrenController {
 
 }

@@ -25,7 +25,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/basic/dict")
-@Api("字典接口")
+@Api(tags = "字典接口")
 public class DictController {
 
     @Autowired

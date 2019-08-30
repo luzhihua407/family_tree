@@ -3,7 +3,7 @@ package com.starfire.familytree.security.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.starfire.familytree.security.entity.RoleMenu;
 import com.starfire.familytree.vo.PageInfo;
-import com.starfire.familytree.vo.RoleMenuVo;
+import com.starfire.familytree.vo.RoleMenuVO;
 
 import java.util.List;
 import java.util.Map;
@@ -21,5 +21,5 @@ public interface IRoleMenuService extends IService<RoleMenu> {
 
     public List<Long> getMenuIdsByRoleId(Long roleId);
 
-    public RoleMenuVo getRoleMenuByRoleId(Long roleId);
+    public RoleMenuVO getRoleMenuByRoleId(Long roleId);
 }

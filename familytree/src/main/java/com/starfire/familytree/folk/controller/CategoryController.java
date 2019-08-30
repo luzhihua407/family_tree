@@ -21,7 +21,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/folk/category")
-@Api("分类模块")
+@Api(tags = "分类模块")
 public class CategoryController {
 
     @Autowired

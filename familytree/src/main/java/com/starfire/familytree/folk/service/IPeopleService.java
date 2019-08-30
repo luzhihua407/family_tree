@@ -19,14 +19,23 @@ import java.util.Map;
 public interface IPeopleService extends IService<People> {
 
 
-    public People addWife(People wife);
+    public People addWife(People wife,Long husbandId);
 
-    public People addChildren(People chillden);
+    public People addChildren(People child,Long parentId);
+
+    public People getHusband(Long husbandId);
 
     public People addPeople(People people);
 
 
     public List<People> getPeoplesByGeneration(int gen);
+
+    /**
+     * 获取祖先第一人
+     * @param gen
+     * @return
+     */
+    public People getForefather(int gen);
 
     public PageInfo<Map<String, Object>, People> page(PageInfo<Map<String, Object>, People> page);
 

@@ -23,7 +23,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/security/user_menu_right")
-@Api("用户菜单权限模块")
+@Api(tags = "用户菜单权限模块")
 public class UserMenuRightController {
     @Autowired
     private IUserMenuRightService userMenuRightService;

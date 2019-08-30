@@ -23,7 +23,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/security/user_menu")
-@Api("用户菜单模块")
+@Api(tags = "用户菜单模块")
 public class UserMenuController {
     @Autowired
     private IUserMenuService userMenuService;

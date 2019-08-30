@@ -26,7 +26,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/security/role")
-@Api("角色模块")
+@Api(tags = "角色模块")
 public class RoleController {
 
     @Autowired

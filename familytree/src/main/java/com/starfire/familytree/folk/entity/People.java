@@ -61,23 +61,18 @@ public class People extends AbstractEntity {
     /**
      * 是否已婚
      */
-    private BooleanEnum isMarried;
+    private BooleanEnum isMarried=BooleanEnum.否;
 
     /**
      * 是否有后代
      */
-    private BooleanEnum hasChild;
-
-    /**
-     * 配偶id
-     */
-    private Long partnerId;
+    private BooleanEnum hasChild=BooleanEnum.否;
 
     /**
      * 第几世
      */
     @Positive(message = "第几世要大于0")
-    private Integer generations;
+    private Integer generations=1;
 
     /**
      * 生日

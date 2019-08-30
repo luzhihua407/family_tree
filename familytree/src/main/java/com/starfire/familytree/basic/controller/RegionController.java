@@ -25,7 +25,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/basic/region")
-@Api("地区接口")
+@Api(tags = "地区接口")
 public class RegionController {
     @Autowired
     private IRegionService regionService;

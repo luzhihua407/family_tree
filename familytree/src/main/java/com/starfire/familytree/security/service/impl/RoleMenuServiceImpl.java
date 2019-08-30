@@ -9,7 +9,7 @@ import com.starfire.familytree.security.mapper.RoleMapper;
 import com.starfire.familytree.security.mapper.RoleMenuMapper;
 import com.starfire.familytree.security.service.IRoleMenuService;
 import com.starfire.familytree.vo.PageInfo;
-import com.starfire.familytree.vo.RoleMenuVo;
+import com.starfire.familytree.vo.RoleMenuVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,10 +45,10 @@ public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenu> i
     }
 
     @Override
-    public RoleMenuVo getRoleMenuByRoleId(Long roleId) {
+    public RoleMenuVO getRoleMenuByRoleId(Long roleId) {
         Role role = roleMapper.selectById(roleId);
         List<Long> list = baseMapper.getMenuIdsByRoleId(roleId);
-        RoleMenuVo vo=new RoleMenuVo();
+        RoleMenuVO vo=new RoleMenuVO();
         for (Long menuId : list) {
             vo.getMenuIds().add(menuId.toString());
         }

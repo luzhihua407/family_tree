@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.starfire.familytree.vo.DeleteVO;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +29,7 @@ import javax.validation.constraints.NotEmpty;
  */
 @RestController
 @RequestMapping("/security/menu")
+@Api(tags = "菜单接口")
 public class MenuController {
 
     @Autowired

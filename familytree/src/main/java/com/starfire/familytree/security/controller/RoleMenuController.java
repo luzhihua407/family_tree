@@ -7,7 +7,7 @@ import com.starfire.familytree.security.service.IMenuService;
 import com.starfire.familytree.security.service.IRoleMenuService;
 import com.starfire.familytree.vo.DeleteVO;
 import com.starfire.familytree.vo.PageInfo;
-import com.starfire.familytree.vo.RoleMenuVo;
+import com.starfire.familytree.vo.RoleMenuVO;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +24,7 @@ import java.util.*;
  */
 @RestController
 @RequestMapping("/security/role_menu")
-@Api("角色菜单模块")
+@Api(tags = "角色菜单模块")
 public class RoleMenuController {
     @Autowired
     private IRoleMenuService roleMenuService;
@@ -38,7 +38,7 @@ public class RoleMenuController {
      * @author luzh
      */
     @PostMapping("/addOrUpdate")
-    public Response<String> addOrUpdateRoleMenu(@RequestBody RoleMenuVo roleMenuVo) {
+    public Response<String> addOrUpdateRoleMenu(@RequestBody RoleMenuVO roleMenuVo) {
         String roleId = roleMenuVo.getRoleId();
         List<Long> menuIds = mergeParentAndChildMenusIds(roleMenuVo.getMenuIds());
         List<Boolean> rs=new ArrayList<Boolean>();
@@ -110,9 +110,9 @@ public class RoleMenuController {
     }
 
     @GetMapping("/getRoleMenuByRoleId")
-    public Response<RoleMenuVo> getRoleMenuByRoleId(Long roleId) {
-        RoleMenuVo rmvo= roleMenuService.getRoleMenuByRoleId(roleId);
-        Response<RoleMenuVo> response = new Response<RoleMenuVo>();
+    public Response<RoleMenuVO> getRoleMenuByRoleId(Long roleId) {
+        RoleMenuVO rmvo= roleMenuService.getRoleMenuByRoleId(roleId);
+        Response<RoleMenuVO> response = new Response<RoleMenuVO>();
         return response.success(rmvo);
 
     }

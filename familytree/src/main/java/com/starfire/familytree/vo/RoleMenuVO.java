@@ -6,7 +6,7 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class RoleMenuVo {
+public class RoleMenuVO {
 
     private Boolean own=false;
 

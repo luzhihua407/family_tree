@@ -48,33 +48,27 @@ public class FamilytreeApplicationTests {
 
     @Autowired
     private IMenuService menuService;
+
     @Test
-    public void contextLoads() {
+    public void addChildren() {
         People people = new People();
-        people.setFullName("father");
+        people.setFullName("开");
         People father = peopleService.addPeople(people);
         People children = new People();
-        children.setFullName("child");
-        People child = peopleService.addChildren(children);
-        Children childrens = new Children();
-        childrens.setChildrenId(child.getId());
-        childrens.setParentId(father.getId());
-        childrenService.save(childrens);
+        children.setFullName("华");
+        People child = peopleService.addChildren(children,father.getId());
+        People third = new People();
+        third.setFullName("静");
+        People fourth = peopleService.addChildren(third,children.getId());
 
     }
 
     @Test
-    public void contextLoads1() {
-        People people = new People();
-        people.setFullName("husband");
-        People husband = peopleService.addPeople(people);
+    public void addWife() {
+        People husband = peopleService.getHusband(1167266865102192642L);
         People wife = new People();
-        wife.setFullName("wife");
-        People wif = peopleService.addWife(wife);
-        Partner partner = new Partner();
-        partner.setHusbandId(husband.getId());
-        partner.setWifeId(wif.getId());
-        partnerService.save(partner);
+        wife.setFullName("容");
+        People wif = peopleService.addWife(wife,husband.getId());
 
     }
 
@@ -141,13 +135,13 @@ public class FamilytreeApplicationTests {
 
 
     }
+
     @Test
     public void addUserRole() {
-        user();
-        role();
-        userRole();
-
-
+        People p = peopleService.getById("1167241893457801217");
+        People people=new People();
+        people.setFullName("静");
+        peopleService.save(people);
     }
 
 }

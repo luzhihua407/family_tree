@@ -14,4 +14,7 @@
         <result column="remark" property="remark"/>
     </resultMap>
 
+    <select id="getChildrenList" resultType="com.starfire.familytree.folk.entity.People">
+        select  b.* from bs_children a,bs_people b where b.id=a.children_id and a.parent_id=#{parentId}
+    </select>
 </mapper>

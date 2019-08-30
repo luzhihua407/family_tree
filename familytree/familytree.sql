@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : localhost
-Source Server Version : 50721
+Source Server Version : 50720
 Source Host           : localhost:3306
 Source Database       : familytree
 
 Target Server Type    : MYSQL
-Target Server Version : 50721
+Target Server Version : 50720
 File Encoding         : 65001
 
-Date: 2019-08-25 16:04:54
+Date: 2019-08-30 10:37:14
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -86,8 +86,8 @@ CREATE TABLE `bs_category_content` (
   `creator` varchar(255) DEFAULT NULL,
   `edit_time` datetime DEFAULT NULL,
   `editor` varchar(255) DEFAULT NULL,
-  `valid` int(1) DEFAULT NULL,
-  `category_id` bigint(20) DEFAULT NULL,
+  `valid` int(1) unsigned DEFAULT NULL,
+  `category_id` bigint(20) unsigned DEFAULT NULL,
   `content` varchar(255) DEFAULT NULL,
   `sub_title` varchar(255) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
@@ -104,9 +104,9 @@ CREATE TABLE `bs_children` (
   `creator` varchar(255) DEFAULT NULL,
   `edit_time` datetime DEFAULT NULL,
   `editor` varchar(255) DEFAULT NULL,
-  `valid` int(1) DEFAULT NULL,
-  `children_id` bigint(20) DEFAULT NULL,
-  `parent_id` bigint(20) DEFAULT NULL,
+  `valid` int(1) unsigned DEFAULT NULL,
+  `children_id` bigint(20) unsigned DEFAULT NULL,
+  `parent_id` bigint(20) unsigned DEFAULT NULL,
   `remark` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -121,7 +121,7 @@ CREATE TABLE `bs_partner` (
   `creator` varchar(255) DEFAULT NULL,
   `edit_time` datetime DEFAULT NULL,
   `editor` varchar(255) DEFAULT NULL,
-  `valid` int(1) DEFAULT NULL,
+  `valid` int(1) unsigned DEFAULT NULL,
   `husband_id` bigint(20) DEFAULT NULL,
   `remark` varchar(255) DEFAULT NULL,
   `wife_id` bigint(20) DEFAULT NULL,
@@ -138,28 +138,46 @@ CREATE TABLE `bs_people` (
   `creator` varchar(255) DEFAULT NULL,
   `edit_time` datetime DEFAULT NULL,
   `editor` varchar(255) DEFAULT NULL,
-  `valid` int(1) DEFAULT NULL,
-  `age` int(11) DEFAULT NULL,
+  `valid` int(1) unsigned DEFAULT NULL,
+  `age` int(11) unsigned DEFAULT NULL,
   `avatar` varchar(255) DEFAULT NULL,
   `birth` datetime DEFAULT NULL,
   `brief` varchar(255) DEFAULT NULL,
   `company` varchar(255) DEFAULT NULL,
   `death` datetime DEFAULT NULL,
-  `education` int(1) DEFAULT NULL,
+  `education` int(1) unsigned DEFAULT NULL,
   `full_name` varchar(255) DEFAULT NULL,
-  `gender` int(1) DEFAULT NULL,
-  `generations` int(11) DEFAULT NULL,
-  `has_child` int(1) DEFAULT NULL,
+  `gender` int(1) unsigned DEFAULT NULL,
+  `generations` int(11) unsigned NOT NULL DEFAULT '1',
+  `has_child` int(1) unsigned NOT NULL,
   `height` varchar(16) DEFAULT NULL,
-  `is_married` int(1) DEFAULT NULL,
+  `is_married` int(1) unsigned DEFAULT NULL,
   `job` varchar(255) DEFAULT NULL,
   `nickname` varchar(255) DEFAULT NULL,
-  `partner_id` bigint(20) DEFAULT NULL,
   `phone_number` int(11) DEFAULT NULL,
   `remark` varchar(255) DEFAULT NULL,
   `weight` varchar(16) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for clientdetails
+-- ----------------------------
+DROP TABLE IF EXISTS `clientdetails`;
+CREATE TABLE `clientdetails` (
+  `appId` varchar(256) NOT NULL,
+  `resourceIds` varchar(256) DEFAULT NULL,
+  `appSecret` varchar(256) DEFAULT NULL,
+  `scope` varchar(256) DEFAULT NULL,
+  `grantTypes` varchar(256) DEFAULT NULL,
+  `redirectUrl` varchar(256) DEFAULT NULL,
+  `authorities` varchar(256) DEFAULT NULL,
+  `access_token_validity` int(11) DEFAULT NULL,
+  `refresh_token_validity` int(11) DEFAULT NULL,
+  `additionalInformation` varchar(4096) DEFAULT NULL,
+  `autoApproveScopes` varchar(256) DEFAULT NULL,
+  PRIMARY KEY (`appId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for oauth_access_token
@@ -186,7 +204,7 @@ CREATE TABLE `oauth_approvals` (
   `scope` varchar(64) DEFAULT NULL,
   `status` varchar(10) DEFAULT NULL,
   `expiresAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `lastModifiedAt` timestamp NULL
+  `lastModifiedAt` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -424,20 +442,20 @@ CREATE TABLE `sys_user` (
   `editor` varchar(255) DEFAULT NULL,
   `valid` tinyint(1) DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
-  `age` int(11) DEFAULT NULL,
-  `city` int(11) DEFAULT NULL,
-  `district` int(11) DEFAULT NULL,
+  `age` int(11) unsigned DEFAULT NULL,
+  `city` int(11) unsigned DEFAULT NULL,
+  `district` int(11) unsigned DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
-  `enabled` int(1) DEFAULT NULL,
-  `first_login` int(1) DEFAULT NULL,
-  `gender` int(11) NOT NULL,
+  `enabled` int(1) unsigned DEFAULT NULL,
+  `first_login` int(1) unsigned DEFAULT NULL,
+  `gender` int(11) unsigned NOT NULL,
   `last_login_time` datetime DEFAULT NULL,
   `mobile` varchar(255) DEFAULT NULL,
   `password` varchar(64) DEFAULT NULL,
   `province` int(11) DEFAULT NULL,
   `real_name` varchar(255) DEFAULT NULL,
   `register_time` datetime DEFAULT NULL,
-  `type` int(11) DEFAULT NULL,
+  `type` int(11) unsigned DEFAULT NULL,
   `username` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
