@@ -65,9 +65,9 @@ public class FamilytreeApplicationTests {
 
     @Test
     public void addWife() {
-        People husband = peopleService.getHusband(1167266865102192642L);
+        People husband = peopleService.getHusband(1167266865978802177L);
         People wife = new People();
-        wife.setFullName("容");
+        wife.setFullName("燕");
         People wif = peopleService.addWife(wife,husband.getId());
 
     }
