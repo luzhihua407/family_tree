@@ -93,17 +93,22 @@ public class PeopleController {
     @PostMapping("/tree")
     public OrgChartVO tree(@RequestBody Map<String,Integer> param) {
         OrgChartVO orgChartVO = new OrgChartVO();
-        People forefather = peopleService.getForefather(param.get("gen"));
-        Long id = forefather.getId();
-        List<People> childrenList = childrenService.getChildrenList(id);
-        loopChildren(orgChartVO, id, childrenList);
-        getWife(orgChartVO, id,null);
-        String fullName = forefather.getFullName();
-        String brief = forefather.getBrief();
-        String avatar = forefather.getAvatar();
+        People husband = peopleService.getForefather(param.get("gen"));
+        Long fatherId = husband.getId();
+        Long husbandId = husband.getId();
+        //获取妻子
+        People wife = partnerService.getWife(husbandId);
+        if(wife!=null){
+            OrgChartItemVO orgChartItemVO = convertOrgChartItemVO(husbandId,wife);
+            orgChartVO.getItems().add(orgChartItemVO);
+        }
+        loopChildren(orgChartVO, husband,wife);
+        String fullName = husband.getFullName();
+        String brief = husband.getBrief();
+        String avatar = husband.getAvatar();
         OrgChartItemVO orgChartItemVO = new OrgChartItemVO();
-        orgChartItemVO.setId(id.hashCode());
-        orgChartItemVO.setParent(null);
+        orgChartItemVO.setId(fatherId.hashCode());
+        orgChartItemVO.setParents(null);
         orgChartItemVO.setTitle(fullName);
         orgChartItemVO.setDescription(brief);
         orgChartItemVO.setImage(avatar);
@@ -114,48 +119,56 @@ public class PeopleController {
     /**
      * 轮询取出所有后代
      * @param orgChartVO
-     * @param parentId
-     * @param childrenList
      */
-    private void loopChildren(OrgChartVO orgChartVO, Long parentId, List<People> childrenList) {
+    private void loopChildren(OrgChartVO orgChartVO, People father,People mother) {
+        Long fatherId=father.getId();
+        Long motherId=null;
+        if(mother!=null){
+            motherId=mother.getId();
+        }
+        List<People> childrenList = childrenService.getChildrenList(fatherId);
         for (int j = 0; j < childrenList.size(); j++) {
             People children = childrenList.get(j);
             String fullName = children.getFullName();
             String brief = children.getBrief();
             String avatar = children.getAvatar();
             Long childrenId = children.getId();
-            getWife(orgChartVO, childrenId,parentId);
+            //获取妻子
+            People wife = partnerService.getWife(childrenId);
+            if(wife!=null){
+                OrgChartItemVO orgChartItemVO = convertOrgChartItemVO(childrenId,wife);
+                orgChartVO.getItems().add(orgChartItemVO);
+            }
+            //获取孩子
             OrgChartItemVO orgChartItemVO = new OrgChartItemVO();
             orgChartItemVO.setId(childrenId.hashCode());
-            orgChartItemVO.setParent(parentId.hashCode());
+            Integer[] parents=new Integer[2];
+            parents[0]=fatherId.hashCode();
+            parents[1]=motherId.hashCode();
+            orgChartItemVO.setParents(parents);
             orgChartItemVO.setTitle(fullName);
             orgChartItemVO.setDescription(brief);
             orgChartItemVO.setImage(avatar);
             orgChartVO.getItems().add(orgChartItemVO);
-            List<People> peopleList = childrenService.getChildrenList(childrenId);
-            loopChildren(orgChartVO,childrenId,peopleList);
+            loopChildren(orgChartVO,children,wife);
         }
     }
 
-    /**
-     * 获取配偶
-     * @param orgChartVO
-     * @param husbandId
-     */
-    private void getWife(OrgChartVO orgChartVO, Long husbandId,Long parentId) {
-        List<People> wifes = partnerService.getWifes(husbandId);
-        for (int j = 0; j < wifes.size(); j++) {
-            People wife = wifes.get(j);
-            String fullName = wife.getFullName();
-            String brief = wife.getBrief();
-            String avatar = wife.getAvatar();
-            OrgChartItemVO orgChartItemVO = new OrgChartItemVO();
-            orgChartItemVO.setId(wife.getId().hashCode());
-            orgChartItemVO.setParent(parentId==null?null:parentId.hashCode());
-            orgChartItemVO.setTitle(fullName);
-            orgChartItemVO.setDescription(brief);
-            orgChartItemVO.setImage(avatar);
-            orgChartVO.getItems().add(orgChartItemVO);
-        }
+
+    private OrgChartItemVO convertOrgChartItemVO(Long husbandId,People wife) {
+        String fullName = wife.getFullName();
+        String brief = wife.getBrief();
+        String avatar = wife.getAvatar();
+        OrgChartItemVO orgChartItemVO = new OrgChartItemVO();
+        orgChartItemVO.setId(wife.getId().hashCode());
+        orgChartItemVO.setParents(null);
+        orgChartItemVO.setTitle(fullName);
+        orgChartItemVO.setDescription(brief);
+        orgChartItemVO.setImage(avatar);
+        orgChartItemVO.setPosition(husbandId.hashCode()+1);
+        orgChartItemVO.setRelativeItem(husbandId.hashCode());
+
+
+        return orgChartItemVO;
     }
 }

@@ -21,7 +21,7 @@ import java.util.List;
 public class PartnerServiceImpl extends ServiceImpl<PartnerMapper, Partner> implements IPartnerService {
 
     @Override
-    public List<People> getWifes(Long husbandId) {
-        return baseMapper.getWifes(husbandId);
+    public People getWife(Long husbandId) {
+        return baseMapper.getWife(husbandId);
     }
 }

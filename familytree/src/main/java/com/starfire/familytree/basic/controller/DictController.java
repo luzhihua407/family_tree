@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.security.Principal;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,6 +40,14 @@ public class DictController {
      */
     @PostMapping("/addOrUpdate")
     public Response<Dict> addOrUpdateDict(@RequestBody @Valid Dict dict) {
+        String code = dict.getCode();
+        if(dict.getId()==null){
+
+        Dict d = dictService.getDict(code);
+        if(d!=null){
+            throw  new RuntimeException("字典编码"+code+"已存在，请换一个");
+        }
+        }
         dictService.saveOrUpdate(dict);
         Response<Dict> response = new Response<Dict>();
         return response.success(dict);
@@ -77,6 +85,23 @@ public class DictController {
 
     }
 
+    @PostMapping("/getParentDict")
+    public Response<List<Dict>> getParentDict(@RequestBody(required = true) Map<String,String> param) {
+        String code=param.get("code");
+        List<Dict> dictList = dictService.getParentDict(code);
+        Response<List<Dict>> response = new Response<>();
+        return response.success(dictList);
+
+    }
+    @PostMapping("/getSubDictListByParentCode")
+    public Response<List<Dict>> getSubDictListByParentCode(@RequestBody(required = true) Map<String,String> param) {
+        String code=param.get("parentCode");
+        List<Dict> dictList = dictService.getSubDictListByParentCode(code);
+        Response<List<Dict>> response = new Response<>();
+        return response.success(dictList);
+
+    }
+
     /**
      * 分页
      *
@@ -85,7 +110,8 @@ public class DictController {
      * @author luzh
      */
     @PostMapping("/page")
-    public Response<PageInfo<Map<String, Object>, Dict>> page(@RequestBody PageInfo<Map<String, Object>, Dict> page) {
+    public Response<PageInfo<Map<String, Object>, Dict>> page(@RequestBody(required = false) PageInfo<Map<String, Object>, Dict> page) {
+        page=page==null?new PageInfo<>():page;
         PageInfo<Map<String, Object>, Dict> pageInfo = dictService.page(page);
         Response<PageInfo<Map<String, Object>, Dict>> response = new Response<PageInfo<Map<String, Object>, Dict>>();
         return response.success(pageInfo);

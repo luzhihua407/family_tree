@@ -36,24 +36,24 @@ public class LoginController {
 	@Autowired
 	private IUserService userService;
 
-	@RequestMapping("/login")
-	public String login(@Valid @RequestBody LoginReq loginReq){
-		UriComponents uc = ServletUriComponentsBuilder.fromCurrentRequest().path("/oauth/token").build();
-		String uriString = uc.toUriString().replace("/doLogin", "");
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-		headers.add("Authorization", "Basic ZmFtaWx5X3RyZWU6ZmFtaWx5X3RyZWU=");
-		MultiValueMap<String,String> map=new LinkedMultiValueMap<>();
-		map.add("grant_type", loginReq.getGrant_type());
-		map.add("password", loginReq.getPassword());
-		map.add("scope", loginReq.getScope());
-		map.add("username", loginReq.getUsername());
-		 HttpEntity<MultiValueMap<String,String>> entity = new HttpEntity<MultiValueMap<String,String>>(map, headers);
-		ResponseEntity<JsonNode> responseEntity = rt.postForEntity(uriString, entity, JsonNode.class);
-		JsonNode node = responseEntity.getBody();
-		String access_token = node.findValue("access_token").asText();
-		return access_token;
-	}
+//	@RequestMapping("/login")
+//	public String login(@Valid @RequestBody LoginReq loginReq){
+//		UriComponents uc = ServletUriComponentsBuilder.fromCurrentRequest().path("/oauth/token").build();
+//		String uriString = uc.toUriString().replace("/doLogin", "");
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+//		headers.add("Authorization", "Basic ZmFtaWx5X3RyZWU6ZmFtaWx5X3RyZWU=");
+//		MultiValueMap<String,String> map=new LinkedMultiValueMap<>();
+//		map.add("grant_type", loginReq.getGrant_type());
+//		map.add("password", loginReq.getPassword());
+//		map.add("scope", loginReq.getScope());
+//		map.add("username", loginReq.getUsername());
+//		 HttpEntity<MultiValueMap<String,String>> entity = new HttpEntity<MultiValueMap<String,String>>(map, headers);
+//		ResponseEntity<JsonNode> responseEntity = rt.postForEntity(uriString, entity, JsonNode.class);
+//		JsonNode node = responseEntity.getBody();
+//		String access_token = node.findValue("access_token").asText();
+//		return access_token;
+//	}
 //	@RequestMapping("/doLogin")
 //	public String doLogin(@Valid @RequestBody LoginReq loginReq){
 //		UriComponents uc = ServletUriComponentsBuilder.fromCurrentRequest().path("/oauth/token").build();

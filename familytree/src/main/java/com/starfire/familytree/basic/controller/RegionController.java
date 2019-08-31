@@ -71,7 +71,8 @@ public class RegionController {
      * @author luzh
      */
     @PostMapping("/page")
-    public Response<PageInfo<Map<String, Object>, Region>> page(@RequestBody PageInfo<Map<String, Object>, Region> page) {
+    public Response<PageInfo<Map<String, Object>, Region>> page(@RequestBody(required = false) PageInfo<Map<String, Object>, Region> page) {
+        page=page==null?new PageInfo<>():page;
         PageInfo<Map<String, Object>, Region> pageInfo = regionService.page(page);
         Response<PageInfo<Map<String, Object>, Region>> response = new Response<PageInfo<Map<String, Object>, Region>>();
         return response.success(pageInfo);

@@ -6,6 +6,7 @@ import com.starfire.familytree.basic.entity.Dict;
 import com.starfire.familytree.basic.entity.Region;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,4 +20,10 @@ import java.util.Map;
 public interface DictMapper extends BaseMapper<Dict> {
 
     Page<Dict> page(Page<Dict> page, @Param(value = "param") Map<String, Object> param);
+
+    List<Dict> getParentDict(String code);
+
+    Dict getDict(String code);
+
+    List<Dict> getSubDictListByParentCode(String parentCode);
 }

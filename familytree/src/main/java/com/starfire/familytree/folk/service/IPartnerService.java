@@ -16,5 +16,5 @@ import java.util.List;
  */
 public interface IPartnerService extends IService<Partner> {
 
-    public List<People> getWifes(Long husbandId);
+    public People getWife(Long husbandId);
 }

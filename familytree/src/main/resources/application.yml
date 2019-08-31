@@ -57,7 +57,6 @@ security:
     resource:
       user-info-uri: http://localhost/user/me
 
-
 logging:
   level: DEBUG
 

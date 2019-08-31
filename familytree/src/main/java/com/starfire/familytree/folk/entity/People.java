@@ -1,6 +1,7 @@
 package com.starfire.familytree.folk.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.starfire.familytree.basic.entity.AbstractEntity;
 import com.starfire.familytree.enums.BooleanEnum;
 import com.starfire.familytree.enums.GenderEnum;
@@ -77,11 +78,13 @@ public class People extends AbstractEntity {
     /**
      * 生日
      */
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date birth;
 
     /**
      * 逝期
      */
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date death;
 
     /**

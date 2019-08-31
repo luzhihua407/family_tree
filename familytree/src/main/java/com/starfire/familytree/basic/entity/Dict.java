@@ -1,6 +1,7 @@
 package com.starfire.familytree.basic.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.starfire.familytree.enums.BooleanEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;

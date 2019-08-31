@@ -1,5 +1,6 @@
 package com.starfire.familytree.vo;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 /**
@@ -9,11 +10,14 @@ import lombok.Data;
  * @date: 2019/8/30 8:45
  */
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrgChartItemVO {
 
 
     private Integer  id;
-    private Integer  parent;
+    private Integer[]  parents;
+    private Integer relativeItem;
+    private Integer position;
     private  String title;
     private  String description;
     private  String image;

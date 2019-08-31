@@ -20,5 +20,17 @@
         <result column="area_id" property="areaId"/>
         <result column="type_id" property="typeId"/>
     </resultMap>
+    <select id="page" resultMap="BaseResultMap">
+        select * from basic_region where 1=1
+        <if test="param!=null and param.areaCode!=null">
+            and area_code like CONCAT(#{param.areaCode},'%')
+        </if>
+        <if test="param!=null and param.fullName!=null">
+            and full_name like CONCAT(#{param.fullName},'%')
+        </if>
+        <if test="param!=null and param.shortName!=null">
+            and short_name like CONCAT(#{param.shortName},'%')
+        </if>
+    </select>
 
 </mapper>

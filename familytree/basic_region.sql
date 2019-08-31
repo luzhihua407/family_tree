@@ -21,10 +21,10 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `basic_region`;
 CREATE TABLE `basic_region` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `create_by` varchar(255) DEFAULT NULL,
+  `creator` varchar(255) DEFAULT NULL,
   `create_time` datetime NOT NULL,
-  `last_update_by` varchar(255) DEFAULT NULL,
-  `last_update_time` datetime NOT NULL,
+  `editor` varchar(255) DEFAULT NULL,
+  `edit_time` datetime NOT NULL,
   `orderno` double DEFAULT NULL,
   `valid` tinyint(1) NOT NULL,
   `version` int(11) NOT NULL,
@@ -38,18 +38,11 @@ CREATE TABLE `basic_region` (
   `status` int(11) DEFAULT NULL,
   `create_user` bigint(20) DEFAULT NULL,
   `last_update_user` bigint(20) DEFAULT NULL,
-  `area` bigint(20) DEFAULT NULL,
-  `type` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FKD611CAA226A8AD74` (`create_user`) USING BTREE,
-  KEY `FKD611CAA2BC7FAD9E` (`last_update_user`) USING BTREE,
-  KEY `FKD611CAA2F8679C0B` (`area`) USING BTREE,
-  KEY `FKD611CAA2F8705AB8` (`type`) USING BTREE,
-  CONSTRAINT `basic_region_ibfk_1` FOREIGN KEY (`type`) REFERENCES `bs_dict` (`id`),
-  CONSTRAINT `basic_region_ibfk_2` FOREIGN KEY (`create_user`) REFERENCES `sys_user` (`id`),
-  CONSTRAINT `basic_region_ibfk_3` FOREIGN KEY (`last_update_user`) REFERENCES `sys_user` (`id`),
-  CONSTRAINT `basic_region_ibfk_4` FOREIGN KEY (`area`) REFERENCES `bs_dict` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12706 DEFAULT CHARSET=utf8;
+  `area_id` bigint(20) DEFAULT NULL,
+  `type_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of basic_region

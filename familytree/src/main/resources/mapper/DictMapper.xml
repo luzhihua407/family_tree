@@ -18,5 +18,29 @@
         <result column="value" property="value"/>
         <result column="parent_id" property="parentId"/>
     </resultMap>
+    <select id="page" resultMap="BaseResultMap">
+        select * from basic_dict where 1=1
+        <if test="param!=null and param.code!=null">
+            and code like CONCAT(#{param.code},'%')
+        </if>
+        <if test="param!=null and param.name!=null">
+            and name like CONCAT(#{param.name},'%')
+        </if>
+    </select>
+    <select id="getParentDict" resultMap="BaseResultMap">
+        select * from basic_dict where 1=1
+        <if test="name!=null">
+            and name like CONCAT(#{param.name},'%')
+        </if>
+    </select>
+
+    <select id="getDict" resultMap="BaseResultMap">
+        select * from basic_dict where code=#{code}
+    </select>
+    <select id="getSubDictListByParentCode" resultMap="BaseResultMap">
+
+        select a.* from basic_dict a left join basic_dict b on  a.parent_id=b.id where b.code=#{code}
+
+    </select>
 
 </mapper>

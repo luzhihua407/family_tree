@@ -9,6 +9,7 @@ import com.starfire.familytree.basic.service.IDictService;
 import com.starfire.familytree.vo.PageInfo;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,6 +29,22 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements ID
         Page<Dict> selectPage = baseMapper.page(page, param);
         pageInfo.from(selectPage);
         return pageInfo;
+    }
+
+    @Override
+    public List<Dict> getParentDict(String code) {
+        return baseMapper.getParentDict(code);
+    }
+
+    @Override
+    public Dict getDict(String code) {
+
+        return baseMapper.getDict(code);
+    }
+
+    @Override
+    public List<Dict> getSubDictListByParentCode(String code) {
+        return baseMapper.getSubDictListByParentCode(code);
     }
 
 }

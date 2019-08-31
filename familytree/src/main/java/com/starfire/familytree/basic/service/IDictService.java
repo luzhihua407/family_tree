@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.starfire.familytree.basic.entity.Dict;
 import com.starfire.familytree.vo.PageInfo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,4 +19,9 @@ public interface IDictService extends IService<Dict> {
 
     public PageInfo<Map<String, Object>, Dict> page(PageInfo<Map<String, Object>, Dict> page);
 
+    public List<Dict> getParentDict(String code);
+
+    public Dict getDict(String code);
+
+    List<Dict> getSubDictListByParentCode(String code);
 }

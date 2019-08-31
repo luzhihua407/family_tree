@@ -17,9 +17,9 @@ import java.util.List;
 public interface PartnerMapper extends BaseMapper<Partner> {
 
     /**
-     * 获取妻子，有可能多个的情况
+     * 获取妻子
      * @param husbandId
      * @return
      */
-    public List<People> getWifes(Long husbandId);
+    public People getWife(Long husbandId);
 }
