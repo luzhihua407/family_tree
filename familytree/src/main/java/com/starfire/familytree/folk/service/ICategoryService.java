@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.starfire.familytree.folk.entity.Category;
 import com.starfire.familytree.vo.PageInfo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,4 +18,6 @@ import java.util.Map;
 public interface ICategoryService extends IService<Category> {
 
    public PageInfo<Map<String, Object>, Category> page(PageInfo<Map<String, Object>, Category> page);
+
+    List<Category> getCategoryList();
 }

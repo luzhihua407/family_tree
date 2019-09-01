@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.starfire.familytree.folk.entity.Category;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,4 +19,6 @@ import java.util.Map;
 public interface CategoryMapper extends BaseMapper<Category> {
 
    public Page<Category> getPage(Page page,@Param("param") Map<String, Object> param);
+
+    List<Category> getCategoryList();
 }

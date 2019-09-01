@@ -30,7 +30,6 @@ import java.util.Optional;
  */
 @Configuration
 @EnableSwagger2
-@ComponentScan(basePackages = {"com.starfire.familytree.*.controller"})
 public class SwaggerConfig {
     @Bean
     public Docket api() {

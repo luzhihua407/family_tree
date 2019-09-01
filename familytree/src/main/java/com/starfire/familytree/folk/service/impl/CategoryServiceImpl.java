@@ -9,6 +9,7 @@ import com.starfire.familytree.vo.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,15 +23,18 @@ import java.util.Map;
 @Service
 public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements ICategoryService {
 
-    @Autowired
-    private CategoryMapper categoryMapper;
 
     @Override
     public PageInfo<Map<String, Object>, Category> page(PageInfo<Map<String, Object>, Category> pageInfo) {
         Map<String, Object> param = pageInfo.getParam();
         Page<Category> page = pageInfo.toMybatisPlusPage();
-        Page<Category> result = categoryMapper.getPage(page,param);
+        Page<Category> result = baseMapper.getPage(page,param);
         pageInfo.from(result);
         return pageInfo;
+    }
+
+    @Override
+    public List<Category> getCategoryList() {
+        return baseMapper.getCategoryList();
     }
 }

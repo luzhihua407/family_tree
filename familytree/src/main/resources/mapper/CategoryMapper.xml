@@ -14,10 +14,14 @@
         <result column="editor" property="editor"/>
     </resultMap>
     <select id="getPage" resultMap="BaseResultMap">
-        select * from bs_category where 1=1
+        select * from bs_category  where 1=1
         <if test="param!=null and param.name!=null ">
             and name like concat('',#{param.name},'%')
         </if>
+    </select>
+
+    <select id="getCategoryList" resultMap="BaseResultMap">
+        select * from bs_category where valid=1
     </select>
 
 </mapper>

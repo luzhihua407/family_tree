@@ -9,21 +9,22 @@
         <result column="title" property="title"/>
         <result column="content" property="content"/>
         <result column="category_id" property="categoryId"/>
+        <result column="category_name" property="categoryName"/>
         <result column="create_time" property="createTime"/>
         <result column="creator" property="creator"/>
         <result column="edit_time" property="editTime"/>
         <result column="editor" property="editor"/>
     </resultMap>
     <select id="getPage" resultMap="BaseResultMap">
-        select * from bs_category_content where 1=1
+        select b.name as category_name,a.* from bs_category_content a left join bs_category b on b.id=a.category_id where 1=1
         <if test="param!=null and param.title!=null ">
-            and title like concat('',#{param.title},'%')
+            and a.title like concat('',#{param.title},'%')
         </if>
         <if test="param!=null and param.sub_title!=null ">
-            and sub_title like concat('',#{param.sub_title},'%')
+            and a.sub_title like concat('',#{param.sub_title},'%')
         </if>
         <if test="param!=null and param.category_id!=null ">
-            and category_id =#{param.category_id}
+            and a.category_id =#{param.category_id}
         </if>
     </select>
 
