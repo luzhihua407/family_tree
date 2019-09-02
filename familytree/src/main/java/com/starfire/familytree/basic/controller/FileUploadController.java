@@ -1,5 +1,8 @@
 package com.starfire.familytree.basic.controller;
 
+import com.starfire.familytree.basic.entity.Region;
+import com.starfire.familytree.response.Response;
+import com.starfire.familytree.vo.PageInfo;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
@@ -13,6 +16,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * @version 1.0
@@ -24,22 +28,23 @@ import java.io.IOException;
 @RequestMapping("/file_upload")
 @Api(tags = "文件上传接口")
 public class FileUploadController {
-
+    private String filePath=System.getProperty("user.home");
     @RequestMapping(value = "/upload")
-    public String upload(@RequestParam("file") MultipartFile multipartFile) {
+    public Response<String> upload(@RequestParam("file") MultipartFile multipartFile) {
+            Response<String> response = new Response<>();
         try {
             String filename = multipartFile.getOriginalFilename();
-            File file=new File("F:/upload/"+filename);
-//            FileOutputStream outputStream = new FileOutputStream(file);
-//            IOUtils.copy(multipartFile.getInputStream(),outputStream);
-            multipartFile.transferTo(file);
+            File file=new File(filePath+"\\"+filename);
+            FileOutputStream outputStream = new FileOutputStream(file);
+            IOUtils.copy(multipartFile.getInputStream(),outputStream);
+            return response.success(file.getPath());
         } catch (FileNotFoundException e) {
             log.error(e.getMessage(),e);
         } catch (IOException e) {
             log.error(e.getMessage(),e);
         }
 
-        return null;
+        return response.failure();
 
     }
 }
