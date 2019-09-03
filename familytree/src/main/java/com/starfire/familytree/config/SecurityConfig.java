@@ -24,12 +24,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         "/v2/api-docs",
                         "/swagger-resources/**",
-                        "/swagger-ui.html**",
+                        "/swagger-ui.html",
                         "/webjars/**");
     }
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
+
 //http.authorizeRequests().anyRequest().permitAll();
         http.cors().and()
                 .antMatcher("/**").authorizeRequests()

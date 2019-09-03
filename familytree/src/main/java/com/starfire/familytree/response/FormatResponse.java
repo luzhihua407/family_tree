@@ -30,7 +30,7 @@ public class FormatResponse implements ResponseBodyAdvice<Object> {
                                   Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
                                   ServerHttpResponse response) {
         Response<Object> resp = new Response<Object>();
-        return resp.success(body);
+        return resp.success(body==null?"":body);
     }
 
 }
