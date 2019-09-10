@@ -25,7 +25,7 @@ public class FormatResponse implements ResponseBodyAdvice<Object> {
         String[] split = clazz.split(" ");
         String methodName = split[2];
         //如果不是自己的包的方法
-        if (!methodName.startsWith("com.startfire")) {
+        if (methodName.startsWith("com.startfire")) {
             return false;
         } else if (returnType2.isAssignableFrom(Response.class)) { //如果返回类型是Response ，则不执行自动化格式返回
             return false;

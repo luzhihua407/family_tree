@@ -21,4 +21,6 @@ public interface CategoryMapper extends BaseMapper<Category> {
    public Page<Category> getPage(Page page,@Param("param") Map<String, Object> param);
 
     List<Category> getCategoryList();
+
+    List<Category> getBranchList();
 }

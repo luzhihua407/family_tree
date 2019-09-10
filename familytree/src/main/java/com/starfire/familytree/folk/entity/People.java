@@ -2,6 +2,8 @@ package com.starfire.familytree.folk.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.starfire.familytree.basic.entity.AbstractEntity;
 import com.starfire.familytree.enums.BooleanEnum;
 import com.starfire.familytree.enums.GenderEnum;
@@ -128,5 +130,10 @@ public class People extends AbstractEntity {
      */
     private String job;
 
+    /**
+     * 分支 关联category
+     */
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long peopleBranch;
 
 }

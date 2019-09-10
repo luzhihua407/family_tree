@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50721
 File Encoding         : 65001
 
-Date: 2019-08-31 07:43:24
+Date: 2019-09-10 22:55:21
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -33,31 +33,37 @@ CREATE TABLE `basic_dict` (
   `parent_id` bigint(20) DEFAULT NULL,
   `remark` varchar(255) DEFAULT NULL,
   `value` varchar(32) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idx_code` (`code`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for basic_region
 -- ----------------------------
 DROP TABLE IF EXISTS `basic_region`;
 CREATE TABLE `basic_region` (
-  `id` bigint(20) NOT NULL,
-  `create_time` datetime DEFAULT NULL,
-  `creator` varchar(16) DEFAULT NULL,
-  `edit_time` datetime DEFAULT NULL,
-  `editor` varchar(16) DEFAULT NULL,
-  `valid` int(1) DEFAULT NULL,
-  `area_code` varchar(32) DEFAULT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `creator` varchar(255) DEFAULT NULL,
+  `create_time` datetime NOT NULL,
+  `editor` varchar(255) DEFAULT NULL,
+  `edit_time` datetime NOT NULL,
+  `orderno` double DEFAULT NULL,
+  `valid` tinyint(1) NOT NULL,
+  `version` int(11) NOT NULL,
+  `area_code` varchar(20) DEFAULT NULL,
+  `code` varchar(20) DEFAULT NULL,
+  `full_name` varchar(100) DEFAULT NULL,
+  `name` varchar(20) DEFAULT NULL,
+  `post_code` varchar(20) DEFAULT NULL,
+  `remark` varchar(250) DEFAULT NULL,
+  `short_name` varchar(100) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `create_user` bigint(20) DEFAULT NULL,
+  `last_update_user` bigint(20) DEFAULT NULL,
   `area_id` bigint(20) DEFAULT NULL,
-  `code` varchar(32) DEFAULT NULL,
-  `full_name` varchar(32) DEFAULT NULL,
-  `name` varchar(32) DEFAULT NULL,
-  `post_code` varchar(32) DEFAULT NULL,
-  `remark` varchar(255) DEFAULT NULL,
-  `short_name` varchar(32) DEFAULT NULL,
   `type_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12706 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for bs_category
@@ -74,7 +80,7 @@ CREATE TABLE `bs_category` (
   `parent_id` bigint(20) DEFAULT NULL,
   `remark` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for bs_category_content
@@ -92,7 +98,7 @@ CREATE TABLE `bs_category_content` (
   `sub_title` varchar(64) DEFAULT NULL,
   `title` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for bs_children
@@ -109,7 +115,7 @@ CREATE TABLE `bs_children` (
   `parent_id` bigint(20) DEFAULT NULL,
   `remark` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for bs_partner
@@ -126,7 +132,7 @@ CREATE TABLE `bs_partner` (
   `remark` varchar(255) DEFAULT NULL,
   `wife_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for bs_people
@@ -140,7 +146,7 @@ CREATE TABLE `bs_people` (
   `is_married` int(1) DEFAULT NULL,
   `age` int(11) DEFAULT NULL,
   `birth` date DEFAULT NULL,
-  `education`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+  `education` varchar(32) DEFAULT NULL,
   `has_child` int(1) DEFAULT NULL,
   `phone_number` varchar(32) DEFAULT NULL,
   `job` varchar(32) DEFAULT NULL,
@@ -158,8 +164,9 @@ CREATE TABLE `bs_people` (
   `editor` varchar(16) DEFAULT NULL,
   `edit_time` datetime DEFAULT NULL,
   `partner_id` bigint(20) DEFAULT NULL,
+  `people_branch` bigint(20) unsigned DEFAULT NULL COMMENT '几房',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for clientdetails
@@ -205,7 +212,7 @@ CREATE TABLE `oauth_approvals` (
   `scope` varchar(64) DEFAULT NULL,
   `status` varchar(10) DEFAULT NULL,
   `expiresAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `lastModifiedAt` timestamp  NULL
+  `lastModifiedAt` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -280,7 +287,7 @@ CREATE TABLE `security_menu` (
   `url` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_code` (`code`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for security_menu_right
@@ -297,7 +304,7 @@ CREATE TABLE `security_menu_right` (
   `menu_id` bigint(20) DEFAULT NULL,
   `name` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for security_role
@@ -315,7 +322,7 @@ CREATE TABLE `security_role` (
   `name` varchar(32) DEFAULT NULL,
   `remark` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for security_role_menu
@@ -332,7 +339,7 @@ CREATE TABLE `security_role_menu` (
   `own` int(1) DEFAULT NULL,
   `role_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for security_role_menu_right
@@ -349,7 +356,7 @@ CREATE TABLE `security_role_menu_right` (
   `menu_right_id` bigint(20) DEFAULT NULL,
   `role_menu_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for security_user_menu
@@ -366,7 +373,7 @@ CREATE TABLE `security_user_menu` (
   `own` int(1) DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for security_user_menu_right
@@ -383,7 +390,7 @@ CREATE TABLE `security_user_menu_right` (
   `menu_right_id` bigint(20) DEFAULT NULL,
   `user_menu_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for security_user_role
@@ -399,7 +406,7 @@ CREATE TABLE `security_user_role` (
   `role_id` bigint(20) DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for spring_session
@@ -446,7 +453,7 @@ CREATE TABLE `sys_user` (
   `age` int(11) DEFAULT NULL,
   `city` int(11) DEFAULT NULL,
   `district` int(11) DEFAULT NULL,
-  `email` varchar(16) DEFAULT NULL,
+  `email` varchar(32) DEFAULT NULL,
   `enabled` int(1) DEFAULT NULL,
   `first_login` int(1) DEFAULT NULL,
   `gender` int(11) NOT NULL,
@@ -459,7 +466,7 @@ CREATE TABLE `sys_user` (
   `type` int(11) DEFAULT NULL,
   `username` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for test

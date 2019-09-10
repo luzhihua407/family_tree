@@ -14,10 +14,7 @@ import com.starfire.familytree.service.OnRegistrationCompleteEvent;
 import com.starfire.familytree.usercenter.entity.User;
 import com.starfire.familytree.usercenter.service.IUserService;
 import com.starfire.familytree.utils.FieldErrorUtils;
-import com.starfire.familytree.vo.DeleteVO;
-import com.starfire.familytree.vo.PageInfo;
-import com.starfire.familytree.vo.RouteVO;
-import com.starfire.familytree.vo.UserVO;
+import com.starfire.familytree.vo.*;
 import io.swagger.annotations.Api;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,9 +65,10 @@ public class UserController {
     @Autowired
     private IUserRoleService userRoleService;
     @RequestMapping("/current")
-    public UserVO user(Principal principal) {
+    public PrincipalVO user(Principal principal) {
         UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) principal;
         User user = (User) auth.getPrincipal();
+        PrincipalVO principalVO=new PrincipalVO();
         UserVO userVO = new UserVO();
         BeanUtils.copyProperties(user, userVO);
         Collection<GrantedAuthority> authorities = auth.getAuthorities();
@@ -90,7 +88,7 @@ public class UserController {
                 route.setId(parentMenu.getId().toString());
                 route.setName(parentMenu.getName());
                 route.setRoute(parentMenu.getUrl());
-                userVO.getMenus().add(route);
+                principalVO.getMenus().add(route);
                 Long parentId=parentMenu.getId();
                 List<Menu> childMenu = menuService.getChildMenu(parentId);
                 for (Menu menu : childMenu) {
@@ -101,11 +99,12 @@ public class UserController {
                     route.setRoute(menu.getUrl());
                     route.setBreadcrumbParentId(menu.getParent()==null?"":menu.getParent().toString());
                     route.setMenuParentId(menu.getParent()==null?"":menu.getParent().toString());
-                    userVO.getMenus().add(route);
+                    principalVO.getMenus().add(route);
                 }
             }
         }
-        return userVO;
+        principalVO.setUser(userVO);
+        return principalVO;
     }
 
     @RequestMapping("/regitrationConfirm")

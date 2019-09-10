@@ -116,6 +116,32 @@ public class PeopleController {
         return orgChartVO;
     }
 
+    @PostMapping("/getFamilyTree")
+    public OrgChartVO getFamilyTree(@RequestBody Map<String,String> param) {
+        OrgChartVO orgChartVO = new OrgChartVO();
+        People husband = peopleService.getFamilyTree(param.get("branch"));
+        Long fatherId = husband.getId();
+        Long husbandId = husband.getId();
+        //获取妻子
+        People wife = partnerService.getWife(husbandId);
+        if(wife!=null){
+            OrgChartItemVO orgChartItemVO = convertOrgChartItemVO(husbandId,wife);
+            orgChartVO.getItems().add(orgChartItemVO);
+        }
+        loopChildren(orgChartVO, husband,wife);
+        String fullName = husband.getFullName();
+        String brief = husband.getBrief();
+        String avatar = husband.getAvatar();
+        OrgChartItemVO orgChartItemVO = new OrgChartItemVO();
+        orgChartItemVO.setId(fatherId.hashCode());
+        orgChartItemVO.setParents(null);
+        orgChartItemVO.setTitle(fullName);
+        orgChartItemVO.setDescription(brief);
+        orgChartItemVO.setImage(avatar);
+        orgChartVO.getItems().add(orgChartItemVO);
+        return orgChartVO;
+    }
+
     /**
      * 轮询取出所有后代
      * @param orgChartVO

@@ -20,4 +20,5 @@ public interface ICategoryService extends IService<Category> {
    public PageInfo<Map<String, Object>, Category> page(PageInfo<Map<String, Object>, Category> page);
 
     List<Category> getCategoryList();
+    List<Category> getBranchList();
 }

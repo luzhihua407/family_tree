@@ -27,6 +27,7 @@
         <result column="edit_time" property="editTime"/>
         <result column="phone_number" property="phoneNumber"/>
         <result column="company" property="company"/>
+        <result column="people_branch" property="peopleBranch"/>
         <result column="job" property="job"/>
     </resultMap>
     <select id="getPeoplesByGeneration" resultMap="BaseResultMap">
@@ -40,5 +41,8 @@
         <if test="param!=null and param.fullName!=null">
             and full_name like CONCAT(#{param.fullName},'%')
         </if>
+    </select>
+    <select id="getFamilyTree"  resultMap="BaseResultMap">
+        select a.* from bs_people a left join bs_category b on a.people_branch=b.id where b.name=#{branch} limit 1
     </select>
 </mapper>

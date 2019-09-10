@@ -37,6 +37,8 @@ public interface IPeopleService extends IService<People> {
      */
     public People getForefather(int gen);
 
+    public People getFamilyTree(String branch);
+
     public PageInfo<Map<String, Object>, People> page(PageInfo<Map<String, Object>, People> page);
 
 }

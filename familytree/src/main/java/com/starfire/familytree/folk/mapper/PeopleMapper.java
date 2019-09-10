@@ -23,4 +23,6 @@ public interface PeopleMapper extends BaseMapper<People> {
     public People getForefather(@Param("gen") int gen);
 
     Page<People> getPage(Page<People> page, @Param("param")Map<String, Object> param);
+
+    People getFamilyTree(String branch);
 }

@@ -114,4 +114,10 @@ public class PeopleServiceImpl extends ServiceImpl<PeopleMapper, People> impleme
     public People getForefather(int gen) {
         return peopleMapper.getForefather(gen);
     }
+
+    @Override
+    public People getFamilyTree(String branch) {
+
+        return peopleMapper.getFamilyTree(branch);
+    }
 }
