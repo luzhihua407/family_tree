@@ -22,5 +22,4 @@ public interface CategoryMapper extends BaseMapper<Category> {
 
     List<Category> getCategoryList();
 
-    List<Category> getBranchList();
 }

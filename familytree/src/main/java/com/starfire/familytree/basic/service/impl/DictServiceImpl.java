@@ -47,4 +47,9 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements ID
         return baseMapper.getSubDictListByParentCode(code);
     }
 
+    @Override
+    public List<Dict> getBranchList() {
+        return baseMapper.getBranchList();
+    }
+
 }

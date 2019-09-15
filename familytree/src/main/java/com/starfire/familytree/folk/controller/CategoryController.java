@@ -74,15 +74,7 @@ public class CategoryController {
         return categoryList;
     }
 
-    /**
-     * 获取房支
-     * @return
-     */
-    @GetMapping("/getBranchList")
-    public List<Category> getBranchList() {
-        List<Category> branchList = categoryService.getBranchList();
-        return branchList;
-    }
+
 
     @PostMapping("/edit")
     public Boolean editCategory(@RequestBody Category category) {

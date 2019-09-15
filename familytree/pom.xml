@@ -130,6 +130,11 @@
             <artifactId>spring-plugin-core</artifactId>
             <version>1.2.0.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>at.bestsolution.eclipse</groupId>
+            <artifactId>com.ibm.icu.base</artifactId>
+            <version>52.1.0</version>
+        </dependency>
 
     </dependencies>
 

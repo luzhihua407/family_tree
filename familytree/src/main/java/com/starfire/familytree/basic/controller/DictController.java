@@ -117,4 +117,14 @@ public class DictController {
         return response.success(pageInfo);
 
     }
+
+    /**
+     * 获取房支
+     * @return
+     */
+    @GetMapping("/getBranchList")
+    public List<Dict> getBranchList() {
+        List<Dict> branchList = dictService.getBranchList();
+        return branchList;
+    }
 }

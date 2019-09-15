@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50721
 File Encoding         : 65001
 
-Date: 2019-09-10 22:55:21
+Date: 2019-09-14 22:19:07
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -22,17 +22,17 @@ DROP TABLE IF EXISTS `basic_dict`;
 CREATE TABLE `basic_dict` (
   `id` bigint(20) NOT NULL,
   `create_time` datetime DEFAULT NULL,
-  `creator` varchar(16) DEFAULT NULL,
+  `creator` varchar(16) DEFAULT '',
   `edit_time` datetime DEFAULT NULL,
-  `editor` varchar(16) DEFAULT NULL,
+  `editor` varchar(16) DEFAULT '',
   `valid` int(1) DEFAULT NULL,
-  `code` varchar(16) DEFAULT NULL,
+  `code` varchar(16) DEFAULT '',
   `dis` int(11) DEFAULT NULL,
-  `name` varchar(32) DEFAULT NULL,
+  `name` varchar(32) DEFAULT '',
   `num_value` decimal(8,2) DEFAULT NULL,
   `parent_id` bigint(20) DEFAULT NULL,
-  `remark` varchar(255) DEFAULT NULL,
-  `value` varchar(32) DEFAULT NULL,
+  `remark` varchar(255) DEFAULT '',
+  `value` varchar(32) DEFAULT '',
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_code` (`code`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -43,20 +43,20 @@ CREATE TABLE `basic_dict` (
 DROP TABLE IF EXISTS `basic_region`;
 CREATE TABLE `basic_region` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `creator` varchar(255) DEFAULT NULL,
+  `creator` varchar(255) DEFAULT '',
   `create_time` datetime NOT NULL,
   `editor` varchar(255) DEFAULT NULL,
   `edit_time` datetime NOT NULL,
   `orderno` double DEFAULT NULL,
   `valid` tinyint(1) NOT NULL,
   `version` int(11) NOT NULL,
-  `area_code` varchar(20) DEFAULT NULL,
-  `code` varchar(20) DEFAULT NULL,
-  `full_name` varchar(100) DEFAULT NULL,
-  `name` varchar(20) DEFAULT NULL,
-  `post_code` varchar(20) DEFAULT NULL,
-  `remark` varchar(250) DEFAULT NULL,
-  `short_name` varchar(100) DEFAULT NULL,
+  `area_code` varchar(20) DEFAULT '',
+  `code` varchar(20) DEFAULT '',
+  `full_name` varchar(100) DEFAULT '',
+  `name` varchar(20) DEFAULT '',
+  `post_code` varchar(20) DEFAULT '',
+  `remark` varchar(250) DEFAULT '',
+  `short_name` varchar(100) DEFAULT '',
   `status` int(11) DEFAULT NULL,
   `create_user` bigint(20) DEFAULT NULL,
   `last_update_user` bigint(20) DEFAULT NULL,
@@ -72,13 +72,13 @@ DROP TABLE IF EXISTS `bs_category`;
 CREATE TABLE `bs_category` (
   `id` bigint(20) NOT NULL,
   `create_time` datetime DEFAULT NULL,
-  `creator` varchar(16) DEFAULT NULL,
+  `creator` varchar(16) DEFAULT '',
   `edit_time` datetime DEFAULT NULL,
-  `editor` varchar(16) DEFAULT NULL,
+  `editor` varchar(16) DEFAULT '',
   `valid` int(1) DEFAULT NULL,
-  `name` varchar(32) DEFAULT NULL,
+  `name` varchar(32) DEFAULT '',
   `parent_id` bigint(20) DEFAULT NULL,
-  `remark` varchar(255) DEFAULT NULL,
+  `remark` varchar(255) DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -89,14 +89,14 @@ DROP TABLE IF EXISTS `bs_category_content`;
 CREATE TABLE `bs_category_content` (
   `id` bigint(20) NOT NULL,
   `create_time` datetime DEFAULT NULL,
-  `creator` varchar(16) DEFAULT NULL,
+  `creator` varchar(16) DEFAULT '',
   `edit_time` datetime DEFAULT NULL,
-  `editor` varchar(16) DEFAULT NULL,
+  `editor` varchar(16) DEFAULT '',
   `valid` int(1) DEFAULT NULL,
   `category_id` bigint(20) DEFAULT NULL,
   `content` text,
-  `sub_title` varchar(64) DEFAULT NULL,
-  `title` varchar(64) DEFAULT NULL,
+  `sub_title` varchar(64) DEFAULT '',
+  `title` varchar(64) DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -107,13 +107,13 @@ DROP TABLE IF EXISTS `bs_children`;
 CREATE TABLE `bs_children` (
   `id` bigint(20) NOT NULL,
   `create_time` datetime DEFAULT NULL,
-  `creator` varchar(16) DEFAULT NULL,
+  `creator` varchar(16) DEFAULT '',
   `edit_time` datetime DEFAULT NULL,
-  `editor` varchar(16) DEFAULT NULL,
+  `editor` varchar(16) DEFAULT '',
   `valid` int(1) DEFAULT NULL,
   `children_id` bigint(20) DEFAULT NULL,
   `parent_id` bigint(20) DEFAULT NULL,
-  `remark` varchar(255) DEFAULT NULL,
+  `remark` varchar(255) DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -124,12 +124,12 @@ DROP TABLE IF EXISTS `bs_partner`;
 CREATE TABLE `bs_partner` (
   `id` bigint(20) NOT NULL,
   `create_time` datetime DEFAULT NULL,
-  `creator` varchar(16) DEFAULT NULL,
+  `creator` varchar(16) DEFAULT '',
   `edit_time` datetime DEFAULT NULL,
-  `editor` varchar(16) DEFAULT NULL,
+  `editor` varchar(16) DEFAULT '',
   `valid` int(1) DEFAULT NULL,
   `husband_id` bigint(20) DEFAULT NULL,
-  `remark` varchar(255) DEFAULT NULL,
+  `remark` varchar(255) DEFAULT '',
   `wife_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -140,28 +140,28 @@ CREATE TABLE `bs_partner` (
 DROP TABLE IF EXISTS `bs_people`;
 CREATE TABLE `bs_people` (
   `id` bigint(20) NOT NULL,
-  `nickname` varchar(32) DEFAULT NULL,
-  `full_name` varchar(16) DEFAULT NULL,
+  `nickname` varchar(32) DEFAULT '',
+  `full_name` varchar(16) DEFAULT '',
   `gender` int(1) DEFAULT NULL,
   `is_married` int(1) DEFAULT NULL,
   `age` int(11) DEFAULT NULL,
   `birth` date DEFAULT NULL,
-  `education` varchar(32) DEFAULT NULL,
+  `education` varchar(32) DEFAULT '',
   `has_child` int(1) DEFAULT NULL,
-  `phone_number` varchar(32) DEFAULT NULL,
-  `job` varchar(32) DEFAULT NULL,
-  `avatar` varchar(64) DEFAULT NULL,
-  `company` varchar(32) DEFAULT NULL,
+  `phone_number` varchar(32) DEFAULT '',
+  `job` varchar(32) DEFAULT '',
+  `avatar` varchar(64) DEFAULT '',
+  `company` varchar(32) DEFAULT '',
   `death` date DEFAULT NULL,
   `generations` int(2) DEFAULT NULL,
-  `height` varchar(16) DEFAULT NULL,
-  `weight` varchar(16) DEFAULT NULL,
-  `brief` varchar(64) DEFAULT NULL,
-  `remark` varchar(255) DEFAULT NULL,
+  `height` varchar(16) DEFAULT '',
+  `weight` varchar(16) DEFAULT '',
+  `brief` varchar(64) DEFAULT '',
+  `remark` varchar(255) DEFAULT '',
   `valid` int(1) DEFAULT NULL,
-  `creator` varchar(16) DEFAULT NULL,
+  `creator` varchar(16) DEFAULT '',
   `create_time` datetime DEFAULT NULL,
-  `editor` varchar(16) DEFAULT NULL,
+  `editor` varchar(16) DEFAULT '',
   `edit_time` datetime DEFAULT NULL,
   `partner_id` bigint(20) DEFAULT NULL,
   `people_branch` bigint(20) unsigned DEFAULT NULL COMMENT '几房',
@@ -445,26 +445,26 @@ DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user` (
   `id` bigint(20) NOT NULL,
   `create_time` datetime DEFAULT NULL,
-  `creator` varchar(16) DEFAULT NULL,
+  `creator` varchar(16) DEFAULT '',
   `edit_time` datetime DEFAULT NULL,
-  `editor` varchar(16) DEFAULT NULL,
+  `editor` varchar(16) DEFAULT '',
   `valid` tinyint(1) DEFAULT NULL,
-  `address` varchar(32) DEFAULT NULL,
+  `address` varchar(32) DEFAULT '',
   `age` int(11) DEFAULT NULL,
   `city` int(11) DEFAULT NULL,
   `district` int(11) DEFAULT NULL,
-  `email` varchar(32) DEFAULT NULL,
+  `email` varchar(32) DEFAULT '',
   `enabled` int(1) DEFAULT NULL,
   `first_login` int(1) DEFAULT NULL,
   `gender` int(11) NOT NULL,
   `last_login_time` datetime DEFAULT NULL,
-  `mobile` varchar(16) DEFAULT NULL,
-  `password` varchar(64) DEFAULT NULL,
+  `mobile` varchar(16) DEFAULT '',
+  `password` varchar(64) DEFAULT '',
   `province` int(11) DEFAULT NULL,
-  `real_name` varchar(32) DEFAULT NULL,
-  `register_time` datetime DEFAULT NULL,
+  `real_name` varchar(32) DEFAULT '',
+  `register_time` datetime NOT NULL,
   `type` int(11) DEFAULT NULL,
-  `username` varchar(32) DEFAULT NULL,
+  `username` varchar(32) DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

@@ -1,5 +1,6 @@
 package com.starfire.familytree.folk.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -135,5 +136,8 @@ public class People extends AbstractEntity {
      */
     @JsonSerialize(using = ToStringSerializer.class)
     private Long peopleBranch;
+
+    @TableField(exist = false)
+    private String branchName;
 
 }

@@ -17,14 +17,15 @@
         <result column="remark" property="remark"/>
         <result column="value" property="value"/>
         <result column="parent_id" property="parentId"/>
+        <result column="parent_name" property="parentName"/>
     </resultMap>
     <select id="page" resultMap="BaseResultMap">
-        select * from basic_dict where 1=1
+        select b.name as parent_name,a.* from basic_dict a left join  basic_dict b on a.parent_id=b.id where 1=1
         <if test="param!=null and param.code!=null">
-            and code like CONCAT(#{param.code},'%')
+            and a.code like CONCAT(#{param.code},'%')
         </if>
         <if test="param!=null and param.name!=null">
-            and name like CONCAT(#{param.name},'%')
+            and a.name like CONCAT(#{param.name},'%')
         </if>
     </select>
     <select id="getParentDict" resultMap="BaseResultMap">
@@ -42,5 +43,7 @@
         select a.* from basic_dict a left join basic_dict b on  a.parent_id=b.id where b.code=#{code}
 
     </select>
-
+    <select id="getBranchList" resultMap="BaseResultMap">
+        select b.* from basic_dict a left join  basic_dict b on a.id=b.parent_id where b.valid=1 and a.code='房支'
+    </select>
 </mapper>

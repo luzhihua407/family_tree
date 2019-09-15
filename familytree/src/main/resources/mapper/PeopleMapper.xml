@@ -28,6 +28,7 @@
         <result column="phone_number" property="phoneNumber"/>
         <result column="company" property="company"/>
         <result column="people_branch" property="peopleBranch"/>
+        <result column="branchName" property="branchName"/>
         <result column="job" property="job"/>
     </resultMap>
     <select id="getPeoplesByGeneration" resultMap="BaseResultMap">
@@ -37,12 +38,17 @@
         select * from bs_people where generations=#{gen} limit 1
     </select>
     <select id="getPage"  resultMap="BaseResultMap">
-        select b.name as education,a.* from bs_people a left join basic_dict b on a.education=b.code where 1=1
+        select c.name as branchName,a.* from bs_people a left join basic_dict b on a.education=b.code left join basic_dict c on a.people_branch=c.id where 1=1
         <if test="param!=null and param.fullName!=null">
             and full_name like CONCAT(#{param.fullName},'%')
         </if>
     </select>
     <select id="getFamilyTree"  resultMap="BaseResultMap">
-        select a.* from bs_people a left join bs_category b on a.people_branch=b.id where b.name=#{branch} limit 1
+        select b.name as branchName,a.* from bs_people a left join basic_dict b on a.people_branch=b.id where b.code=#{branch} limit 1
+    </select>
+
+    <select id="getPeopleByName" resultMap="BaseResultMap">
+        select * from bs_people a where valid=1
+            and full_name like CONCAT(#{name},'%')
     </select>
 </mapper>

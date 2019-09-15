@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.starfire.familytree.folk.entity.CategoryContent;
 import com.starfire.familytree.folk.entity.People;
 import com.starfire.familytree.vo.PageInfo;
+import com.starfire.familytree.vo.RelationshipVO;
 
 import java.util.List;
 import java.util.Map;
@@ -41,4 +42,7 @@ public interface IPeopleService extends IService<People> {
 
     public PageInfo<Map<String, Object>, People> page(PageInfo<Map<String, Object>, People> page);
 
+    List<People> getPeopleByName(String name);
+
+    boolean addRelationship(RelationshipVO relationshipVO);
 }

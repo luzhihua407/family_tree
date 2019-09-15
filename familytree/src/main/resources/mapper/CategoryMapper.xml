@@ -24,8 +24,5 @@
         select * from bs_category where valid=1
     </select>
 
-    <select id="getBranchList" resultMap="BaseResultMap">
-        select b.* from bs_category a left join  bs_category b on a.id=b.parent_id where b.valid=1 and a.name='房支'
-    </select>
 
 </mapper>

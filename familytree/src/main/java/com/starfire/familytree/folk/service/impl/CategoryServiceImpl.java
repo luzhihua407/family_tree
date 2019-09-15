@@ -38,9 +38,4 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
 
         return baseMapper.getCategoryList();
     }
-
-    @Override
-    public List<Category> getBranchList() {
-        return baseMapper.getBranchList();
-    }
 }
