@@ -12,6 +12,7 @@ import com.starfire.familytree.usercenter.mapper.UserMapper;
 import com.starfire.familytree.usercenter.service.IUserService;
 import com.starfire.familytree.validation.EmailExistsException;
 import com.starfire.familytree.vo.PageInfo;
+import com.starfire.familytree.vo.ResetPasswordVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -110,8 +111,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     @Transactional
     public User saveOrUpdateUser(User user) {
-        String password = passwordEncoder.encode(user.getPassword());
-        user.setPassword(password);
         saveOrUpdate(user);
         String[] roles = user.getRoles();
         for (int i = 0; i < roles.length; i++) {
@@ -122,5 +121,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             userRoleService.save(userRole);
         }
         return  user;
+    }
+
+    @Override
+    public void resetPassword(ResetPasswordVO resetPasswordVO) {
+        User user = baseMapper.selectById(resetPasswordVO.getUserId());
+        user.setPassword(passwordEncoder.encode(resetPasswordVO.getPassword()));
+        baseMapper.updateById(user);
     }
 }

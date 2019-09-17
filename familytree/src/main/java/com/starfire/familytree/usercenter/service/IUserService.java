@@ -3,6 +3,7 @@ package com.starfire.familytree.usercenter.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.starfire.familytree.usercenter.entity.User;
 import com.starfire.familytree.vo.PageInfo;
+import com.starfire.familytree.vo.ResetPasswordVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -30,4 +31,6 @@ public interface IUserService extends UserDetailsService, IService<User> {
     public PageInfo<Map<String, Object>, User> page(PageInfo<Map<String, Object>, User> pageInfo);
 
     public User saveOrUpdateUser(User user);
+
+    void resetPassword(ResetPasswordVO resetPasswordVO);
 }

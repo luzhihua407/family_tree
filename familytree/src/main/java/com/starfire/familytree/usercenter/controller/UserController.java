@@ -22,6 +22,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.ServletWebRequest;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.security.Principal;
 import java.util.*;
 
@@ -217,6 +219,19 @@ public class UserController {
         PageInfo<Map<String, Object>, User> pageInfo = userService.page(page);
         Response<PageInfo<Map<String, Object>, User>> response = new Response<PageInfo<Map<String, Object>, User>>();
         return response.success(pageInfo);
+
+    }
+
+    @PostMapping("/resetPassword")
+    public Response resetPassword(@RequestBody ResetPasswordVO resetPasswordVO) {
+       String password = resetPasswordVO.getPassword();
+         String againPassword = resetPasswordVO.getAgainPassword();
+         if(!password.equals(againPassword)){
+             throw new RuntimeException("两次密码不一致，请检查");
+         }
+        userService.resetPassword(resetPasswordVO);
+        Response response = new Response();
+        return response.success();
 
     }
 }

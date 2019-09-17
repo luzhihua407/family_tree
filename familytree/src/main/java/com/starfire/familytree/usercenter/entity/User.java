@@ -60,8 +60,7 @@ public class User extends AbstractEntity implements UserDetails {
     @Size(min = 2, max = 32, message = "用户名长度为2-32个字符")
     private String username;
 
-    @NotEmpty(message = "密码不能为空")
-    @Size(min = 6, max = 32, message = "密码长度为6-32个字符")
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)//Jackson
     private String password;
 
