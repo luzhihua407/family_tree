@@ -28,4 +28,6 @@ public interface DictMapper extends BaseMapper<Dict> {
     List<Dict> getSubDictListByParentCode(String parentCode);
 
     List<Dict> getBranchList();
+
+    List<Dict> getProdTeam();
 }

@@ -26,4 +26,6 @@ public interface IDictService extends IService<Dict> {
     List<Dict> getSubDictListByParentCode(String code);
 
     List<Dict> getBranchList();
+
+    List<Dict> getProdTeam();
 }

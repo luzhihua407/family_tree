@@ -127,4 +127,13 @@ public class DictController {
         List<Dict> branchList = dictService.getBranchList();
         return branchList;
     }
+    /**
+     * 获取生产队
+     * @return
+     */
+    @GetMapping("/getProdTeam")
+    public List<Dict> getProdTeam() {
+        List<Dict> prodTeam = dictService.getProdTeam();
+        return prodTeam;
+    }
 }

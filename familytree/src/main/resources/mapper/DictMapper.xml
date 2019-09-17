@@ -46,4 +46,8 @@
     <select id="getBranchList" resultMap="BaseResultMap">
         select b.* from basic_dict a left join  basic_dict b on a.id=b.parent_id where b.valid=1 and a.code='房支'
     </select>
+
+    <select id="getProdTeam" resultMap="BaseResultMap">
+        select b.* from basic_dict a left join  basic_dict b on a.id=b.parent_id where b.valid=1 and a.code='生产队'
+    </select>
 </mapper>

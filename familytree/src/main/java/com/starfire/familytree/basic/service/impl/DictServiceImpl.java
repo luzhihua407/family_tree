@@ -52,4 +52,9 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements ID
         return baseMapper.getBranchList();
     }
 
+    @Override
+    public List<Dict> getProdTeam() {
+        return baseMapper.getProdTeam();
+    }
+
 }

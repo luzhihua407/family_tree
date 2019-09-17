@@ -140,4 +140,8 @@ public class People extends AbstractEntity {
     @TableField(exist = false)
     private String branchName;
 
+    /**
+     * 生产队
+     */
+    private Long prodTeam;
 }

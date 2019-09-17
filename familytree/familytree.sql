@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50721
 File Encoding         : 65001
 
-Date: 2019-09-14 22:19:07
+Date: 2019-09-18 07:15:24
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -165,6 +165,7 @@ CREATE TABLE `bs_people` (
   `edit_time` datetime DEFAULT NULL,
   `partner_id` bigint(20) DEFAULT NULL,
   `people_branch` bigint(20) unsigned DEFAULT NULL COMMENT '几房',
+  `prod_team` bigint(20) unsigned DEFAULT NULL COMMENT '生产队',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
