@@ -143,5 +143,6 @@ public class People extends AbstractEntity {
     /**
      * 生产队
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long prodTeam;
 }

@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -128,5 +129,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         User user = baseMapper.selectById(resetPasswordVO.getUserId());
         user.setPassword(passwordEncoder.encode(resetPasswordVO.getPassword()));
         baseMapper.updateById(user);
+    }
+
+    public static void main(String[] args) {
+        BCryptPasswordEncoder bc=new BCryptPasswordEncoder();
+        System.err.println(bc.encode("123456"));
     }
 }
