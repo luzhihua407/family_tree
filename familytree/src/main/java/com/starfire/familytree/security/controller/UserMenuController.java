@@ -6,6 +6,7 @@ import com.starfire.familytree.security.entity.UserMenu;
 import com.starfire.familytree.security.service.IUserMenuService;
 import com.starfire.familytree.vo.DeleteVO;
 import com.starfire.familytree.vo.PageInfo;
+import com.starfire.familytree.vo.UserMenuVO;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,15 +32,22 @@ public class UserMenuController {
     /**
      * 新增或修改
      *
-     * @param userMenu
+     * @param userMenuVO
      * @return
      * @author luzh
      */
     @PostMapping("/addOrUpdate")
-    public Response<UserMenu> addOrUpdateUserMenu(@RequestBody UserMenu userMenu) {
-        userMenuService.saveOrUpdate(userMenu);
+    public Response addOrUpdateUserMenu(@RequestBody UserMenuVO userMenuVO) {
+        Long[] menuIds = userMenuVO.getMenuIds();
+        for (int i = 0; i < menuIds.length; i++) {
+            Long menuId = menuIds[i];
+            UserMenu userMenu=new UserMenu();
+            userMenu.setMenuId(menuId);
+            userMenu.setUserId(userMenuVO.getUserId());
+            userMenuService.saveOrUpdate(userMenu);
+        }
         Response<UserMenu> response = new Response<UserMenu>();
-        return response.success(userMenu);
+        return response.success();
 
     }
 

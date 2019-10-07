@@ -27,6 +27,9 @@
         <if test="param!=null and param.name!=null">
             and a.name like CONCAT(#{param.name},'%')
         </if>
+        <if test="param!=null and param.parentId!=null">
+            and a.parent_id =#{param.parentId}
+        </if>
     </select>
     <select id="getParentDict" resultMap="BaseResultMap">
         select * from basic_dict where 1=1

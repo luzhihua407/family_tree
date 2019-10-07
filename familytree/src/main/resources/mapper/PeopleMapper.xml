@@ -42,6 +42,9 @@
         <if test="param!=null and param.fullName!=null">
             and full_name like CONCAT(#{param.fullName},'%')
         </if>
+        <if test="param!=null and param.peopleBranch!=null">
+            and people_branch =#{param.peopleBranch}
+        </if>
     </select>
     <select id="getFamilyTree"  resultMap="BaseResultMap">
         select b.name as branchName,a.* from bs_people a left join basic_dict b on a.people_branch=b.id where b.code=#{branch} limit 1
