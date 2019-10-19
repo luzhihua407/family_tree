@@ -1,11 +1,13 @@
 package com.starfire.familytree.security.controller;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.starfire.familytree.security.entity.MenuRight;
+import com.starfire.familytree.security.service.IMenuRightService;
 import com.starfire.familytree.vo.DeleteVO;
+import com.starfire.familytree.vo.MenuRightVO;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +37,8 @@ public class MenuController {
     @Autowired
     private IMenuService menuService;
 
+    @Autowired
+    private IMenuRightService menuRightService;
     /**
      * 新增或修改
      *
@@ -50,6 +54,18 @@ public class MenuController {
             throw new  RuntimeException("已存在该编码，请换一个编码");
         }
         menuService.saveOrUpdate(menu);
+        List<MenuRightVO> menuRights = menu.getMenuRights();
+        List<MenuRight> menuRightList=new ArrayList<>();
+        for (int i = 0; i < menuRights.size(); i++) {
+            MenuRightVO menuRightVO =  menuRights.get(i);
+            MenuRight mr=new MenuRight();
+            mr.setCode(menuRightVO.getKey());
+            mr.setName(menuRightVO.getLabel());
+            mr.setMenuId(menu.getId());
+            menuRightList.add(mr);
+        }
+        menuRightService.removeByMenuId(menu.getId());
+        menuRightService.saveBatch(menuRightList);
         Response<Menu> response = new Response<Menu>();
         return response.success(menu);
 
@@ -80,6 +96,9 @@ public class MenuController {
     @GetMapping("/get")
     public Response<Menu> getUser(Long id) {
         Menu menu = menuService.getById(id);
+        List<MenuRight> menuRights = menuRightService.getList(menu.getId());
+        List<MenuRightVO> menuRightVOList = menuRightService.convert(menuRights);
+        menu.setMenuRights(menuRightVOList);
         Response<Menu> response = new Response<Menu>();
         return response.success(menu);
     }

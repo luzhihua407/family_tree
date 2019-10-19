@@ -11,4 +11,5 @@ public class PrincipalVO {
     UserVO user;
 
     private List<RouteVO> menus=new ArrayList<RouteVO>();
+    private List<String> permission=new ArrayList<String>();
 }

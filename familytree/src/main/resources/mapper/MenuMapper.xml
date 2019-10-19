@@ -21,7 +21,7 @@
         <result column="parentMenuName" property="parentMenuName" />
     </resultMap>
     <select id="getChildMenu" resultMap="BaseResultMap" parameterType="Long">
-	   select * from security_menu where type=1 and valid=1 and parent=#{parentMenuId}
+	   select * from security_menu where valid=1 and parent=#{parentMenuId}
 	</select>
     <select id="getParentMenu" resultMap="BaseResultMap" parameterType="Long">
 	   select * from security_menu where type=0 and valid=1 and id=#{menuId}
@@ -49,6 +49,10 @@
 
     <select id="getParentMenusByRoleId" resultMap="BaseResultMap" parameterType="Long">
 		select b.* from security_role_menu a,security_menu b where a.menu_id=b.id and role_id=#{roleId} and a.valid=1 and b.type=0
+	</select>
+
+    <select id="getParentMenusByAdmin" resultMap="BaseResultMap" parameterType="Long">
+		select b.* from security_menu b where b.valid=1 and b.type=0
 	</select>
     <select id="getParentMenuIds" resultType="Long" parameterType="List">
         select distinct parent from security_menu where valid=1

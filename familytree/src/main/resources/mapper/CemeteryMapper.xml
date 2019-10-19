@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.starfire.familytree.folk.mapper.CemeteryMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.starfire.familytree.folk.entity.Cemetery">
+    <result column="id" property="id" />
+        <result column="create_time" property="createTime" />
+        <result column="creator" property="creator" />
+        <result column="edit_time" property="editTime" />
+        <result column="editor" property="editor" />
+        <result column="valid" property="valid" />
+        <result column="name" property="name" />
+        <result column="address" property="address" />
+        <result column="remark" property="remark" />
+        <result column="shape" property="shape" />
+    </resultMap>
+    <select id="getPage" resultMap="BaseResultMap">
+        select * from bs_cemetery  where 1=1
+        <if test="param!=null and param.name!=null ">
+            and name like concat('',#{param.name},'%')
+        </if>
+        <if test="param!=null and param.address!=null ">
+            and address like concat('',#{param.address},'%')
+        </if>
+    </select>
+</mapper>

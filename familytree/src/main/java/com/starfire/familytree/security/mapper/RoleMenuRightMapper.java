@@ -3,6 +3,9 @@ package com.starfire.familytree.security.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.starfire.familytree.security.entity.RoleMenuRight;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * <p>
  * Mapper 接口
@@ -13,4 +16,11 @@ import com.starfire.familytree.security.entity.RoleMenuRight;
  */
 public interface RoleMenuRightMapper extends BaseMapper<RoleMenuRight> {
 
+    public void deleteByMenuId(Long menuId);
+
+    public List<Map> getCheckedMenuByRoleId(Long roleId);
+
+    public List<String> getPermission(Long roleId);
+
+    public List<String> getPermissionForAdmin();
 }

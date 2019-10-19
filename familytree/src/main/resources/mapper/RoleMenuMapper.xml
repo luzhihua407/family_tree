@@ -14,8 +14,8 @@
         <result column="menu_id" property="menuId"/>
         <result column="role_id" property="roleId"/>
     </resultMap>
-    <select id="getMenuIdsByRoleId" resultType="Long" parameterType="Long">
-		select menu_id from security_role_menu a  left join security_menu b on a.menu_id=b.id where role_id=#{roleId} and
-		b.valid=1 and b.type=1
-	</select>
+    <delete id="deleteByRoleId">
+        delete from security_role_menu where role_id=#{roleId}
+    </delete>
+
 </mapper>

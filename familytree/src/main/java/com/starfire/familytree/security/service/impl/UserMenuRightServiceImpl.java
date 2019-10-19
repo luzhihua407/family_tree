@@ -9,6 +9,7 @@ import com.starfire.familytree.security.service.IUserMenuRightService;
 import com.starfire.familytree.vo.PageInfo;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,4 +30,6 @@ public class UserMenuRightServiceImpl extends ServiceImpl<UserMenuRightMapper, U
         pageInfo.from(selectPage);
         return pageInfo;
     }
+
+
 }

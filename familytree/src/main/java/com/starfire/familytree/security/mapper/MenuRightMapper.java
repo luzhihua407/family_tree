@@ -3,6 +3,8 @@ package com.starfire.familytree.security.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.starfire.familytree.security.entity.MenuRight;
 
+import java.util.List;
+
 /**
  * <p>
  * Mapper 接口

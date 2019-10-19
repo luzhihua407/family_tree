@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.starfire.familytree.security.entity.RoleMenuRight;
 import com.starfire.familytree.vo.PageInfo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,4 +19,8 @@ public interface IRoleMenuRightService extends IService<RoleMenuRight> {
 
     public PageInfo<Map<String, Object>, RoleMenuRight> page(PageInfo<Map<String, Object>, RoleMenuRight> pageInfo);
 
+    public void deleteByMenuId(Long menuId);
+
+    public List<String> getPermission(Long roleId);
+    public List<String> getPermissionForAdmin();
 }

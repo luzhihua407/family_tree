@@ -19,7 +19,8 @@ import java.util.Map;
 public interface IRoleMenuService extends IService<RoleMenu> {
     public PageInfo<Map<String, Object>, RoleMenu> page(PageInfo<Map<String, Object>, RoleMenu> pageInfo);
 
-    public List<Long> getMenuIdsByRoleId(Long roleId);
 
     public RoleMenuVO getRoleMenuByRoleId(Long roleId);
+
+    public void deleteByRoleId(Long roleId);
 }

@@ -10,9 +10,13 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 import com.starfire.familytree.basic.entity.AbstractEntity;
 import com.starfire.familytree.enums.MenuTypeEnum;
+import com.starfire.familytree.vo.MenuRightVO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -54,5 +58,7 @@ public class Menu extends AbstractEntity {
     @TableField(exist=false)
     private String parentMenuName;
 
+    @TableField(exist=false)
+    private List<MenuRightVO> menuRights=new ArrayList<>();
 
 }

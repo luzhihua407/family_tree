@@ -15,4 +15,5 @@
         <result column="user_menu_id" property="userMenuId"/>
     </resultMap>
 
+
 </mapper>

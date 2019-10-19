@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.starfire.familytree.folk.entity.CategoryContent;
+import com.starfire.familytree.security.entity.MenuRight;
+import com.starfire.familytree.security.service.IMenuRightService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -26,6 +29,8 @@ import com.starfire.familytree.vo.PageInfo;
 @Service
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IMenuService {
 
+    @Autowired
+    private IMenuRightService menuRightService;
     @Override
     public PageInfo<Map<String, Object>, Menu> page(PageInfo<Map<String, Object>, Menu> pageInfo) {
         Map<String, Object> param = pageInfo.getParam();
@@ -65,15 +70,27 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
             Long id = menu.getId();
             String code = menu.getCode();
             String name = menu.getName();
-            MenuTree parent=new MenuTree(name,id.toString(),i+"");
+            MenuTree parent=new MenuTree(name,id.toString(),id+"");
             List<Menu> childMenu = getChildMenu(menu.getId());
+            //菜单权限
             for (int j = 0; j < childMenu.size(); j++) {
                 Menu sub = childMenu.get(j);
                 Long _id = sub.getId();
                 String _code = sub.getCode();
                 String _name = sub.getName();
-                MenuTree child=new MenuTree(_name,_id.toString(),i+"-"+j);
+                MenuTree child=new MenuTree(_name,_id.toString(),id+"-"+_id);
                 parent.getChildren().add(child);
+                List<MenuRight> menuRights = menuRightService.getList(_id);
+                //以下为操作权限
+                for (int k = 0; k < menuRights.size(); k++) {
+                    MenuRight menuRight =  menuRights.get(k);
+                    String code1 = menuRight.getCode();
+                    String name1 = menuRight.getName();
+                    Long menuId = menuRight.getMenuId();
+                    Long menuRightId = menuRight.getId();
+                    MenuTree children=new MenuTree(name1+"["+code1+"]",menuRightId.toString(),id+"-"+_id+"-"+menuRightId);
+                    child.getChildren().add(children);
+                }
             }
             menuTree.add(parent);
         }
@@ -83,6 +100,11 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     @Override
     public List<Menu> getParentMenusByRoleId(Long roleId){
         return baseMapper.getParentMenusByRoleId(roleId);
+    }
+
+    @Override
+    public List<Menu> getParentMenusByAdmin(){
+        return baseMapper.getParentMenusByAdmin();
     }
 
     @Override

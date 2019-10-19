@@ -3,6 +3,8 @@ package com.starfire.familytree.security.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.starfire.familytree.security.entity.UserMenuRight;
 
+import java.util.List;
+
 /**
  * <p>
  * Mapper 接口
@@ -12,5 +14,6 @@ import com.starfire.familytree.security.entity.UserMenuRight;
  * @since 2019-03-03
  */
 public interface UserMenuRightMapper extends BaseMapper<UserMenuRight> {
+
 
 }

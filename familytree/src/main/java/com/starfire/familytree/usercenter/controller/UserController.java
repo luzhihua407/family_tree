@@ -2,13 +2,11 @@ package com.starfire.familytree.usercenter.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.starfire.familytree.entity.VerificationToken;
+import com.starfire.familytree.enums.MenuTypeEnum;
 import com.starfire.familytree.response.Response;
 import com.starfire.familytree.security.entity.Menu;
 import com.starfire.familytree.security.entity.Role;
-import com.starfire.familytree.security.service.IMenuService;
-import com.starfire.familytree.security.service.IRoleMenuService;
-import com.starfire.familytree.security.service.IRoleService;
-import com.starfire.familytree.security.service.IUserRoleService;
+import com.starfire.familytree.security.service.*;
 import com.starfire.familytree.service.IVerificationTokenService;
 import com.starfire.familytree.service.OnRegistrationCompleteEvent;
 import com.starfire.familytree.usercenter.entity.User;
@@ -65,6 +63,9 @@ public class UserController {
     private IRoleService roleService;
 
     @Autowired
+    private IRoleMenuRightService roleMenuRightService;
+
+    @Autowired
     private IUserRoleService userRoleService;
     @RequestMapping("/current")
     public PrincipalVO user(Principal principal) {
@@ -79,34 +80,52 @@ public class UserController {
             if(roleCode.startsWith("ROLE_")){
                 roleCode=roleCode.replace("ROLE_","");
             }
-            Role role = roleService.getRoleByCode(roleCode);
-            Long roleId=role.getId();
-            userVO.setRoleId(roleId);
+            List<Menu> parentMenus=new ArrayList<>();
+            List<String> permission;
             //这里按父-子 父-子 顺序取菜单，不然antd 无法正常显示菜单
-            List<Menu> parentMenus = menuService.getParentMenusByRoleId(roleId);
-            for (Menu parentMenu : parentMenus) {
-                RouteVO route=new RouteVO();
-                route.setIcon(parentMenu.getIcon());
-                route.setId(parentMenu.getId().toString());
-                route.setName(parentMenu.getName());
-                route.setRoute(parentMenu.getUrl());
-                principalVO.getMenus().add(route);
-                Long parentId=parentMenu.getId();
-                List<Menu> childMenu = menuService.getChildMenu(parentId);
-                for (Menu menu : childMenu) {
-                    route=new RouteVO();
-                    route.setIcon(menu.getIcon());
-                    route.setId(menu.getId().toString());
-                    route.setName(menu.getName());
-                    route.setRoute(menu.getUrl());
-                    route.setBreadcrumbParentId(menu.getParent()==null?"":menu.getParent().toString());
-                    route.setMenuParentId(menu.getParent()==null?"":menu.getParent().toString());
-                    principalVO.getMenus().add(route);
-                }
+            if(roleCode.equals("admin")){
+                parentMenus= menuService.getParentMenusByAdmin();
+                permission = roleMenuRightService.getPermissionForAdmin();
+            }else{
+                Role role = roleService.getRoleByCode(roleCode);
+                Long roleId=role.getId();
+                permission = roleMenuRightService.getPermission(roleId);
+
+                userVO.setRoleId(roleId);
+
+                parentMenus = menuService.getParentMenusByRoleId(roleId);
             }
+            principalVO.setPermission(permission);
+            findSubMenus(principalVO, parentMenus);
         }
         principalVO.setUser(userVO);
         return principalVO;
+    }
+
+    private void findSubMenus(PrincipalVO principalVO, List<Menu> childMenu) {
+        RouteVO route;
+        for (Menu menu : childMenu) {
+            MenuTypeEnum type = menu.getType();
+            route=new RouteVO();
+            route.setIcon(menu.getIcon());
+            menu.getId().toString();
+            route.setId(menu.getId().toString());
+            route.setName(menu.getName());
+            route.setRoute(menu.getUrl());
+            if(type==MenuTypeEnum.不可见菜单){
+
+            route.setMenuParentId("-1");
+            }else{
+
+            route.setMenuParentId(menu.getParent()==null?"":menu.getParent().toString());
+            }
+            route.setBreadcrumbParentId(menu.getParent()==null?"":menu.getParent().toString());
+            principalVO.getMenus().add(route);
+            childMenu = menuService.getChildMenu(menu.getId());
+            if(childMenu!=null && childMenu.size()>0){
+                findSubMenus(principalVO, childMenu);
+            }
+        }
     }
 
     @RequestMapping("/regitrationConfirm")

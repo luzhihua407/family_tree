@@ -12,7 +12,7 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
 
 public enum MenuTypeEnum{
 
-    目录(0),菜单(1);
+    目录(0),可见菜单(1),不可见菜单(2);
 
     @EnumValue
     private int value;

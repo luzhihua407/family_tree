@@ -15,5 +15,6 @@ import java.util.List;
  */
 public interface RoleMenuMapper extends BaseMapper<RoleMenu> {
 
-    public List<Long> getMenuIdsByRoleId(Long roleId);
+
+    public void deleteByRoleId(Long roleId);
 }

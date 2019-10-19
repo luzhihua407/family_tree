@@ -9,6 +9,7 @@ import com.starfire.familytree.security.service.IRoleMenuRightService;
 import com.starfire.familytree.vo.PageInfo;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,5 +29,20 @@ public class RoleMenuRightServiceImpl extends ServiceImpl<RoleMenuRightMapper, R
         Page<RoleMenuRight> selectPage = (Page<RoleMenuRight>) baseMapper.selectPage(page, qw);
         pageInfo.from(selectPage);
         return pageInfo;
+    }
+
+    @Override
+    public void deleteByMenuId(Long menuId) {
+        baseMapper.deleteByMenuId(menuId);
+    }
+
+    @Override
+    public List<String> getPermission(Long roleId) {
+        return baseMapper.getPermission(roleId);
+    }
+
+    @Override
+    public List<String> getPermissionForAdmin() {
+        return baseMapper.getPermissionForAdmin();
     }
 }

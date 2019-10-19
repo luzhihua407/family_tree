@@ -23,4 +23,6 @@ public interface RoleMapper extends BaseMapper<Role> {
     public List<Role> getRoles();
 
     public Page<Role> queryPage(Page<Role> page, @Param("queryCon") Map<String,Object> queryCon);
+
+    public void deleteByRoleId(Long roleId);
 }

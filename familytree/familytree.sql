@@ -26,7 +26,7 @@ CREATE TABLE `basic_dict` (
   `edit_time` datetime DEFAULT NULL,
   `editor` varchar(16) DEFAULT '',
   `valid` int(1) DEFAULT NULL,
-  `code` varchar(16) DEFAULT '',
+  `code` varchar(32) DEFAULT '',
   `dis` int(11) DEFAULT NULL,
   `name` varchar(32) DEFAULT '',
   `num_value` decimal(8,2) DEFAULT NULL,

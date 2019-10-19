@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.starfire.familytree.security.entity.UserMenuRight;
 import com.starfire.familytree.vo.PageInfo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,4 +17,6 @@ import java.util.Map;
  */
 public interface IUserMenuRightService extends IService<UserMenuRight> {
     public PageInfo<Map<String, Object>, UserMenuRight> page(PageInfo<Map<String, Object>, UserMenuRight> pageInfo);
+
+
 }

@@ -1,15 +1,18 @@
 package com.starfire.familytree.security.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.starfire.familytree.security.entity.Menu;
 import com.starfire.familytree.security.entity.MenuRight;
 import com.starfire.familytree.security.mapper.MenuRightMapper;
 import com.starfire.familytree.security.service.IMenuRightService;
+import com.starfire.familytree.vo.MenuRightVO;
 import com.starfire.familytree.vo.PageInfo;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,4 +34,34 @@ public class MenuRightServiceImpl extends ServiceImpl<MenuRightMapper, MenuRight
         pageInfo.from(selectPage);
         return pageInfo;
     }
+
+    @Override
+    public List<MenuRight> getList(Long menuId) {
+        QueryWrapper<MenuRight> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("menu_id",menuId);
+        List<MenuRight> menuRights = baseMapper.selectList(queryWrapper);
+        return menuRights;
+    }
+
+    @Override
+    public List<MenuRightVO> convert(List<MenuRight> menuRights) {
+        List<MenuRightVO> list=new ArrayList<>();
+        for (int i = 0; i < menuRights.size(); i++) {
+            MenuRight menuRight =  menuRights.get(i);
+            MenuRightVO vo=new MenuRightVO();
+            vo.setKey(menuRight.getCode());
+            vo.setLabel(menuRight.getName());
+            list.add(vo);
+        }
+        return list;
+    }
+
+    @Override
+    public void removeByMenuId(Long menuId) {
+        QueryWrapper<MenuRight> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("menu_id",menuId);
+        baseMapper.delete(queryWrapper);
+    }
+
+
 }
