@@ -38,11 +38,13 @@ public interface IPeopleService extends IService<People> {
      */
     public People getForefather(int gen);
 
-    public People getFamilyTree(String branch);
+    public People getFamilyTree(Map<String,String> param);
 
     public PageInfo<Map<String, Object>, People> page(PageInfo<Map<String, Object>, People> page);
 
     List<People> getPeopleByName(String name);
 
     boolean addRelationship(RelationshipVO relationshipVO);
+
+    public List<String> getNames(String name);
 }

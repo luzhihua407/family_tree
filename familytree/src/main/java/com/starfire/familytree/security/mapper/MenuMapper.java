@@ -26,6 +26,8 @@ public interface MenuMapper extends BaseMapper<Menu> {
 
     public IPage<Menu> queryPage(Page page,@Param("queryCon")Map<String,Object> queryCon);
 
+    public List<Menu> getRootMenuTree();
+
     public List<Menu> getParentMenus();
 
     public List<Menu> getByIds(@Param("menuIds") List<Long> menuIds);

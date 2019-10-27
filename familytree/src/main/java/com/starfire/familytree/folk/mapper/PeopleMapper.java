@@ -26,5 +26,9 @@ public interface PeopleMapper extends BaseMapper<People> {
 
     People getFamilyTree(String branch);
 
-    List<People> getPeopleByName(String name);
+    List<People> getPeopleByName(@Param("name")String name);
+
+    public String getBranchByName(@Param("name")String name);
+
+    public List<String> getNames(@Param("name")String name);
 }

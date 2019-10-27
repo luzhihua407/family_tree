@@ -15,7 +15,10 @@ import com.starfire.familytree.vo.PageInfo;
 import com.starfire.familytree.vo.RoleMenuVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +41,12 @@ public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenu> i
 
     @Autowired
     private RoleMenuRightMapper roleMenuRightMapper;
+
+    @Autowired
+    private  IRoleMenuRightService roleMenuRightService;
+
+    @Autowired
+    private  IRoleMenuService roleMenuService;
 
     @Override
     public PageInfo<Map<String, Object>, RoleMenu> page(PageInfo<Map<String, Object>, RoleMenu> pageInfo) {
@@ -70,7 +79,65 @@ public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenu> i
     }
 
     @Override
+    public List<RoleMenu> getListByRoleId(Long roleId) {
+        return roleMenuMapper.getListByRoleId(roleId);
+    }
+
+    @Override
     public void deleteByRoleId(Long roleId) {
         roleMenuMapper.deleteByRoleId(roleId);
+    }
+
+    @Override
+    @Transactional
+    public void addOrUpdateRoleMenu(RoleMenuVO roleMenuVo) {
+        String roleId = roleMenuVo.getRoleId();
+        List<String> menuIds = roleMenuVo.getMenuIds();
+        HashSet<Long> menuSet=new HashSet();
+        HashSet<Long> menuRightSet=new HashSet();
+
+        for (int i = 0; i < menuIds.size(); i++) {
+            String s =  menuIds.get(i);
+            boolean matches = s.matches("\\d+-\\d+-\\d+");
+            boolean level2 = s.matches("\\d+-\\d+");
+            if(level2){
+                String[] split = s.split("-");
+                String s2 = split[1];
+                menuSet.add(Long.valueOf(s2));
+            }
+            if(matches){
+                String[] split = s.split("-");
+                String s1 = split[0];
+                String s2 = split[1];
+                String s3 = split[2];
+                Long menuId= Long.valueOf(s2);
+                Long menuRightId= Long.valueOf(s3);
+                menuSet.add(menuId);
+                menuRightSet.add(menuRightId);
+            }
+        }
+        List<Boolean> rs=new ArrayList<Boolean>();
+        List<RoleMenu> list = roleMenuMapper.getListByRoleId(Long.valueOf(roleId));
+        for (int i = 0; i < list.size(); i++) {
+            RoleMenu roleMenu =  list.get(i);
+            Long roleMenuId = roleMenu.getId();
+            roleMenuRightMapper.deleteByRoleMenuId(roleMenuId);
+        }
+        roleMenuMapper.deleteByRoleId(Long.valueOf(roleId));
+        for (Long menuId : menuSet) {
+            RoleMenu roleMenu=new RoleMenu();
+            roleMenu.setMenuId(menuId);
+            roleMenu.setRoleId(Long.valueOf(roleId));
+            roleMenu.setOwn(roleMenuVo.getOwn());
+            boolean flag = roleMenuService.saveOrUpdate(roleMenu);
+            roleMenuRightMapper.deleteByMenuId(menuId);
+            for (Long menuRightId : menuRightSet) {
+                RoleMenuRight roleMenuRight = new RoleMenuRight();
+                roleMenuRight.setMenuId(menuId);
+                roleMenuRight.setMenuRightId(menuRightId);
+                roleMenuRight.setRoleMenuId(roleMenu.getId());
+                roleMenuRightService.saveOrUpdate(roleMenuRight);
+            }
+        }
     }
 }

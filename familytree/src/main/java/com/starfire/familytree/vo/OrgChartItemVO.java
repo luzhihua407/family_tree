@@ -21,5 +21,9 @@ public class OrgChartItemVO {
     private  String title;
     private  String description;
     private  String image;
+    private  String sex;
+    private  String generations;
+    private  String label;
+    private  String remark;
 
 }

@@ -12,6 +12,7 @@ import com.starfire.familytree.folk.mapper.PeopleMapper;
 import com.starfire.familytree.folk.service.IPeopleService;
 import com.starfire.familytree.vo.PageInfo;
 import com.starfire.familytree.vo.RelationshipVO;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -76,6 +77,11 @@ public class PeopleServiceImpl extends ServiceImpl<PeopleMapper, People> impleme
             partnerMapper.insert(partner);
         }
         return true;
+    }
+
+    @Override
+    public List<String> getNames(String name) {
+        return peopleMapper.getNames(name);
     }
 
     /**
@@ -149,8 +155,19 @@ public class PeopleServiceImpl extends ServiceImpl<PeopleMapper, People> impleme
     }
 
     @Override
-    public People getFamilyTree(String branch) {
+    public People getFamilyTree(Map<String,String> param) {
+        String branch=param.get("branch");
+        String name=param.get("name");
 
+        if(StringUtils.isNotEmpty(name)){
+            String branchId = peopleMapper.getBranchByName(name);
+
+            if(StringUtils.isEmpty(branchId)){
+                throw  new RuntimeException("搜索不到"+name);
+            }else{
+                branch=branchId;
+            }
+        }
         return peopleMapper.getFamilyTree(branch);
     }
 }

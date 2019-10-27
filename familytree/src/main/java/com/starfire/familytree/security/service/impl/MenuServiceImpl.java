@@ -63,7 +63,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     @Override
     public List<MenuTree> getMenusTree() {
         List<MenuTree> menuTree=new ArrayList<MenuTree>();
-        List<Menu> parentMenus = baseMapper.getParentMenus();
+        List<Menu> parentMenus = baseMapper.getRootMenuTree();
         for (int i = 0; i < parentMenus.size(); i++) {
 
             Menu menu = parentMenus.get(i);

@@ -17,4 +17,6 @@ public interface RoleMenuMapper extends BaseMapper<RoleMenu> {
 
 
     public void deleteByRoleId(Long roleId);
+
+    public List<RoleMenu> getListByRoleId(Long roleId);
 }

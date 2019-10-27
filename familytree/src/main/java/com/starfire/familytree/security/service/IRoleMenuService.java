@@ -22,5 +22,9 @@ public interface IRoleMenuService extends IService<RoleMenu> {
 
     public RoleMenuVO getRoleMenuByRoleId(Long roleId);
 
+    public List<RoleMenu> getListByRoleId(Long roleId);
+
     public void deleteByRoleId(Long roleId);
+
+    public void addOrUpdateRoleMenu(RoleMenuVO roleMenuVo);
 }

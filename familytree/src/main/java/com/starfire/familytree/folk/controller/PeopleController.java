@@ -6,6 +6,7 @@ import com.starfire.familytree.folk.entity.People;
 import com.starfire.familytree.folk.service.IChildrenService;
 import com.starfire.familytree.folk.service.IPartnerService;
 import com.starfire.familytree.folk.service.IPeopleService;
+import com.starfire.familytree.utils.ChineseNumber;
 import com.starfire.familytree.vo.*;
 import io.swagger.annotations.Api;
 import io.swagger.models.auth.In;
@@ -106,6 +107,13 @@ public class PeopleController {
         return b;
     }
 
+    @PostMapping("/getNames")
+    public List<String> getNames(@RequestBody Map<String,String> param) {
+        String name = param.get("name");
+        List<String> names = peopleService.getNames(name);
+        return names;
+    }
+
     @PostMapping("/tree")
     public OrgChartVO tree(@RequestBody Map<String,Integer> param) {
         OrgChartVO orgChartVO = new OrgChartVO();
@@ -123,7 +131,7 @@ public class PeopleController {
         String brief = husband.getBrief();
         String avatar = husband.getAvatar();
         OrgChartItemVO orgChartItemVO = new OrgChartItemVO();
-        orgChartItemVO.setId(fatherId.hashCode());
+        orgChartItemVO.setId(Math.abs(fatherId.hashCode()));
         orgChartItemVO.setParents(null);
         orgChartItemVO.setTitle(fullName);
         orgChartItemVO.setDescription(brief);
@@ -135,7 +143,8 @@ public class PeopleController {
     @PostMapping("/getFamilyTree")
     public OrgChartVO getFamilyTree(@RequestBody Map<String,String> param) {
         OrgChartVO orgChartVO = new OrgChartVO();
-        People husband = peopleService.getFamilyTree(param.get("branch"));
+
+        People husband = peopleService.getFamilyTree(param);
         Integer generations = husband.getGenerations();
         Long fatherId = husband.getId();
         Long husbandId = husband.getId();
@@ -147,13 +156,10 @@ public class PeopleController {
             String brief = wife.getBrief();
             GenderEnum gender = wife.getGender();
             String sex = gender.name();
-            StringBuffer sb=new StringBuffer();
-            sb.append(sex);
-            sb.append(" ");
-            sb.append(generations).append("代");
-            sb.append(brief==null?"":brief);
-            orgChartItemVO.setDescription(sb.toString());
-            orgChartItemVO.setImage(avatar==null?"/avatar.png":avatar);
+            orgChartItemVO.setSex(sex);
+            orgChartItemVO.setGenerations("第"+ ChineseNumber.numberToCH(generations)+"世");
+            orgChartItemVO.setDescription(brief);
+            orgChartItemVO.setRemark(wife.getRemark());
             orgChartVO.getItems().add(orgChartItemVO);
         }
         loopChildren(orgChartVO, husband,wife);
@@ -161,18 +167,14 @@ public class PeopleController {
         String brief = husband.getBrief();
         GenderEnum gender = husband.getGender();
         String sex = gender.name();
-        String avatar = husband.getAvatar();
         OrgChartItemVO orgChartItemVO = new OrgChartItemVO();
-        orgChartItemVO.setId(fatherId.hashCode());
+        orgChartItemVO.setId(Math.abs(fatherId.hashCode()));
         orgChartItemVO.setParents(null);
         orgChartItemVO.setTitle(fullName);
-        StringBuffer buffer=new StringBuffer();
-        buffer.append(sex);
-        buffer.append(" ");
-        buffer.append(generations).append("代");
-        buffer.append(brief==null?"":brief);
-        orgChartItemVO.setDescription(buffer.toString());
-        orgChartItemVO.setImage(avatar==null?"/avatar.png":avatar);
+        orgChartItemVO.setSex(sex);
+        orgChartItemVO.setGenerations("第"+ ChineseNumber.numberToCH(generations)+"世");
+        orgChartItemVO.setDescription(brief);
+        orgChartItemVO.setRemark(husband.getRemark());
         orgChartVO.getItems().add(orgChartItemVO);
         return orgChartVO;
     }
@@ -195,7 +197,6 @@ public class PeopleController {
             GenderEnum gender = children.getGender();
 
             String sex = gender.name();
-            String avatar = children.getAvatar();
             Long childrenId = children.getId();
             //获取妻子
             People wife = partnerService.getWife(childrenId);
@@ -205,34 +206,29 @@ public class PeopleController {
                 GenderEnum wifeGender = wife.getGender();
                Integer generations = wife.getGenerations();
                 String wifesex = wifeGender.name();
-                StringBuffer sb=new StringBuffer();
-                sb.append(wifesex);
-                sb.append(" ");
-                sb.append(generations).append("代");
-                sb.append(brief==null?"":brief);
-                orgChartItemVO.setDescription(sb.toString());
-                orgChartItemVO.setImage(avatar==null?"/avatar.png":avatar);
+                orgChartItemVO.setSex(wifesex);
+                orgChartItemVO.setGenerations("第"+ ChineseNumber.numberToCH(generations)+"世");
+                orgChartItemVO.setDescription(wifeBrief);
+                orgChartItemVO.setRemark(wife.getRemark());
                 orgChartVO.getItems().add(orgChartItemVO);
             }
             //获取孩子
             OrgChartItemVO orgChartItemVO = new OrgChartItemVO();
-            orgChartItemVO.setId(childrenId.hashCode());
+            orgChartItemVO.setId(Math.abs(childrenId.hashCode()));
             Integer[] parents=new Integer[2];
-            parents[0]=fatherId.hashCode();
+            parents[0]=Math.abs(fatherId.hashCode());
             if(motherId!=null){
 
-            parents[1]=motherId.hashCode();
+            parents[1]=Math.abs(motherId.hashCode());
             }
             Integer generations = children.getGenerations();
             orgChartItemVO.setParents(parents);
             orgChartItemVO.setTitle(fullName);
-            StringBuffer sb=new StringBuffer();
-            sb.append(sex);
-            sb.append(" ");
-            sb.append(generations).append("代");
-            sb.append(brief==null?"":brief);
-            orgChartItemVO.setDescription(sb.toString());
-            orgChartItemVO.setImage(avatar==null?"/avatar.png":avatar);
+            orgChartItemVO.setLabel("入嗣");
+            orgChartItemVO.setSex(sex);
+            orgChartItemVO.setGenerations("第"+ ChineseNumber.numberToCH(generations)+"世");
+            orgChartItemVO.setDescription(brief);
+            orgChartItemVO.setRemark(children.getRemark());
             orgChartVO.getItems().add(orgChartItemVO);
             loopChildren(orgChartVO,children,wife);
         }
@@ -242,41 +238,17 @@ public class PeopleController {
     private OrgChartItemVO convertOrgChartItemVO(Long husbandId,People wife) {
         String fullName = wife.getFullName();
         String brief = wife.getBrief();
-        String avatar = wife.getAvatar();
         OrgChartItemVO orgChartItemVO = new OrgChartItemVO();
-        orgChartItemVO.setId(wife.getId().hashCode());
+        orgChartItemVO.setId(Math.abs(wife.getId().hashCode()));
         orgChartItemVO.setParents(null);
         orgChartItemVO.setTitle(fullName);
         orgChartItemVO.setDescription(brief);
-        orgChartItemVO.setImage(avatar);
-        orgChartItemVO.setPosition(husbandId.hashCode()+1);
-        orgChartItemVO.setRelativeItem(husbandId.hashCode());
+        orgChartItemVO.setGenerations("第"+ ChineseNumber.numberToCH(wife.getGenerations())+"世");
+        orgChartItemVO.setPosition(Math.abs(husbandId.hashCode()+1));
+        orgChartItemVO.setRelativeItem(Math.abs(husbandId.hashCode()));
 
 
         return orgChartItemVO;
     }
-    private static String toChinese(String str) {
-        String[] s1 = { "一", "二", "三", "四", "五", "六", "七", "八", "九" };
-        String[] unit = { "十", "百", "千", "万", "十万", "百万", "千万", "亿", "十亿", "百亿", "千亿" };
-        String result = "";
-        int n = str.length();
-        for (int i = 0; i < n; i++) {
-            int num = str.charAt(i) - '0' ;
-            if (i != n - 1 && num != 0) {
-                result += s1[i] + unit[n - 2 - i];
-            } else {
-                result += s1[num];
-            }
-        }
-        System.out.println(result);
-        return result;
-    }
 
-    public static void main(String[] args) {
-        Locale chineseNumbers = new Locale("C@numbers=hans");
-        com.ibm.icu.text.NumberFormat formatter =
-                com.ibm.icu.text.NumberFormat.getInstance(chineseNumbers);
-        System.out.println(formatter.format(61305));
-
-    }
 }

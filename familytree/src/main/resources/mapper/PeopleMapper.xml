@@ -54,4 +54,10 @@
         select * from bs_people a where valid=1
             and full_name like CONCAT(#{name},'%')
     </select>
+    <select id="getBranchByName" resultType="java.lang.String">
+        select people_branch from bs_people a where valid=1 and full_name = #{name}
+    </select>
+    <select id="getNames" resultType="java.lang.String">
+        select full_name from bs_people a where valid=1 and full_name like CONCAT('%',#{name},'%')
+    </select>
 </mapper>

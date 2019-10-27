@@ -122,6 +122,7 @@ public class MenuController {
         Response<List<MenuTree>> response = new Response<List<MenuTree>>();
         return response.success(menus);
     }
+
     /**
      * 分页
      *

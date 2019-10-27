@@ -27,7 +27,10 @@
 	   select * from security_menu where type=0 and valid=1 and id=#{menuId}
 	</select>
     <select id="getParentMenus" resultMap="BaseResultMap">
-	   select * from security_menu where type=0 and valid=1
+	   select * from security_menu where  valid=1 and type in(0,1)
+	</select>
+    <select id="getRootMenuTree" resultMap="BaseResultMap">
+	   select * from security_menu where  valid=1 and type =0
 	</select>
     <select id="queryPage" resultMap="BaseResultMap">
         select b.name as parentMenuName,a.* from security_menu a LEFT JOIN security_menu b ON a.parent=b.id WHERE 1=1

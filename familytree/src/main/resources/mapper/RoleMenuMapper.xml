@@ -17,5 +17,8 @@
     <delete id="deleteByRoleId">
         delete from security_role_menu where role_id=#{roleId}
     </delete>
+    <select id="getListByRoleId" resultMap="BaseResultMap">
+        select * from security_role_menu where role_id=#{roleId}
+    </select>
 
 </mapper>
