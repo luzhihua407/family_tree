@@ -7,20 +7,19 @@ import com.starfire.familytree.folk.service.IChildrenService;
 import com.starfire.familytree.folk.service.IPartnerService;
 import com.starfire.familytree.folk.service.IPeopleService;
 import com.starfire.familytree.utils.ChineseNumber;
+import com.starfire.familytree.utils.StringHelper;
 import com.starfire.familytree.vo.*;
 import io.swagger.annotations.Api;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.text.NumberFormat;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * <p>
@@ -82,6 +81,12 @@ public class PeopleController {
     public People getPeople(Long id) {
         People people = peopleService.getById(id);
         return people;
+    }   
+    
+    @GetMapping("/view")
+    public People viewPeople(Long id) {
+        People people = peopleService.getPeople(id);
+        return people;
     }
 
     @PostMapping("/delete")
@@ -97,6 +102,8 @@ public class PeopleController {
 
     @PostMapping("/edit")
     public Boolean editPeople(@RequestBody People people) {
+        String pinyin = StringHelper.toPinyin(people.getFullName());
+        people.setPinyin(pinyin);
         boolean b = peopleService.updateById(people);
         return b;
     }
@@ -108,10 +115,24 @@ public class PeopleController {
     }
 
     @PostMapping("/getNames")
-    public List<String> getNames(@RequestBody Map<String,String> param) {
+    public List<Map<String,Object>> getNames(@RequestBody Map<String,String> param) {
+        List<Map<String,Object>> names=new ArrayList<>();
         String name = param.get("name");
-        List<String> names = peopleService.getNames(name);
+        if(name.length()>1) {
+
+        names = peopleService.getNames(name);
+        }
         return names;
+    }
+    @GetMapping("/test")
+    public void test() {
+        List<People> list = peopleService.list();
+        for (int i = 0; i < list.size(); i++) {
+            People people =  list.get(i);
+            String pinyin = StringHelper.toPinyin(people.getFullName());
+            people.setPinyin(pinyin);
+            peopleService.saveOrUpdate(people);
+        }
     }
 
     @PostMapping("/tree")
@@ -132,6 +153,7 @@ public class PeopleController {
         String avatar = husband.getAvatar();
         OrgChartItemVO orgChartItemVO = new OrgChartItemVO();
         orgChartItemVO.setId(Math.abs(fatherId.hashCode()));
+        orgChartItemVO.setPeopleId(fatherId+"");
         orgChartItemVO.setParents(null);
         orgChartItemVO.setTitle(fullName);
         orgChartItemVO.setDescription(brief);
@@ -157,6 +179,7 @@ public class PeopleController {
             GenderEnum gender = wife.getGender();
             String sex = gender.name();
             orgChartItemVO.setSex(sex);
+            orgChartItemVO.setPeopleId(wife.getId()+"");
             orgChartItemVO.setGenerations("第"+ ChineseNumber.numberToCH(generations)+"世");
             orgChartItemVO.setDescription(brief);
             orgChartItemVO.setRemark(wife.getRemark());
@@ -170,6 +193,7 @@ public class PeopleController {
         OrgChartItemVO orgChartItemVO = new OrgChartItemVO();
         orgChartItemVO.setId(Math.abs(fatherId.hashCode()));
         orgChartItemVO.setParents(null);
+        orgChartItemVO.setPeopleId(fatherId+"");
         orgChartItemVO.setTitle(fullName);
         orgChartItemVO.setSex(sex);
         orgChartItemVO.setGenerations("第"+ ChineseNumber.numberToCH(generations)+"世");
@@ -207,6 +231,7 @@ public class PeopleController {
                Integer generations = wife.getGenerations();
                 String wifesex = wifeGender.name();
                 orgChartItemVO.setSex(wifesex);
+                orgChartItemVO.setPeopleId(wife.getId()+"");
                 orgChartItemVO.setGenerations("第"+ ChineseNumber.numberToCH(generations)+"世");
                 orgChartItemVO.setDescription(wifeBrief);
                 orgChartItemVO.setRemark(wife.getRemark());
@@ -215,6 +240,7 @@ public class PeopleController {
             //获取孩子
             OrgChartItemVO orgChartItemVO = new OrgChartItemVO();
             orgChartItemVO.setId(Math.abs(childrenId.hashCode()));
+            orgChartItemVO.setPeopleId(childrenId+"");
             Integer[] parents=new Integer[2];
             parents[0]=Math.abs(fatherId.hashCode());
             if(motherId!=null){
@@ -222,6 +248,7 @@ public class PeopleController {
             parents[1]=Math.abs(motherId.hashCode());
             }
             Integer generations = children.getGenerations();
+            orgChartItemVO.setPeopleId(children.getId()+"");
             orgChartItemVO.setParents(parents);
             orgChartItemVO.setTitle(fullName);
             orgChartItemVO.setLabel("入嗣");
@@ -241,6 +268,7 @@ public class PeopleController {
         OrgChartItemVO orgChartItemVO = new OrgChartItemVO();
         orgChartItemVO.setId(Math.abs(wife.getId().hashCode()));
         orgChartItemVO.setParents(null);
+        orgChartItemVO.setPeopleId(wife.getId()+"");
         orgChartItemVO.setTitle(fullName);
         orgChartItemVO.setDescription(brief);
         orgChartItemVO.setGenerations("第"+ ChineseNumber.numberToCH(wife.getGenerations())+"世");

@@ -51,6 +51,8 @@ public class People extends AbstractEntity {
     @NotNull(message = "全名不能为空")
     private String fullName;
 
+    private String pinyin;
+
     /**
      * 性别
      */
@@ -77,6 +79,9 @@ public class People extends AbstractEntity {
      */
     @Positive(message = "第几世要大于0")
     private Integer generations=1;
+
+    @TableField(exist = false)
+    private String generationsText;
 
     /**
      * 生日
@@ -136,6 +141,7 @@ public class People extends AbstractEntity {
      */
     @JsonSerialize(using = ToStringSerializer.class)
     private Long peopleBranch;
+
 
     @TableField(exist = false)
     private String branchName;

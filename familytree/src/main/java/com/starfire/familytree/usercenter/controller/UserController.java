@@ -80,11 +80,12 @@ public class UserController {
             if(roleCode.startsWith("ROLE_")){
                 roleCode=roleCode.replace("ROLE_","");
             }
-            List<Menu> parentMenus=new ArrayList<>();
+            List<Menu> menus=new ArrayList<>();
             List<String> permission;
             //这里按父-子 父-子 顺序取菜单，不然antd 无法正常显示菜单
             if(roleCode.equals("admin")){
-                parentMenus= menuService.getParentMenusByAdmin();
+                menus= menuService.getParentMenusByAdmin();
+                findSubMenus(principalVO, menus);
                 permission = roleMenuRightService.getPermissionForAdmin();
             }else{
                 Role role = roleService.getRoleByCode(roleCode);
@@ -93,22 +94,38 @@ public class UserController {
 
                 userVO.setRoleId(roleId);
 
-                parentMenus = menuService.getParentMenusByRoleId(roleId);
+                menus = menuService.getMenusByRoleId(roleId);
+                for (Menu menu : menus) {
+                    MenuTypeEnum type = menu.getType();
+                    RouteVO  route=new RouteVO();
+                    route.setIcon(menu.getIcon());
+                    route.setId(menu.getId().toString());
+                    route.setName(menu.getName());
+                    route.setRoute(menu.getUrl());
+                    if(type==MenuTypeEnum.不可见菜单){
+
+                        route.setMenuParentId("-1");
+                    }else{
+
+                        route.setMenuParentId(menu.getParent()==null?"":menu.getParent().toString());
+                    }
+                    route.setBreadcrumbParentId(menu.getParent()==null?"":menu.getParent().toString());
+                    principalVO.getMenus().add(route);
+                }
             }
             principalVO.setPermission(permission);
-            findSubMenus(principalVO, parentMenus);
+
         }
         principalVO.setUser(userVO);
         return principalVO;
     }
 
-    private void findSubMenus(PrincipalVO principalVO, List<Menu> childMenu) {
+    private void findSubMenus(PrincipalVO principalVO, List<Menu> menus) {
         RouteVO route;
-        for (Menu menu : childMenu) {
+        for (Menu menu : menus) {
             MenuTypeEnum type = menu.getType();
             route=new RouteVO();
             route.setIcon(menu.getIcon());
-            menu.getId().toString();
             route.setId(menu.getId().toString());
             route.setName(menu.getName());
             route.setRoute(menu.getUrl());
@@ -121,9 +138,9 @@ public class UserController {
             }
             route.setBreadcrumbParentId(menu.getParent()==null?"":menu.getParent().toString());
             principalVO.getMenus().add(route);
-            childMenu = menuService.getChildMenu(menu.getId());
-            if(childMenu!=null && childMenu.size()>0){
-                findSubMenus(principalVO, childMenu);
+            menus = menuService.getChildMenu(menu.getId());
+            if(menus!=null && menus.size()>0){
+                findSubMenus(principalVO, menus);
             }
         }
     }

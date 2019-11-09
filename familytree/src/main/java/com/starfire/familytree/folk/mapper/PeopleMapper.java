@@ -30,5 +30,5 @@ public interface PeopleMapper extends BaseMapper<People> {
 
     public String getBranchByName(@Param("name")String name);
 
-    public List<String> getNames(@Param("name")String name);
+    public List<Map<String,Object>> getNamesByPinyin(@Param("pinyin")String pinyin);
 }

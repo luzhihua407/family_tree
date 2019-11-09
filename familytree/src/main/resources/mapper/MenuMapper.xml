@@ -50,8 +50,11 @@
         order by id,parent asc
     </select>
 
+    <select id="getMenusByRoleId" resultMap="BaseResultMap" parameterType="Long">
+		select b.* from security_role_menu a left join security_menu b on a.menu_id=b.id  where role_id=#{roleId} and a.valid=1
+	</select>
     <select id="getParentMenusByRoleId" resultMap="BaseResultMap" parameterType="Long">
-		select b.* from security_role_menu a,security_menu b where a.menu_id=b.id and role_id=#{roleId} and a.valid=1 and b.type=0
+		select c.* from security_role_menu a left join security_menu b on a.menu_id=b.id left join security_menu c on b.parent=c.id where role_id=#{roleId} and a.valid=1
 	</select>
 
     <select id="getParentMenusByAdmin" resultMap="BaseResultMap" parameterType="Long">

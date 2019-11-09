@@ -63,12 +63,22 @@ public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenu> i
         List<Map> list = roleMenuRightMapper.getCheckedMenuByRoleId(roleId);
         RoleMenuVO vo=new RoleMenuVO();
         for (int i = 0; i < list.size(); i++) {
+            StringBuffer sb=new StringBuffer();
             Map roleMenuRight =  list.get(i);
             Long menuId = (Long) roleMenuRight.get("menu_id");
             Long menuRightId = (Long) roleMenuRight.get("menu_right_id");
             Long roleMenuId = (Long) roleMenuRight.get("role_menu_id");
             Long parent = (Long) roleMenuRight.get("parent");
-            vo.getMenuIds().add(parent+"-"+menuId+"-"+menuRightId);
+            if(parent!=null){
+                sb.append(parent);
+            }
+            if(menuId!=null){
+                sb.append("-").append(menuId);
+            }
+            if(menuRightId!=null){
+                sb.append("-").append(menuRightId);
+            }
+            vo.getMenuIds().add(sb.toString());
         }
         vo.setRoleId(roleId==null?"":roleId.toString());
         if(role!=null){
@@ -93,7 +103,8 @@ public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenu> i
     public void addOrUpdateRoleMenu(RoleMenuVO roleMenuVo) {
         String roleId = roleMenuVo.getRoleId();
         List<String> menuIds = roleMenuVo.getMenuIds();
-        HashSet<Long> menuSet=new HashSet();
+        HashSet<Long> menuSetLevel2=new HashSet();
+        HashSet<Long> menuSetLevel3=new HashSet();
         HashSet<Long> menuRightSet=new HashSet();
 
         for (int i = 0; i < menuIds.size(); i++) {
@@ -103,7 +114,7 @@ public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenu> i
             if(level2){
                 String[] split = s.split("-");
                 String s2 = split[1];
-                menuSet.add(Long.valueOf(s2));
+                menuSetLevel2.add(Long.valueOf(s2));
             }
             if(matches){
                 String[] split = s.split("-");
@@ -112,7 +123,7 @@ public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenu> i
                 String s3 = split[2];
                 Long menuId= Long.valueOf(s2);
                 Long menuRightId= Long.valueOf(s3);
-                menuSet.add(menuId);
+                menuSetLevel3.add(menuId);
                 menuRightSet.add(menuRightId);
             }
         }
@@ -124,7 +135,14 @@ public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenu> i
             roleMenuRightMapper.deleteByRoleMenuId(roleMenuId);
         }
         roleMenuMapper.deleteByRoleId(Long.valueOf(roleId));
-        for (Long menuId : menuSet) {
+        for (Long menuId : menuSetLevel2) {
+            RoleMenu roleMenu=new RoleMenu();
+            roleMenu.setMenuId(menuId);
+            roleMenu.setRoleId(Long.valueOf(roleId));
+            roleMenu.setOwn(roleMenuVo.getOwn());
+            boolean flag = roleMenuService.saveOrUpdate(roleMenu);
+        }
+        for (Long menuId : menuSetLevel3) {
             RoleMenu roleMenu=new RoleMenu();
             roleMenu.setMenuId(menuId);
             roleMenu.setRoleId(Long.valueOf(roleId));

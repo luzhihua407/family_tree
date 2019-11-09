@@ -5,6 +5,7 @@ import com.starfire.familytree.folk.entity.CategoryContent;
 import com.starfire.familytree.folk.entity.People;
 import com.starfire.familytree.vo.PageInfo;
 import com.starfire.familytree.vo.RelationshipVO;
+import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
 
 import java.util.List;
 import java.util.Map;
@@ -26,7 +27,7 @@ public interface IPeopleService extends IService<People> {
 
     public People getHusband(Long husbandId);
 
-    public People addPeople(People people);
+    public People addPeople(People people) ;
 
 
     public List<People> getPeoplesByGeneration(int gen);
@@ -38,6 +39,8 @@ public interface IPeopleService extends IService<People> {
      */
     public People getForefather(int gen);
 
+    public People getPeople(Long id);
+
     public People getFamilyTree(Map<String,String> param);
 
     public PageInfo<Map<String, Object>, People> page(PageInfo<Map<String, Object>, People> page);
@@ -46,5 +49,5 @@ public interface IPeopleService extends IService<People> {
 
     boolean addRelationship(RelationshipVO relationshipVO);
 
-    public List<String> getNames(String name);
+    public List<Map<String,Object>> getNames(String name);
 }

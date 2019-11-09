@@ -21,7 +21,7 @@
         delete from security_role_menu_right where role_menu_id=#{role_menu_id}
     </delete>
     <select id="getCheckedMenuByRoleId" resultType="map">
-		select b.menu_id,b.menu_right_id,b.role_menu_id,c.parent from security_role_menu a  right join security_role_menu_right b on b.menu_id=a.menu_id left join security_menu c on a.menu_id=c.id where a.role_id=#{roleId}
+		select a.menu_id,b.menu_right_id,b.role_menu_id,c.parent from security_role_menu a  left join security_role_menu_right b on b.menu_id=a.menu_id left join security_menu c on a.menu_id=c.id where a.role_id=#{roleId}
 	</select>
     <select id="getPermission" resultType="java.lang.String">
     select CONCAT(c.`code`,'.',d.`code`) as permission

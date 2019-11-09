@@ -25,5 +25,6 @@ public class OrgChartItemVO {
     private  String generations;
     private  String label;
     private  String remark;
+    private String peopleId;
 
 }

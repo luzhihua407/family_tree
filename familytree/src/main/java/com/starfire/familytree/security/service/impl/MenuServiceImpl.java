@@ -98,8 +98,15 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     }
 
     @Override
-    public List<Menu> getParentMenusByRoleId(Long roleId){
-        return baseMapper.getParentMenusByRoleId(roleId);
+    public List<Menu> getMenusByRoleId(Long roleId){
+        List<Menu> result=new ArrayList<>();
+        //目录菜单
+        List<Menu> parentMenus = baseMapper.getParentMenusByRoleId(roleId);
+        result.addAll(parentMenus);
+        //分配的菜单
+        List<Menu> menus = baseMapper.getMenusByRoleId(roleId);
+        result.addAll(menus);
+        return  result;
     }
 
     @Override

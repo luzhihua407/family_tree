@@ -2,6 +2,8 @@ package com.starfire.familytree.folk.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.starfire.familytree.basic.entity.Dict;
+import com.starfire.familytree.basic.service.IDictService;
 import com.starfire.familytree.enums.BooleanEnum;
 import com.starfire.familytree.folk.entity.Children;
 import com.starfire.familytree.folk.entity.Partner;
@@ -10,13 +12,20 @@ import com.starfire.familytree.folk.mapper.ChildrenMapper;
 import com.starfire.familytree.folk.mapper.PartnerMapper;
 import com.starfire.familytree.folk.mapper.PeopleMapper;
 import com.starfire.familytree.folk.service.IPeopleService;
+import com.starfire.familytree.utils.ChineseNumber;
+import com.starfire.familytree.utils.StringHelper;
 import com.starfire.familytree.vo.PageInfo;
 import com.starfire.familytree.vo.RelationshipVO;
+import net.sourceforge.pinyin4j.PinyinHelper;
+import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
+import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.constraints.Positive;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -39,6 +48,9 @@ public class PeopleServiceImpl extends ServiceImpl<PeopleMapper, People> impleme
 
     @Autowired
     private PartnerMapper partnerMapper;
+
+    @Autowired
+    private IDictService dictService;
 
     @Override
     public PageInfo<Map<String, Object>, People> page(PageInfo<Map<String, Object>, People> pageInfo) {
@@ -80,8 +92,17 @@ public class PeopleServiceImpl extends ServiceImpl<PeopleMapper, People> impleme
     }
 
     @Override
-    public List<String> getNames(String name) {
-        return peopleMapper.getNames(name);
+    public List<Map<String,Object>> getNames(String name) {
+        List<Map<String, Object>> names=new ArrayList<>();
+        if(StringUtils.isNotEmpty(name)){
+            names = peopleMapper.getNamesByPinyin(name);
+            for (int i = 0; i < names.size(); i++) {
+                Map<String, Object> map =  names.get(i);
+                Long id = (Long)map.get("id");
+                map.put("id",Math.abs(id.hashCode())+"");
+            }
+        }
+        return names;
     }
 
     /**
@@ -138,7 +159,9 @@ public class PeopleServiceImpl extends ServiceImpl<PeopleMapper, People> impleme
     }
 
     @Override
-    public People addPeople(People people) {
+    public People addPeople(People people)  {
+        String pinyin = StringHelper.toPinyin(people.getFullName());
+        people.setPinyin(pinyin);
         peopleMapper.insert(people);
         return people;
     }
@@ -152,6 +175,17 @@ public class PeopleServiceImpl extends ServiceImpl<PeopleMapper, People> impleme
     @Override
     public People getForefather(int gen) {
         return peopleMapper.getForefather(gen);
+    }
+
+    @Override
+    public People getPeople(Long id) {
+        People people = this.getById(id);
+        Long peopleBranch = people.getPeopleBranch();
+        Dict dict = dictService.getById(peopleBranch);
+        Integer generations = people.getGenerations();
+        people.setGenerationsText("第"+ ChineseNumber.numberToCH(generations)+"世");
+        people.setBranchName(dict.getName());
+        return people;
     }
 
     @Override

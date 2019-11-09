@@ -57,7 +57,7 @@
     <select id="getBranchByName" resultType="java.lang.String">
         select people_branch from bs_people a where valid=1 and full_name = #{name}
     </select>
-    <select id="getNames" resultType="java.lang.String">
-        select full_name from bs_people a where valid=1 and full_name like CONCAT('%',#{name},'%')
+    <select id="getNamesByPinyin" resultType="map">
+        select id,full_name from bs_people a where valid=1 and pinyin like CONCAT('%',#{pinyin},'%')
     </select>
 </mapper>
