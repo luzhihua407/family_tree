@@ -30,4 +30,6 @@ public interface DictMapper extends BaseMapper<Dict> {
     List<Dict> getBranchList();
 
     List<Dict> getProdTeam();
+
+    List<String> getPermissionList();
 }

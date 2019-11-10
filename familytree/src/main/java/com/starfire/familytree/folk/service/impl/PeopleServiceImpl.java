@@ -25,9 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.constraints.Positive;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -185,6 +183,16 @@ public class PeopleServiceImpl extends ServiceImpl<PeopleMapper, People> impleme
         Integer generations = people.getGenerations();
         people.setGenerationsText("第"+ ChineseNumber.numberToCH(generations)+"世");
         people.setBranchName(dict.getName());
+        Date death = people.getDeath();
+        Date birth = people.getBirth();
+        if(death!=null && birth!=null){
+            long time = death.getTime() - birth.getTime();
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(new Date(time));
+            long totalDay = time/(24*60*60*1000);// a day
+            long aliveAge = totalDay / 365;
+            people.setAliveAge((int)aliveAge);
+        }
         return people;
     }
 

@@ -1,6 +1,7 @@
 package com.starfire.familytree.usercenter.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.starfire.familytree.basic.service.IDictService;
 import com.starfire.familytree.entity.VerificationToken;
 import com.starfire.familytree.enums.MenuTypeEnum;
 import com.starfire.familytree.response.Response;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.ServletWebRequest;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.security.Principal;
 import java.util.*;
@@ -66,6 +68,12 @@ public class UserController {
     private IRoleMenuRightService roleMenuRightService;
 
     @Autowired
+    private  IMenuRightService menuRightService;
+
+    @Autowired
+    private IDictService dictService;
+
+    @Autowired
     private IUserRoleService userRoleService;
     @RequestMapping("/current")
     public PrincipalVO user(Principal principal) {
@@ -81,12 +89,12 @@ public class UserController {
                 roleCode=roleCode.replace("ROLE_","");
             }
             List<Menu> menus=new ArrayList<>();
-            List<String> permission;
+            List<String> permission = new ArrayList<>();
             //这里按父-子 父-子 顺序取菜单，不然antd 无法正常显示菜单
             if(roleCode.equals("admin")){
                 menus= menuService.getParentMenusByAdmin();
                 findSubMenus(principalVO, menus);
-                permission = roleMenuRightService.getPermissionForAdmin();
+                permission.add("admin");
             }else{
                 Role role = roleService.getRoleByCode(roleCode);
                 Long roleId=role.getId();

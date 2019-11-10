@@ -40,6 +40,9 @@
         <if test="queryCon!=null and queryCon.name != null">
             and a.name like CONCAT(#{queryCon.name},'%')
         </if>
+        <if test="queryCon!=null and queryCon.type != null">
+            and a.type=#{queryCon.type}
+        </if>
     </select>
     <select id="getByIds" resultMap="BaseResultMap" parameterType="List">
         select * from security_menu where valid=1
@@ -54,7 +57,7 @@
 		select b.* from security_role_menu a left join security_menu b on a.menu_id=b.id  where role_id=#{roleId} and a.valid=1
 	</select>
     <select id="getParentMenusByRoleId" resultMap="BaseResultMap" parameterType="Long">
-		select c.* from security_role_menu a left join security_menu b on a.menu_id=b.id left join security_menu c on b.parent=c.id where role_id=#{roleId} and a.valid=1
+		select DISTINCT c.* from security_role_menu a left join security_menu b on a.menu_id=b.id left join security_menu c on b.parent=c.id where role_id=#{roleId} and a.valid=1
 	</select>
 
     <select id="getParentMenusByAdmin" resultMap="BaseResultMap" parameterType="Long">

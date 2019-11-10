@@ -22,5 +22,4 @@ public interface IRoleMenuRightService extends IService<RoleMenuRight> {
     public void deleteByMenuId(Long menuId);
 
     public List<String> getPermission(Long roleId);
-    public List<String> getPermissionForAdmin();
 }

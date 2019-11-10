@@ -28,4 +28,6 @@ public interface IDictService extends IService<Dict> {
     List<Dict> getBranchList();
 
     List<Dict> getProdTeam();
+
+    List<String> getPermissionList();
 }

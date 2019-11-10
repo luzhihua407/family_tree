@@ -15,4 +15,5 @@ import java.util.List;
  */
 public interface MenuRightMapper extends BaseMapper<MenuRight> {
 
+    public List<String> getPermissionForAdmin();
 }

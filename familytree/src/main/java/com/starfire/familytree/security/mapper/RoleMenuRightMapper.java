@@ -22,7 +22,6 @@ public interface RoleMenuRightMapper extends BaseMapper<RoleMenuRight> {
 
     public List<String> getPermission(Long roleId);
 
-    public List<String> getPermissionForAdmin();
 
     public void deleteByRoleMenuId(Long roleMenuId);
 }

@@ -251,7 +251,7 @@ public class PeopleController {
             orgChartItemVO.setPeopleId(children.getId()+"");
             orgChartItemVO.setParents(parents);
             orgChartItemVO.setTitle(fullName);
-            orgChartItemVO.setLabel("入嗣");
+            orgChartItemVO.setLabel(children.getHeir());
             orgChartItemVO.setSex(sex);
             orgChartItemVO.setGenerations("第"+ ChineseNumber.numberToCH(generations)+"世");
             orgChartItemVO.setDescription(brief);

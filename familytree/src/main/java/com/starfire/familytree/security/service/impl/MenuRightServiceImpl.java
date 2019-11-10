@@ -63,5 +63,10 @@ public class MenuRightServiceImpl extends ServiceImpl<MenuRightMapper, MenuRight
         baseMapper.delete(queryWrapper);
     }
 
+    @Override
+    public List<String> getPermissionForAdmin() {
+        return baseMapper.getPermissionForAdmin();
+    }
+
 
 }

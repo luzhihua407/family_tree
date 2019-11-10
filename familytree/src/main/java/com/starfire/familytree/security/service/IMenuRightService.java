@@ -25,5 +25,6 @@ public interface IMenuRightService extends IService<MenuRight> {
 
     public void removeByMenuId(Long menuId);
 
+    public List<String> getPermissionForAdmin();
 
 }

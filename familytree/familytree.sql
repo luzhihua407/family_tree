@@ -142,6 +142,8 @@ CREATE TABLE `bs_people` (
   `id` bigint(20) NOT NULL,
   `nickname` varchar(32) DEFAULT '',
   `full_name` varchar(16) DEFAULT '',
+    `pinyin` varchar(16) DEFAULT NULL,
+    `heir` varchar(16) DEFAULT NULL COMMENT '入嗣',,
   `gender` int(1) DEFAULT NULL,
   `is_married` int(1) DEFAULT NULL,
   `age` int(11) DEFAULT NULL,

@@ -14,5 +14,9 @@
         <result column="name" property="name"/>
         <result column="menu_id" property="menuId"/>
     </resultMap>
-
+    <select id="getPermissionForAdmin" resultType="java.lang.String">
+    select CONCAT(c.`code`,'.',d.`code`) as permission
+    from  security_menu c
+    LEFT JOIN security_menu_right d ON c.id=d.menu_id where c.type=1 and c.valid=1 ORDER BY c.id
+    </select>
 </mapper>

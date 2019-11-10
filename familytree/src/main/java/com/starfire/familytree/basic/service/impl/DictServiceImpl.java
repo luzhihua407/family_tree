@@ -58,4 +58,9 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements ID
         return baseMapper.getProdTeam();
     }
 
+    @Override
+    public List<String> getPermissionList() {
+        return baseMapper.getPermissionList();
+    }
+
 }
