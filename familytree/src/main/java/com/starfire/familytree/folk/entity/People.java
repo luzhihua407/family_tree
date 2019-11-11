@@ -160,6 +160,16 @@ public class People extends AbstractEntity {
     @JsonSerialize(using = ToStringSerializer.class)
     private Long prodTeam;
 
+  /**
+   * @title 生产队名称
+   * @description
+   * @author luzh
+   * @updateTime
+   * @throws
+   */
+    @TableField(exist = false)
+    private String prodTeamName;
+
     /**
      * 享年
      */

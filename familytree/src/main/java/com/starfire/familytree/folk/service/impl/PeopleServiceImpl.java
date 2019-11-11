@@ -183,6 +183,12 @@ public class PeopleServiceImpl extends ServiceImpl<PeopleMapper, People> impleme
         Integer generations = people.getGenerations();
         people.setGenerationsText("第"+ ChineseNumber.numberToCH(generations)+"世");
         people.setBranchName(dict.getName());
+        Long prodTeam = people.getProdTeam();
+        dict = dictService.getById(prodTeam);
+        people.setProdTeamName(dict.getName());
+        String education = people.getEducation();
+        dict = dictService.getDict(education);
+        people.setEducation(dict.getName());
         Date death = people.getDeath();
         Date birth = people.getBirth();
         if(death!=null && birth!=null){
