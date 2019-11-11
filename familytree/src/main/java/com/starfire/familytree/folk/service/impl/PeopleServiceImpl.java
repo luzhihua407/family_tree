@@ -177,18 +177,28 @@ public class PeopleServiceImpl extends ServiceImpl<PeopleMapper, People> impleme
 
     @Override
     public People getPeople(Long id) {
+        Dict dict=null;
         People people = this.getById(id);
         Long peopleBranch = people.getPeopleBranch();
-        Dict dict = dictService.getById(peopleBranch);
+        if(peopleBranch!=null){
+
+            dict = dictService.getById(peopleBranch);
+            people.setBranchName(dict.getName());
+        }
         Integer generations = people.getGenerations();
         people.setGenerationsText("第"+ ChineseNumber.numberToCH(generations)+"世");
-        people.setBranchName(dict.getName());
         Long prodTeam = people.getProdTeam();
+        if(prodTeam!=null){
+
         dict = dictService.getById(prodTeam);
         people.setProdTeamName(dict.getName());
+        }
         String education = people.getEducation();
+        if(StringUtils.isNotEmpty(education)){
+
         dict = dictService.getDict(education);
         people.setEducation(dict.getName());
+        }
         Date death = people.getDeath();
         Date birth = people.getBirth();
         if(death!=null && birth!=null){
