@@ -5,7 +5,6 @@ import com.starfire.familytree.response.Response;
 import com.starfire.familytree.security.entity.RoleMenu;
 import com.starfire.familytree.security.entity.RoleMenuRight;
 import com.starfire.familytree.security.service.IMenuService;
-import com.starfire.familytree.security.service.IRoleMenuRightService;
 import com.starfire.familytree.security.service.IRoleMenuService;
 import com.starfire.familytree.vo.DeleteVO;
 import com.starfire.familytree.vo.PageInfo;

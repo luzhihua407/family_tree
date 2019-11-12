@@ -133,6 +133,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     public static void main(String[] args) {
         BCryptPasswordEncoder bc=new BCryptPasswordEncoder();
-        System.err.println(bc.encode("123456"));
+        System.err.println(bc.encode("admin"));
     }
 }

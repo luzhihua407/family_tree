@@ -14,6 +14,10 @@
         <result column="menu_right_id" property="menuRightId"/>
         <result column="user_menu_id" property="userMenuId"/>
     </resultMap>
-
-
+    <select id="getCheckedMenuByUserId" resultType="map">
+		select a.menu_id,b.menu_right_id,b.user_menu_id,c.parent from security_user_menu a  left join security_user_menu_right b on b.menu_id=a.menu_id left join security_menu c on a.menu_id=c.id where a.user_id=#{userId}
+	</select>
+    <delete id="deleteByMenuId">
+        delete from security_user_menu_right where menu_id=#{menu_id}
+    </delete>
 </mapper>

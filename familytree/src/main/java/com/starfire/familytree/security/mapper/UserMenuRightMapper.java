@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.starfire.familytree.security.entity.UserMenuRight;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -16,4 +17,9 @@ import java.util.List;
 public interface UserMenuRightMapper extends BaseMapper<UserMenuRight> {
 
 
+  public  void deleteByMenuId(Long menuId);
+
+  public  void deleteByUserMenuId(Long userMenuId);
+
+  public List<Map> getCheckedMenuByUserId(Long userId);
 }

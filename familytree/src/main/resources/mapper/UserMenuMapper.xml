@@ -13,7 +13,11 @@
         <result column="own" property="own"/>
         <result column="menu_id" property="menuId"/>
         <result column="user_id" property="userId"/>
-
     </resultMap>
-
+    <delete id="deleteByUserId">
+        delete from security_user_menu where user_id=#{userId}
+    </delete>
+    <select id="getListByUserId" resultMap="BaseResultMap">
+        select  * from  security_user_menu where user_id=#{userId}
+    </select>
 </mapper>

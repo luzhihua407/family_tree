@@ -3,6 +3,8 @@ package com.starfire.familytree.security.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.starfire.familytree.security.entity.UserMenu;
 
+import java.util.List;
+
 /**
  * <p>
  * Mapper 接口
@@ -13,4 +15,7 @@ import com.starfire.familytree.security.entity.UserMenu;
  */
 public interface UserMenuMapper extends BaseMapper<UserMenu> {
 
+   public void deleteByUserId(Long userId);
+
+    public List<UserMenu> getListByUserId(Long userId);
 }

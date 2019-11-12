@@ -6,12 +6,15 @@ import com.starfire.familytree.security.entity.UserMenu;
 import com.starfire.familytree.security.service.IUserMenuService;
 import com.starfire.familytree.vo.DeleteVO;
 import com.starfire.familytree.vo.PageInfo;
+import com.starfire.familytree.vo.RoleMenuVO;
 import com.starfire.familytree.vo.UserMenuVO;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,14 +41,7 @@ public class UserMenuController {
      */
     @PostMapping("/addOrUpdate")
     public Response addOrUpdateUserMenu(@RequestBody UserMenuVO userMenuVO) {
-        Long[] menuIds = userMenuVO.getMenuIds();
-        for (int i = 0; i < menuIds.length; i++) {
-            Long menuId = menuIds[i];
-            UserMenu userMenu=new UserMenu();
-            userMenu.setMenuId(menuId);
-            userMenu.setUserId(userMenuVO.getUserId());
-            userMenuService.saveOrUpdate(userMenu);
-        }
+        userMenuService.addOrUpdateUserMenu(userMenuVO);
         Response<UserMenu> response = new Response<UserMenu>();
         return response.success();
 
@@ -84,6 +80,14 @@ public class UserMenuController {
         PageInfo<Map<String, Object>, UserMenu> pageInfo = userMenuService.page(page);
         Response<PageInfo<Map<String, Object>, UserMenu>> response = new Response<PageInfo<Map<String, Object>, UserMenu>>();
         return response.success(pageInfo);
+
+    }
+
+    @GetMapping("/getUserMenuByUserId")
+    public Response<UserMenuVO> getUserMenuByUserId(Long userId) {
+        UserMenuVO userMenuVO= userMenuService.getUserMenuByUserId(userId);
+        Response<UserMenuVO> response = new Response<UserMenuVO>();
+        return response.success(userMenuVO);
 
     }
 }
