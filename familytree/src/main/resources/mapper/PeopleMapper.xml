@@ -30,7 +30,7 @@
         <result column="people_branch" property="peopleBranch"/>
         <result column="branchName" property="branchName"/>
         <result column="job" property="job"/>
-        <result column="village_id" property="villageId"/>
+        <result column="village_code" property="villageCode"/>
     </resultMap>
     <select id="getPeoplesByGeneration" resultMap="BaseResultMap">
         select * from bs_people where generations=#{gen}

@@ -188,7 +188,7 @@ CREATE TABLE `bs_people`  (
   `people_branch` bigint(20) UNSIGNED NULL DEFAULT NULL COMMENT '几房',
   `heir` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '入嗣',
   `prod_team` bigint(20) UNSIGNED NULL DEFAULT NULL COMMENT '生产队',
-  `village_id` bigint(20) NULL DEFAULT NULL COMMENT '乡村id',
+  `village_code` varchar(16) NULL DEFAULT NULL COMMENT '乡村编码',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 

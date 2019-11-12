@@ -174,5 +174,5 @@ public class People extends AbstractEntity {
 
     /** 关联乡村
      */
-    private Long villageId;
+    private String villageCode;
 }
