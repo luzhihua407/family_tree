@@ -18,6 +18,9 @@
 		select a.menu_id,b.menu_right_id,b.user_menu_id,c.parent from security_user_menu a  left join security_user_menu_right b on b.menu_id=a.menu_id left join security_menu c on a.menu_id=c.id where a.user_id=#{userId}
 	</select>
     <delete id="deleteByMenuId">
-        delete from security_user_menu_right where menu_id=#{menu_id}
+        delete from security_user_menu_right where menu_id=#{menuId}
+    </delete>
+    <delete id="deleteByUserMenuId">
+        delete from security_user_menu_right where user_menu_id=#{userMenuId}
     </delete>
 </mapper>
