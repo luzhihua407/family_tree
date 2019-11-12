@@ -28,6 +28,8 @@ public interface MenuMapper extends BaseMapper<Menu> {
 
     public List<Menu> getRootMenuTree();
 
+    public List<Menu> getInvisibleMenus();
+
     public List<Menu> getParentMenus();
 
     public List<Menu> getByIds(@Param("menuIds") List<Long> menuIds);

@@ -105,7 +105,10 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
         result.addAll(parentMenus);
         //分配的菜单
         List<Menu> menus = baseMapper.getMenusByRoleId(roleId);
+        //加载所有不可见的菜单，让页面控制权限
+        List<Menu> invisibleMenus = baseMapper.getInvisibleMenus();
         result.addAll(menus);
+        result.addAll(invisibleMenus);
         return  result;
     }
 

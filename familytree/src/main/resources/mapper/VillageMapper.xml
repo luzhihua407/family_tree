@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.starfire.familytree.bs.mapper.VillageMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.starfire.familytree.bs.entity.Village">
+    <result column="id" property="id" />
+        <result column="create_time" property="createTime" />
+        <result column="creator" property="creator" />
+        <result column="edit_time" property="editTime" />
+        <result column="editor" property="editor" />
+        <result column="valid" property="valid" />
+        <result column="code" property="code" />
+        <result column="name" property="name" />
+        <result column="remark" property="remark" />
+        <result column="address" property="address" />
+        <result column="longitude" property="longitude" />
+        <result column="latitude" property="latitude" />
+    </resultMap>
+    <select id="page" resultMap="BaseResultMap">
+        select a.* from bs_village a  where 1=1
+        <if test="param!=null and param.code!=null">
+            and a.code like CONCAT(#{param.code},'%')
+        </if>
+        <if test="param!=null and param.name!=null">
+            and a.name like CONCAT(#{param.name},'%')
+        </if>
+    </select>
+
+    <select id="getVillage" resultMap="BaseResultMap">
+        select * from bs_village where code=#{code}
+    </select>
+</mapper>

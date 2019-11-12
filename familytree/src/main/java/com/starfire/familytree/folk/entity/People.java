@@ -162,10 +162,6 @@ public class People extends AbstractEntity {
 
   /**
    * @title 生产队名称
-   * @description
-   * @author luzh
-   * @updateTime
-   * @throws
    */
     @TableField(exist = false)
     private String prodTeamName;
@@ -175,4 +171,8 @@ public class People extends AbstractEntity {
      */
     @TableField(exist = false)
     private Integer aliveAge;
+
+    /** 关联乡村
+     */
+    private Long villageId;
 }

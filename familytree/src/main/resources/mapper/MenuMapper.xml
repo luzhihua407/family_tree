@@ -73,4 +73,7 @@
     <select id="getMenuByCode" resultMap="BaseResultMap">
         select * from  security_menu where code =#{code}
     </select>
+    <select id="getInvisibleMenus" resultMap="BaseResultMap">
+        select * from  security_menu where type=2
+    </select>
 </mapper>
