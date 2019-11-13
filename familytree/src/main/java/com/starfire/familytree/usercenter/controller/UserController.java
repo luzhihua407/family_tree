@@ -68,6 +68,9 @@ public class UserController {
     private IRoleMenuRightService roleMenuRightService;
 
     @Autowired
+    private IUserMenuRightService userMenuRightService;
+
+    @Autowired
     private  IMenuRightService menuRightService;
 
     @Autowired
@@ -79,6 +82,7 @@ public class UserController {
     public PrincipalVO user(Principal principal) {
         UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) principal;
         User user = (User) auth.getPrincipal();
+        Long userId = user.getId();
         PrincipalVO principalVO=new PrincipalVO();
         UserVO userVO = new UserVO();
         BeanUtils.copyProperties(user, userVO);
@@ -99,10 +103,26 @@ public class UserController {
                 Role role = roleService.getRoleByCode(roleCode);
                 Long roleId=role.getId();
                 permission = roleMenuRightService.getPermission(roleId);
-
+                List<String> menuRightServicePermission = userMenuRightService.getPermission(userId);
+                for (int j = 0; j < menuRightServicePermission.size(); j++) {
+                    String s2 =  menuRightServicePermission.get(j);
+                    if(!permission.contains(s2)){
+                        permission.add(s2);
+                    };
+                }
                 userVO.setRoleId(roleId);
-
+                //分配给角色的菜单集合
                 menus = menuService.getMenusByRoleId(roleId);
+                //分配给用户的菜单集合
+                List<Menu> menuList = menuService.getMenusByUserId(userId);
+                //去重
+                for (int i = 0; i < menuList.size(); i++) {
+                    Menu menu =  menuList.get(i);
+                    if(!menus.contains(menu)){
+                        menus.add(menu);
+                    }
+                }
+
                 for (Menu menu : menus) {
                     MenuTypeEnum type = menu.getType();
                     RouteVO  route=new RouteVO();

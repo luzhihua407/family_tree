@@ -31,5 +31,10 @@ public class UserMenuRightServiceImpl extends ServiceImpl<UserMenuRightMapper, U
         return pageInfo;
     }
 
+    @Override
+    public List<String> getPermission(Long userId) {
+        return baseMapper.getPermission(userId);
+    }
+
 
 }

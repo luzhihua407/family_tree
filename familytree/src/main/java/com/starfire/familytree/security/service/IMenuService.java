@@ -38,4 +38,5 @@ public interface IMenuService extends IService<Menu> {
 
     public List<Menu> getParentMenusByAdmin();
 
+    public List<Menu> getMenusByUserId(Long userId);
 }

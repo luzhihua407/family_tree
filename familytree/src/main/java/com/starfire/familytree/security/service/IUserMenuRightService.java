@@ -18,5 +18,6 @@ import java.util.Map;
 public interface IUserMenuRightService extends IService<UserMenuRight> {
     public PageInfo<Map<String, Object>, UserMenuRight> page(PageInfo<Map<String, Object>, UserMenuRight> pageInfo);
 
+    public List<String> getPermission(Long userId);
 
 }

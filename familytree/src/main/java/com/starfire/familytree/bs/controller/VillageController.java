@@ -43,7 +43,7 @@ public class VillageController {
 
             Village d = villageService.getVillage(code);
             if(d!=null){
-                throw  new RuntimeException("字典编码"+code+"已存在，请换一个");
+                throw  new RuntimeException("乡村编码"+code+"已存在，请换一个");
             }
         }
         villageService.saveOrUpdate(village);
@@ -71,13 +71,24 @@ public class VillageController {
     }
 
     /**
-     * 获取字典详情
+     * 获取乡村详情
      * @param id
      * @return
      */
     @GetMapping("/get")
     public Response<Village> getVillage(@RequestParam(required = true) Long id) {
         Village village = villageService.getById(id);
+        Response<Village> response = new Response<>();
+        return response.success(village);
+
+    }
+    /**
+     * 获取乡村详情
+     * @return
+     */
+    @GetMapping("/getCurrentVillage")
+    public Response<Village> getCurrentVillage() {
+        Village village = villageService.getVillage("changqitang");
         Response<Village> response = new Response<>();
         return response.success(village);
 

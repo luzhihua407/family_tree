@@ -22,4 +22,6 @@ public interface UserMenuRightMapper extends BaseMapper<UserMenuRight> {
   public  void deleteByUserMenuId(Long userMenuId);
 
   public List<Map> getCheckedMenuByUserId(Long userId);
+
+  public List<String> getPermission(Long userId);
 }

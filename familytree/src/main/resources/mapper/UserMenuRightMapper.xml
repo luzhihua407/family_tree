@@ -23,4 +23,9 @@
     <delete id="deleteByUserMenuId">
         delete from security_user_menu_right where user_menu_id=#{userMenuId}
     </delete>
+    <select id="getPermission" resultType="java.lang.String">
+    select DISTINCT CONCAT(c.`code`,'.',d.`code`) as permission
+    from security_user_menu a,security_menu c,security_menu_right d,security_user_menu_right e
+		where a.menu_id=c.id and a.menu_id=d.menu_id and  e.menu_right_id=d.id and a.user_id=#{userId} ORDER BY a.menu_id
+    </select>
 </mapper>

@@ -76,4 +76,15 @@
     <select id="getInvisibleMenus" resultMap="BaseResultMap">
         select * from  security_menu where type=2
     </select>
+    <select id="getParentMenusByUserId" resultMap="BaseResultMap" parameterType="Long">
+        	select DISTINCT c.* from security_user_menu a
+        	left join security_menu b on a.menu_id=b.id
+        	left join security_menu c on b.parent=c.id
+        	where user_id=#{userId} and a.valid=1
+    </select>
+    <select id="getMenusByUserId" resultMap="BaseResultMap" parameterType="Long">
+        	select b.* from security_user_menu a
+        	left join security_menu b on a.menu_id=b.id
+        	where user_id=#{userId} and a.valid=1
+    </select>
 </mapper>

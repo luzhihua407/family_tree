@@ -113,6 +113,21 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     }
 
     @Override
+    public List<Menu> getMenusByUserId(Long userId){
+        List<Menu> result=new ArrayList<>();
+        //目录菜单
+        List<Menu> parentMenus = baseMapper.getParentMenusByRoleId(userId);
+        result.addAll(parentMenus);
+        //分配的菜单
+        List<Menu> menus = baseMapper.getMenusByUserId(userId);
+        //加载所有不可见的菜单，让页面控制权限
+        List<Menu> invisibleMenus = baseMapper.getInvisibleMenus();
+        result.addAll(menus);
+        result.addAll(invisibleMenus);
+        return  result;
+    }
+
+    @Override
     public List<Menu> getParentMenusByAdmin(){
         return baseMapper.getParentMenusByAdmin();
     }
