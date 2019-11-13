@@ -19,4 +19,6 @@ public interface VillageMapper extends BaseMapper<Village> {
     public Village getVillage(String code);
 
     public Page<Village> page(Page<Village> page, Map<String, Object> param);
+
+
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -79,6 +80,19 @@ public class VillageController {
         Village village = villageService.getById(id);
         Response<Village> response = new Response<>();
         return response.success(village);
+
+    }
+
+ /**
+     * 获取乡村概述
+     * @return
+     */
+    @GetMapping("/getOverview")
+    public Response<Map<String, List<Map<String, String>>>> getOverview() {
+        String villageCode=null;
+        Map<String, List<Map<String, String>>> map = villageService.getOverview(villageCode);
+        Response<Map<String, List<Map<String, String>>>> response = new Response<>();
+        return response.success(map);
 
     }
 

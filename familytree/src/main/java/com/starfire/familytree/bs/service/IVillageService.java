@@ -4,6 +4,7 @@ import com.starfire.familytree.bs.entity.Village;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.starfire.familytree.vo.PageInfo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,4 +21,5 @@ public interface IVillageService extends IService<Village> {
 
     public PageInfo<Map<String, Object>, Village> page(PageInfo<Map<String, Object>, Village> pageInfo);
 
+    public Map<String, List<Map<String,String>>> getOverview(String villageCode);
     }

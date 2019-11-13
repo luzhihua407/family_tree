@@ -30,6 +30,7 @@
         <result column="people_branch" property="peopleBranch"/>
         <result column="branchName" property="branchName"/>
         <result column="job" property="job"/>
+        <result column="prod_team" property="prodTeam"/>
         <result column="village_code" property="villageCode"/>
     </resultMap>
     <select id="getPeoplesByGeneration" resultMap="BaseResultMap">
@@ -60,5 +61,41 @@
     </select>
     <select id="getNamesByPinyin" resultType="map">
         select id,full_name from bs_people a where valid=1 and pinyin like CONCAT('%',#{pinyin},'%')
+    </select>
+    <select id="getPeopleNumByGender" resultType="java.util.Map">
+     select count(gender) as num,CASE gender
+        WHEN 1 THEN
+            '男'
+        WHEN 2 THEN
+            '女'
+        ELSE
+            '不清楚'
+    END as gender
+     from bs_people where 1=1
+        <if test="villageCode!=null">
+            and village_code=#{villageCode}
+        </if>
+      group by gender
+    </select>
+    <select id="getPeopleNumByEducation" resultType="java.util.Map">
+             select count(education) as num,b.name from bs_people a LEFT JOIN basic_dict b on a.education=b.code  where 1=1
+            <if test="villageCode!=null">
+                and village_code=#{villageCode}
+            </if>
+              and education is not null GROUP BY people_branch
+    </select>
+    <select id="getPeopleNumByBranch" resultType="java.util.Map">
+         select count(people_branch) as num,b.name from bs_people a LEFT JOIN basic_dict b on a.people_branch=b.id  where 1=1
+        <if test="villageCode!=null">
+            and village_code=#{villageCode}
+        </if>
+        and people_branch is not null GROUP BY people_branch
+    </select>
+    <select id="getPeopleNumByProTeam" resultType="java.util.Map">
+        select count(prod_team) as num,b.name from bs_people a LEFT JOIN basic_dict b on a.prod_team=b.id  where 1=1
+        <if test="villageCode!=null">
+            and village_code=#{villageCode}
+        </if>
+        and prod_team is not null GROUP BY prod_team
     </select>
 </mapper>
