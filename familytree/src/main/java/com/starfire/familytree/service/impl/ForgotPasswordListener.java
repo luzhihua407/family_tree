@@ -1,6 +1,7 @@
 package com.starfire.familytree.service.impl;
 
 import com.starfire.familytree.service.IVerificationTokenService;
+import com.starfire.familytree.service.OnForgotPasswordEvent;
 import com.starfire.familytree.service.OnRegistrationCompleteEvent;
 import com.starfire.familytree.usercenter.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,8 @@ import org.springframework.stereotype.Component;
 import java.util.UUID;
 
 @Component
-public class RegistrationListener implements
-        ApplicationListener<OnRegistrationCompleteEvent> {
+public class ForgotPasswordListener implements
+        ApplicationListener<OnForgotPasswordEvent> {
 
     @Autowired
     private IVerificationTokenService service;
@@ -23,32 +24,17 @@ public class RegistrationListener implements
     @Autowired
     private JavaMailSender mailSender;
 
-    @Value("${email.confirm.template}")
-    private String template;
-
     @Value("${email.system}")
     private String systemEmail;
 
     @Override
-    public void onApplicationEvent(OnRegistrationCompleteEvent event) {
-        this.confirmRegistration(event);
-    }
-
-    private void confirmRegistration(OnRegistrationCompleteEvent event) {
-        User user = event.getUser();
-        String token = UUID.randomUUID().toString();
-        service.createVerificationToken(user.getId(), token);
-        String recipientAddress = user.getEmail();
-        String subject = "注册确认";
-        String confirmationUrl
-                = event.getAppUrl() + "/SignUp/regitrationConfirm?token=" + token + " ";
-        String username = user.getUsername();
-
+    public void onApplicationEvent(OnForgotPasswordEvent event) {
         SimpleMailMessage email = new SimpleMailMessage();
         email.setFrom(systemEmail);
-        email.setTo(recipientAddress);
-        email.setSubject(subject);
-        email.setText(String.format(template, username, confirmationUrl));
+        email.setTo(event.getEmail());
+        email.setSubject("找回密码");
+        email.setText("<html><body><font color='red'>测试</font></body></html>");
         mailSender.send(email);
     }
+
 }

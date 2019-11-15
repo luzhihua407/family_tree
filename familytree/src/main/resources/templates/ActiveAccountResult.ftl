@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Log in</title>
+    <title>激活账号</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -30,44 +30,13 @@
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
-    <div class="login-logo">
-        <a href="../../index2.html"><b>家谱</b>系统</a>
-    </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
         <p class="login-box-msg">登录开始使用</p>
 
-        <form action="/doLogin" method="post">
-            <div class="form-group has-feedback">
-                <input name="grant_type" value="password" type="hidden">
-                <input name="scope" value="read" type="hidden">
-                <input type="username" name="username" class="form-control" placeholder="用户名">
-                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-            </div>
-            <div class="form-group has-feedback">
-                <input type="password" name="password" class="form-control" placeholder="密码">
-                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-            </div>
-            <div class="row">
-                <div class="col-xs-8">
-                    <div class="checkbox icheck">
-                        <label>
-                            <input type="checkbox"> 记住我
-                        </label>
-                    </div>
-                </div>
-                <!-- /.col -->
-                <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">登录</button>
-                </div>
-                <!-- /.col -->
-            </div>
-        </form>
-
-        <!-- /.social-auth-links -->
-
-        <a href="#">忘记密码</a><br>
-        <a href="register.html" class="text-center">注册</a>
+        ${error!""}
+        ${msg!""}
+        <a href="${loginPage!""}" class="text-center">我要登录</a>
 
     </div>
     <!-- /.login-box-body -->

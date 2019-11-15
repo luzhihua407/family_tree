@@ -54,4 +54,10 @@ public class VillageServiceImpl extends ServiceImpl<VillageMapper, Village> impl
         map.put("numByProTeam",numByProTeam);
         return map;
     }
+
+    @Override
+    public List<String> getVillageName(String villageName){
+        List<String> list = baseMapper.getVillageName(villageName);
+        return list;
+    }
 }

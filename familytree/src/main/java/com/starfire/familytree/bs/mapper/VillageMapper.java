@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.starfire.familytree.bs.entity.Village;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,5 +21,5 @@ public interface VillageMapper extends BaseMapper<Village> {
 
     public Page<Village> page(Page<Village> page, Map<String, Object> param);
 
-
+    public List<String> getVillageName(String villageName);
 }

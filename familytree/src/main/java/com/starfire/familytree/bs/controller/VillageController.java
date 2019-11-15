@@ -107,6 +107,20 @@ public class VillageController {
 
     }
 
+    /*/**
+     * @title 判断是否已经存在该村名
+     * @description 
+     * @author luzh 
+     * @updateTime   
+     * @throws 
+     */
+    @GetMapping("/getVillageName")
+    public Response<List<String>> getVillageName(String name) {
+        List<String> list = villageService.getVillageName(name);
+        Response<List<String>> response = new Response<>();
+        return response.success(list);
+    }
+
 
     /**
      * 分页

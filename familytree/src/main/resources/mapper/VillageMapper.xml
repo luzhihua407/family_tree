@@ -30,4 +30,8 @@
     <select id="getVillage" resultMap="BaseResultMap">
         select * from bs_village where code=#{code}
     </select>
+
+    <select id="getVillageName" resultType="java.lang.String">
+        select name from bs_village where name like CONCAT('%',#{villageName},'%')
+    </select>
 </mapper>

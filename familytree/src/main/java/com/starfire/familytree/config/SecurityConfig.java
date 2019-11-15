@@ -1,6 +1,7 @@
 package com.starfire.familytree.config;
 
 import com.starfire.familytree.filter.CustomAuthenticationFilter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,8 +15,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private String loginPage = "http://localhost:7000/login";
-    private String successUrl = "http://localhost:7000/user";
+    @Value("${web.loginPage}")
+    private String loginPage ;
+
+
+    @Value("${web.successUrl}")
+    private String successUrl ;
 
     @Override
     public void configure(WebSecurity web){
@@ -37,7 +42,7 @@ http.authorizeRequests().antMatchers("/v2/api-docs",
         "/webjars/**").permitAll();
         http.cors().and()
                 .antMatcher("/**").authorizeRequests()
-                .antMatchers("/login**","/logout").permitAll()
+                .antMatchers("/login**","/logout","/SignUp/**").permitAll()
                 .anyRequest().authenticated()
                 //这里必须要写formLogin()，不然原有的UsernamePasswordAuthenticationFilter不会出现，也就无法配置我们重新的UsernamePasswordAuthenticationFilter
                 .and().formLogin().loginPage(loginPage).and().logout().logoutSuccessUrl(loginPage)

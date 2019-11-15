@@ -95,8 +95,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public Boolean activeUser(Long userId) {
         User user = baseMapper.selectById(userId);
+        ValidEnum valid = user.getValid();
+        if(valid==ValidEnum.是){
+            throw new RuntimeException(user.getUsername()+"账户已激活");
+        }
         user.setValid(ValidEnum.是);
         int flag = baseMapper.updateById(user);
+        if(flag>=1){
+            throw new RuntimeException(user.getUsername()+"已成功激活");
+        }
         return flag > 0 ? true : false;
     }
 

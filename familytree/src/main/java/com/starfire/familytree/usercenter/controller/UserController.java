@@ -50,16 +50,11 @@ public class UserController {
     private IUserService userService;
 
     @Autowired
-    private IVerificationTokenService service;
-
-    @Autowired
     ApplicationEventPublisher eventPublisher;
 
     @Autowired
     private IMenuService menuService;
 
-    @Autowired
-    private IRoleMenuService roleMenuService;
 
     @Autowired
     private IRoleService roleService;
@@ -69,12 +64,6 @@ public class UserController {
 
     @Autowired
     private IUserMenuRightService userMenuRightService;
-
-    @Autowired
-    private  IMenuRightService menuRightService;
-
-    @Autowired
-    private IDictService dictService;
 
     @Autowired
     private IUserRoleService userRoleService;
@@ -173,43 +162,6 @@ public class UserController {
         }
     }
 
-    @RequestMapping("/regitrationConfirm")
-    public Response<String> regitrationConfirm(String token) {
-        Response<String> response = new Response<String>();
-        VerificationToken verificationToken = service.getVerificationToken(token);
-        Long userId = verificationToken.getUserId();
-        userService.activeUser(userId);
-        return response.success(null);
-    }
-
-    @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public Response registerUserAccount(@ModelAttribute("user") @Valid User user, BindingResult result,
-                                        ServletWebRequest request, Errors errors) throws JsonProcessingException {
-        User registered = new User();
-        if (!result.hasErrors()) {
-            registered = createUserAccount(user, result);
-            if (registered == null) {
-                result.rejectValue("email", "message.regError");
-            } else {
-
-            }
-            String appUrl = "http://" + request.getRequest().getServerName() + ":"
-                    + request.getRequest().getServerPort();
-            eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, request.getLocale(), appUrl));
-        } else {
-            List<FieldError> fieldErrors = result.getFieldErrors();
-            String error = FieldErrorUtils.toString(fieldErrors);
-            return Response.failure(100, error);
-        }
-        Response<Boolean> response = new Response<Boolean>();
-        return response.success(null);
-    }
-
-    private User createUserAccount(User user, BindingResult result) {
-        User registered = null;
-        registered = userService.registerNewUserAccount(user);
-        return registered;
-    }
 
     /**
      * 新增或修改
