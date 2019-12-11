@@ -1,5 +1,9 @@
 package com.starfire.familytree;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.node.TextNode;
 import com.starfire.familytree.enums.ValidEnum;
 import com.starfire.familytree.folk.entity.*;
 import com.starfire.familytree.folk.service.*;
@@ -10,17 +14,41 @@ import com.starfire.familytree.security.service.IRoleService;
 import com.starfire.familytree.security.service.IUserRoleService;
 import com.starfire.familytree.usercenter.entity.User;
 import com.starfire.familytree.usercenter.service.IUserService;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.*;
+import org.springframework.http.client.ClientHttpRequest;
+import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.http.converter.FormHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.util.FileSystemUtils;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RequestCallback;
+import org.springframework.web.client.ResponseExtractor;
+import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.charset.Charset;
+import java.util.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class FamilytreeApplicationTests {
+
+    @Autowired
+    private RestTemplate rt;
 
     @Autowired
     private IPeopleService peopleService;
@@ -49,6 +77,41 @@ public class FamilytreeApplicationTests {
     @Autowired
     private IMenuService menuService;
 
+    @Test
+    public void text() throws IOException, URISyntaxException {
+//        rt.getMessageConverters().add(new StringHttpMessageConverter(Charset.forName("utf-8")));
+        File file=new File("C:\\Users\\86137\\Pictures\\微信图片_20191211150328.jpg");
+        byte[] bytes = FileUtils.readFileToByteArray(file);
+        String base64String = Base64.encodeBase64String(bytes);
+        MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
+        map.add("access_token","24.92f625627b66692d50824103068fd98c.2592000.1578471196.282335-17464717");
+        map.add("image",base64String);
+        System.err.println(base64String);
+
+        HttpHeaders headers = new HttpHeaders();
+        List<HttpMessageConverter<?>> messageConverters = rt.getMessageConverters();
+        for (int i = 0; i < messageConverters.size(); i++) {
+            HttpMessageConverter<?> httpMessageConverter =  messageConverters.get(i);
+            if(httpMessageConverter instanceof StringHttpMessageConverter){
+                StringHttpMessageConverter stringHttpMessageConverter = (StringHttpMessageConverter) httpMessageConverter;
+                stringHttpMessageConverter.setDefaultCharset(Charset.forName("UTF-8"));
+            }
+        }
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);//设置参数类型和编码
+        HttpEntity<MultiValueMap<String,String>> request1 = new HttpEntity<>(map, headers);//
+        ResponseEntity<JsonNode> responseEntity = rt.postForEntity("https://aip.baidubce.com/rest/2.0/ocr/v1/general_basic", request1, JsonNode.class);
+//        ResponseEntity<JsonNode> responseEntity = rt.postForEntity("https://aip.baidubce.com/rest/2.0/ocr/v1/accurate_basic", request1, JsonNode.class);
+        JsonNode body = responseEntity.getBody();
+        ArrayNode words_result = (ArrayNode) body.get("words_result");
+        Iterator<JsonNode> iterator = words_result.iterator();
+        while (iterator.hasNext()) {
+            ObjectNode next = (ObjectNode) iterator.next();
+            TextNode words = (TextNode) next.get("words");
+            String s = words.asText();
+            System.err.println(s);
+        }
+
+    }
     @Test
     public void addChildren() {
         People people = new People();

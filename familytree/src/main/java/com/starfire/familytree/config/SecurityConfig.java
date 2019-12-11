@@ -42,7 +42,7 @@ http.authorizeRequests().antMatchers("/v2/api-docs",
         "/webjars/**").permitAll();
         http.cors().and()
                 .antMatcher("/**").authorizeRequests()
-                .antMatchers("/login**","/logout","/SignUp/**").permitAll()
+                .antMatchers("/login**","/logout","/SignUp/**","/baiduAPI/*").permitAll()
                 .anyRequest().authenticated()
                 //这里必须要写formLogin()，不然原有的UsernamePasswordAuthenticationFilter不会出现，也就无法配置我们重新的UsernamePasswordAuthenticationFilter
                 .and().formLogin().loginPage(loginPage).and().logout().logoutSuccessUrl(loginPage)
