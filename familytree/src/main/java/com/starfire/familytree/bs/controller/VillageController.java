@@ -99,10 +99,10 @@ public class VillageController {
      * @return
      */
     @GetMapping("/getOverview")
-    public Response<Map<String, List<Map<String, String>>>> getOverview() {
+    public Response<Map<String, List<Map<String, Object>>>> getOverview() {
         String villageCode=null;
-        Map<String, List<Map<String, String>>> map = villageService.getOverview(villageCode);
-        Response<Map<String, List<Map<String, String>>>> response = new Response<>();
+        Map<String, List<Map<String, Object>>> map = villageService.getOverview(villageCode);
+        Response<Map<String, List<Map<String, Object>>>> response = new Response<>();
         return response.success(map);
 
     }

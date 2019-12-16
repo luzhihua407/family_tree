@@ -5,10 +5,13 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 import com.starfire.familytree.basic.entity.Dict;
+import com.starfire.familytree.folk.entity.Cemetery;
+import com.starfire.familytree.folk.mapper.CemeteryMapper;
 import com.starfire.familytree.response.Response;
 import io.swagger.annotations.Api;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.LineIterator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -25,6 +28,7 @@ import org.springframework.web.client.RestTemplate;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -44,15 +48,18 @@ public class BaiduAPIController {
     @Autowired
     private RestTemplate rt;
 
+    @Autowired
+    private CemeteryMapper cemeteryMapper;
+
     @RequestMapping("/readTextFromImage")
     public Response<JsonNode> readTextFromImage() throws IOException {
-            File file=new File("C:\\Users\\86137\\Pictures\\微信图片_20191211124627.jpg");
+            File file=new File("D:\\Myself\\picture\\1.jpg");
             byte[] bytes = FileUtils.readFileToByteArray(file);
             String base64String = Base64.encodeBase64String(bytes);
             MultiValueMap<String, Object> map= new LinkedMultiValueMap<String, Object>();
             map.add("access_token","24.92f625627b66692d50824103068fd98c.2592000.1578471196.282335-17464717");
             map.add("image",base64String);
-//        String url="https://aip.baidubce.com/rest/2.0/ocr/v1/general_basic";
+//        String url="https://aip.baidubce.com/rest/2.0/ocr/v1/general";
         String url="https://aip.baidubce.com/rest/2.0/ocr/v1/accurate_basic";
         ResponseEntity<JsonNode> postRequest = postRequest(url, map, JsonNode.class,MediaType.APPLICATION_FORM_URLENCODED);
         JsonNode body = postRequest.getBody();
@@ -64,6 +71,7 @@ public class BaiduAPIController {
                 String s = words.asText();
                 System.err.println(s);
             }
+        System.err.println(body.asText());
         Response<JsonNode> response = new Response<JsonNode>();
         return response.success(body);
     }
@@ -80,6 +88,43 @@ public class BaiduAPIController {
         JsonNode body = postRequest.getBody();
         Response<JsonNode> response = new Response<JsonNode>();
         return response.success(body);
+    }
+
+    @RequestMapping("/format")
+    public Response<List<String>> format() throws IOException {
+        List<String> text=new ArrayList<>();
+        List<String> readLines = FileUtils.readLines(new File("D:\\Myself\\picture\\1.txt"), "UTF-8");
+//        for (int j = 0; j <readLines.size() ; j++) {
+//            StringBuffer sb=new StringBuffer();
+//            for (int i = 0; i < readLines.size(); i++) {
+//                String s =  readLines.get(i);
+//                if(j<s.length()){
+//                    String word = s.substring(j,j+1);
+//                    sb.append(word);
+//                }
+//            if(i==2){
+//                sb.append(" ");
+//            }
+//            }
+//            text.add(sb.toString());
+//        }
+        Response<List<String>> response = new Response<List<String>>();
+        for (int i = 0; i < readLines.size(); i++) {
+            String s =  readLines.get(i);
+            String[] s1 = s.split(",");
+            String name = s1[0];
+            String addr = s1[1];
+            String shape = s1[2];
+            String remark = s1[3];
+            Cemetery c=new Cemetery();
+            c.setName(name);
+            c.setAddress(addr);
+            c.setShape(shape);
+            c.setRemark(remark);
+//            cemeteryMapper.insert(c);
+
+        }
+        return response.success(text);
     }
 
     public <T> ResponseEntity<T> postRequest(String url,MultiValueMap<String, Object> request,Class<T> responseType,MediaType mediaType){

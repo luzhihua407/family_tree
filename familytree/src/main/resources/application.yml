@@ -1,14 +1,14 @@
 server:
-  port: 8080
+  port: 8090
   servlet:
     context-path: /
 
 spring:
   datasource:
     druid:
-      url: jdbc:mysql://localhost:3306/familytree?characterEncoding=utf8&characterSetResults=utf8&autoReconnect=true&failOverReadOnly=false&useSSL=false
-      username: family
-      password: family
+      url: jdbc:mysql://localhost:3306/family_tree?characterEncoding=utf8&characterSetResults=utf8&autoReconnect=true&failOverReadOnly=false&useSSL=false
+      username: root
+      password: root
       driverClassName: com.mysql.jdbc.Driver
       maxActive: 20
       initialSize: 1
