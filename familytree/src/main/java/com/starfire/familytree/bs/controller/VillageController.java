@@ -6,10 +6,13 @@ import com.starfire.familytree.bs.service.IVillageService;
 import com.starfire.familytree.response.Response;
 import com.starfire.familytree.vo.DeleteVO;
 import com.starfire.familytree.vo.PageInfo;
+import org.apache.commons.lang.math.NumberUtils;
+import org.apache.commons.math3.util.MathUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -99,14 +102,24 @@ public class VillageController {
      * @return
      */
     @GetMapping("/getOverview")
-    public Response<Map<String, List<Map<String, Object>>>> getOverview() {
+    public Response<Map<String, Object>> getOverview() {
         String villageCode=null;
-        Map<String, List<Map<String, Object>>> map = villageService.getOverview(villageCode);
-        Response<Map<String, List<Map<String, Object>>>> response = new Response<>();
+        Map<String, Object> map = villageService.getOverview(villageCode);
+        Response<Map<String, Object>> response = new Response<>();
         return response.success(map);
 
     }
 
+    public static void main(String[] args) {
+        String word="10";
+        for (int i = 0; i <1 ; i++) {
+            double pow = Math.pow(10, 60);
+            DecimalFormat   df   =   new DecimalFormat( "#,##0.00 ");
+//保留两位小数且不用科学计数法，并使用千分位
+            String   value   =   df.format(pow);
+            System.err.println(value);
+        }
+    }
     /*/**
      * @title 判断是否已经存在该村名
      * @description 

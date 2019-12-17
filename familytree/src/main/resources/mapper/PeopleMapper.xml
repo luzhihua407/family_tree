@@ -104,7 +104,7 @@
          gender when
          1 THEN num ELSE 0 END) boy,MAX(case
          gender when
-         2 THEN num ELSE 0 END) gril
+         2 THEN num ELSE 0 END) girl
          FROM (
          select generations,gender,count(gender) as num  from bs_people a where 1=1
             <if test="villageCode!=null">

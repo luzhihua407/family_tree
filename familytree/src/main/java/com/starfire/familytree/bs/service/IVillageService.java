@@ -21,7 +21,7 @@ public interface IVillageService extends IService<Village> {
 
     public PageInfo<Map<String, Object>, Village> page(PageInfo<Map<String, Object>, Village> pageInfo);
 
-    public Map<String, List<Map<String,Object>>> getOverview(String villageCode);
+    public Map<String,Object> getOverview(String villageCode);
 
     public List<String> getVillageName(String villageName);
 }

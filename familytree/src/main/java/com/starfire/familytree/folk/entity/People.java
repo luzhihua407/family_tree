@@ -12,11 +12,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -184,4 +181,5 @@ public class People extends AbstractEntity {
     /** 关联乡村
      */
     private String villageCode;
+
 }
