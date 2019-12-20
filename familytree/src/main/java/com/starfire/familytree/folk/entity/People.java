@@ -32,14 +32,6 @@ public class People extends AbstractEntity {
 
     private static final long serialVersionUID = 1L;
 
-    public People() {
-    }
-
-    public People(String fullName,GenderEnum gender, Integer generations) {
-        this.fullName = fullName;
-        this.gender = gender;
-        this.generations = generations;
-    }
 
     /**
      * 头像

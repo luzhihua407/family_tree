@@ -121,6 +121,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public User saveOrUpdateUser(User user) {
         saveOrUpdate(user);
         String[] roles = user.getRoles();
+        userRoleService.deleteRoleByUserId(user.getId());
         for (int i = 0; i < roles.length; i++) {
             String roleId = roles[i];
             UserRole userRole=new UserRole();

@@ -23,7 +23,7 @@ public class Response<T> implements Serializable {
     @NonNull
     private String msg;
 
-    private Object data;
+    private T data;
 
     public static Response<String> failure(int code, String msg) {
         Response<String> response = new Response<String>(100, false, msg, null);

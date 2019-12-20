@@ -1,5 +1,6 @@
 package com.starfire.familytree.usercenter.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -61,7 +62,11 @@ public class User extends AbstractEntity implements UserDetails {
     private String username;
 
 
+    /**
+     * 值为空，忽略不更新
+     */
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)//Jackson
+    @TableField(strategy = FieldStrategy.NOT_NULL)
     private String password;
 
     private String realName;

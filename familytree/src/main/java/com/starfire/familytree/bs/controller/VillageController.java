@@ -1,11 +1,12 @@
 package com.starfire.familytree.bs.controller;
 
 
+import com.starfire.familytree.bs.entity.ImageFile;
 import com.starfire.familytree.bs.entity.Village;
+import com.starfire.familytree.bs.service.IImageFileService;
 import com.starfire.familytree.bs.service.IVillageService;
 import com.starfire.familytree.response.Response;
-import com.starfire.familytree.vo.DeleteVO;
-import com.starfire.familytree.vo.PageInfo;
+import com.starfire.familytree.vo.*;
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.math3.util.MathUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.text.DecimalFormat;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -26,11 +25,14 @@ import java.util.Map;
  * @since 2019-11-12
  */
 @RestController
-@RequestMapping("/bs/village")
+@RequestMapping("/village")
 public class VillageController {
 
     @Autowired
     private IVillageService villageService;
+
+    @Autowired
+    private IImageFileService imageFileService;
 
     /**
      * 新增或修改
@@ -50,6 +52,24 @@ public class VillageController {
             }
         }
         villageService.saveOrUpdate(village);
+        Long villageId = village.getId();
+        ImageRespVO imageRespVO = village.getFile();
+        List<FileInfoVO> fileList = imageRespVO.getFileList();
+        Collection<ImageFile> imageList=new ArrayList<>();
+        for (int i = 0; i <fileList.size() ; i++) {
+            FileInfoVO info = (FileInfoVO) fileList.get(i);
+            Response<UploadResponse> response = info.getResponse();
+            UploadResponse data = response.getData();
+            ImageFile image=new ImageFile();
+            image.setName(data.getName());
+            image.setData(data.getThumbUrl());
+            image.setOtherId(villageId);
+            image.setPath(data.getUrl());
+            image.setWidth(data.getWidth());
+            image.setHeigth(data.getHeight());
+            imageList.add(image);
+        }
+        imageFileService.saveBatch(imageList);
         Response<Village> response = new Response<Village>();
         return response.success(village);
 
@@ -103,7 +123,7 @@ public class VillageController {
      */
     @GetMapping("/getOverview")
     public Response<Map<String, Object>> getOverview() {
-        String villageCode=null;
+        String villageCode="changqitang";
         Map<String, Object> map = villageService.getOverview(villageCode);
         Response<Map<String, Object>> response = new Response<>();
         return response.success(map);

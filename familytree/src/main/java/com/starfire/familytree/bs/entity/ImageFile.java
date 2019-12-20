@@ -1,12 +1,8 @@
 package com.starfire.familytree.bs.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.starfire.familytree.basic.entity.AbstractEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDateTime;
-import java.util.Map;
-
-import com.starfire.familytree.vo.ImageRespVO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -17,47 +13,49 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author luzh
- * @since 2019-11-12
+ * @since 2019-12-18
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@TableName("bs_village")
-public class Village extends AbstractEntity {
+@TableName("bs_image_file")
+public class ImageFile extends AbstractEntity {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 村编号
+     * 图片路径
      */
-    private String code;
+    private String path;
 
     /**
-     * 村名
+     * 图片名称
      */
     private String name;
 
     /**
-     * 备注
+     * 简述
      */
-    private String remark;
+    private String brief;
 
     /**
-     * 地址
+     * base64数据
      */
-    private String address;
+    private String data;
 
     /**
-     * 经度
+     * 宽度
      */
-    private Double longitude;
+    private Integer width;
 
     /**
-     * 纬度
+     * 长度
      */
-    private Double latitude;
+    private Integer heigth;
 
-    @TableField(exist = false)
-    private ImageRespVO file;
+    /**
+     * 外表主键
+     */
+    private Long otherId;
 
 }

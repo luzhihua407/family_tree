@@ -21,6 +21,8 @@ public class UserVO {
 
     private String username;
 
+    private String realName;
+
     @JsonSerialize(using = ToStringSerializer.class)
     private Long roleId;
 

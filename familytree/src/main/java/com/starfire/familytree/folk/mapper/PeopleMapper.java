@@ -32,14 +32,14 @@ public interface PeopleMapper extends BaseMapper<People> {
 
     public List<Map<String,Object>> getNamesByPinyin(@Param("pinyin")String pinyin);
 
-    public List<Map<String, Object>> getPeopleNumByGender(String villageCode);
+    public List<Map<String, Object>> getPeopleNumByGender(@Param("villageCode")String villageCode);
 
-    public List<Map<String, Object>> getPeopleNumByEducation(String villageCode);
+    public List<Map<String, Object>> getPeopleNumByEducation(@Param("villageCode")String villageCode);
 
-    public List<Map<String, Object>> getPeopleNumByProTeam(String villageCode);
+    public List<Map<String, Object>> getPeopleNumByProTeam(@Param("villageCode")String villageCode);
 
-    public List<Map<String, Object>> getPeopleNumByBranch(String villageCode);
+    public List<Map<String, Object>> getPeopleNumByBranch(@Param("villageCode")String villageCode);
 
-    public List<Map<String, Object>> getGenderByGenerations(String villageCode);
+    public List<Map<String, Object>> getGenderByGenerations(@Param("villageCode")String villageCode);
 
 }

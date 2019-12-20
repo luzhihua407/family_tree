@@ -2,7 +2,9 @@ package com.starfire.familytree.bs.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.starfire.familytree.bs.entity.Village;
+import com.starfire.familytree.bs.mapper.ImageFileMapper;
 import com.starfire.familytree.bs.mapper.VillageMapper;
+import com.starfire.familytree.bs.service.IImageFileService;
 import com.starfire.familytree.bs.service.IVillageService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.starfire.familytree.folk.mapper.PeopleMapper;
@@ -27,6 +29,9 @@ public class VillageServiceImpl extends ServiceImpl<VillageMapper, Village> impl
     @Autowired
     private PeopleMapper peopleMapper;
 
+    @Autowired
+    private IImageFileService imageFileService;
+
     @Override
     public Village getVillage(String code) {
         return baseMapper.getVillage(code);
@@ -43,6 +48,7 @@ public class VillageServiceImpl extends ServiceImpl<VillageMapper, Village> impl
 
     @Override
     public Map<String, Object> getOverview(String villageCode) {
+        Village village = baseMapper.getVillage(villageCode);
         Map<String, Object> map = new HashMap<>();
         List<Map<String, Object>> numByBranch = peopleMapper.getPeopleNumByBranch(villageCode);
         List<Map<String, Object>> numByGender = peopleMapper.getPeopleNumByGender(villageCode);

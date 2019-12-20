@@ -8,6 +8,10 @@
         <result column="role_id" property="roleId"/>
     </resultMap>
 
+    <delete id="deleteRoleByUserId">
+        delete from security_user_role where user_id=#{userId}
+    </delete>
+
     <select id="getRoleIdByUserId" resultMap="BaseResultMap" parameterType="Long">
 		select role_id from security_user_role where user_id=#{userId}
 	</select>
