@@ -48,6 +48,10 @@ public class FileUploadController {
             Response<UploadResponse> response = new Response<>();
         try {
             String filename = multipartFile.getOriginalFilename();
+            File dir = new File(filePath);
+            if(dir.exists()==false){
+                FileUtils.forceMkdir(dir);
+            }
             File file=new File(filePath+"\\"+filename);
             FileOutputStream outputStream = new FileOutputStream(file);
             IOUtils.copy(multipartFile.getInputStream(),outputStream);

@@ -25,7 +25,7 @@ public class ImageFileServiceImpl extends ServiceImpl<ImageFileMapper, ImageFile
         List<ImageFile> imageFiles = baseMapper.getImageFiles(otherId);
         for (int i = 0; i < imageFiles.size(); i++) {
             ImageFile imageFile =  imageFiles.get(i);
-            imageFile.setPath("http://localhost/images/"+imageFile.getPath());
+            imageFile.setPath("http://localhost/images"+imageFile.getPath());
         }
         return imageFiles;
     }

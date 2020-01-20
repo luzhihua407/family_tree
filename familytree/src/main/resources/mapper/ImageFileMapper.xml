@@ -19,7 +19,7 @@
         <result column="other_id" property="otherId" />
     </resultMap>
     <select id="getImageFiles" resultMap="BaseResultMap">
-        select * from bs_image_file where other_id=#{otherId}
+        select * from bs_image_file where other_id=#{otherId} and valid=1
     </select>
 
 </mapper>
