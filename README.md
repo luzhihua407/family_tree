@@ -5,6 +5,6 @@ Spring boot 2.0.5.RELEASE<br>
 Spring Cloud Finchley.SR1<br>
 MyBatis-Plus 3.0.7.1<br>
 Oauth2<br>
-UI AntDesign<br> https://github.com/luzhihua407/family_tree_ui<br>
+UI AntDesign https://github.com/luzhihua407/family_tree_ui<br>
 
 
