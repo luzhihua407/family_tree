@@ -12,5 +12,5 @@ MyBatis-Plus 3.0.7.1<br>
 Oauth2<br>
 UI AntDesign https://github.com/luzhihua407/family_tree_ui<br>
 
-
+本人开发都是平时利用空闲时间，突然想到什么功能就完善上去。
 
