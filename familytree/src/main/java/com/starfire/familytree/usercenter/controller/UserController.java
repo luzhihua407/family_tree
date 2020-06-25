@@ -113,6 +113,9 @@ public class UserController {
                 }
 
                 for (Menu menu : menus) {
+                    if(menu==null){
+                        break;
+                    }
                     MenuTypeEnum type = menu.getType();
                     RouteVO  route=new RouteVO();
                     route.setIcon(menu.getIcon());
