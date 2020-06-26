@@ -58,7 +58,7 @@ security:
       user-info-uri: http://localhost/user/me
 
 logging:
-  level: DEBUG
+  level: INFO
 
 mybatis-plus:
   mapper-locations: classpath:/mapper/*Mapper.xml

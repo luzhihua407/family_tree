@@ -6,7 +6,7 @@
     <groupId>com.starfire</groupId>
     <artifactId>familytree</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
     <name>familytree</name>
     <description>familytree</description>
@@ -171,7 +171,11 @@
             <artifactId>pdfbox</artifactId>
             <version>2.0.17</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -187,6 +191,7 @@
     </dependencyManagement>
 
     <build>
+        <finalName>${artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
