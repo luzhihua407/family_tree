@@ -15,6 +15,6 @@ UI AntDesign https://github.com/luzhihua407/family_tree_ui<br>
 本人开发都是利用闲余时间，不断完善功能。<br>
 如果对此觉得有意义，也有激情者，可以联系本人，一起去做这件事情。o(*￣︶￣*)o<br>
 
-另寻求免费云空间部署，让更多人看到本应用，如有提供者，可以联系本人，不胜感激！(╥╯^╰╥)<br>
+演示地址：http://familytree.yufanse.com/
 
 QQ：670177230 添加请注明来源，谢谢！
